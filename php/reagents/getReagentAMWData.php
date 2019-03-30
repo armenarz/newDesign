@@ -6,18 +6,8 @@ require_once "../concatWithBrackets.php";
 
 //<!-- BEGIN Tabs HTML Markup -->
 $msg  = '
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-add-part1-tab" data-toggle="tab" href="#nav-add-part1" role="tab" aria-controls="nav-add-part1" aria-selected="true">1</a>
-        <a class="nav-item nav-link" id="nav-add-part2-tab" data-toggle="tab" href="#nav-add-part2" role="tab" aria-controls="nav-add-part2" aria-selected="true">2</a>
-        <a class="nav-item nav-link" id="nav-add-part3-tab" data-toggle="tab" href="#nav-add-part3" role="tab" aria-controls="nav-add-part3" aria-selected="true">3</a>
-        <a class="nav-item nav-link" id="nav-add-part4-tab" data-toggle="tab" href="#nav-add-part4" role="tab" aria-controls="nav-add-part4" aria-selected="true">4</a>
-        <a class="nav-item nav-link" id="nav-add-part5-tab" data-toggle="tab" href="#nav-add-part5" role="tab" aria-controls="nav-add-part5" aria-selected="true">5</a>
-    </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-<!-- Tab 1 -->
-    <div class="tab-pane fade show active" id="nav-add-part1" role="tabpanel" aria-labelledby="nav-add-part1-tab">
+<div class="row">
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -32,6 +22,8 @@ $msg  = '
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -46,6 +38,10 @@ $msg  = '
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">        
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -60,6 +56,8 @@ $msg  = '
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -103,8 +101,9 @@ $msg .='
             </div>
         </div>
     </div>
-    <!-- Tab 2 -->
-    <div class="tab-pane fade" id="nav-add-part2" role="tabpanel" aria-labelledby="nav-add-part2-tab">
+</div>
+<div class="row">
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -113,6 +112,20 @@ $msg .='
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_femaleAdd">Norm_female</label>
+                    <textarea id="Norm_femaleAdd" class="form-control" placeholder="Norm_female" name="Norm_femaleAdd"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -127,14 +140,8 @@ $msg .='
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="Norm_femaleAdd">Norm_female</label>
-                    <textarea id="Norm_femaleAdd" class="form-control" placeholder="Norm_female" name="Norm_femaleAdd"></textarea>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -150,8 +157,9 @@ $msg .='
             </div>
         </div>
     </div>
-    <!-- Tab 3 -->
-    <div class="tab-pane fade" id="nav-add-part3" role="tabpanel" aria-labelledby="nav-add-part3-tab">
+</div>
+<div class="row">
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -166,6 +174,8 @@ $msg .='
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -180,6 +190,10 @@ $msg .='
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">    
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -194,6 +208,8 @@ $msg .='
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -209,8 +225,9 @@ $msg .='
             </div>
         </div>
     </div>
-    <!-- Tab 4 -->
-    <div class="tab-pane fade" id="nav-add-part4" role="tabpanel" aria-labelledby="nav-add-part4-tab">
+</div>
+<div class="row">
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -239,8 +256,6 @@ $msg .='
                     </select>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
                     <label for="probirka2IdAdd">probirka2</label>
@@ -284,6 +299,10 @@ $msg .='
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -302,6 +321,8 @@ $msg .='
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -317,8 +338,9 @@ $msg .='
             </div>
         </div>
     </div>
-    <!-- Tab 5 -->
-    <div class="tab-pane fade" id="nav-add-part5" role="tabpanel" aria-labelledby="nav-add-part5-tab">
+</div>
+<div class="row">
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -347,6 +369,8 @@ $msg .='
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -375,6 +399,10 @@ $msg .='
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">

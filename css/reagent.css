@@ -27,7 +27,7 @@ a.disabled
 
 #content
 {
-	overflow: auto;
+	overflow-x: auto;
 	min-height: 300px;
 }
 
@@ -35,6 +35,10 @@ a.disabled
 {
 	display: table;
 	width: 100%;
+}
+#reagentData > tbody
+{
+	overflow-y: auto;
 }
 .ui-autocomplete 
 {

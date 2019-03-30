@@ -11,7 +11,7 @@ require_once "../fillNonBreak.php";
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="../img/favicon.ico">
+        <link rel="icon" href="../../img/favicon.ico">
 
         <!-- Common CSS -->
         <?php echo file_get_contents('../../css/commonCSS.html',true); ?>
@@ -102,6 +102,7 @@ require_once "../fillNonBreak.php";
                             <a class="nav-link border-bottom active border-top" href="#" data-toggle="modal" data-target="#calendarModalWindow" id="calendarLink"><i class="far fa-calendar-alt"></i>&nbsp;Календарь</a>
                             <a class="nav-link border-bottom" href="#" id="exportLink"><i class="far fa-file-excel"></i>&nbsp;Экспорт&nbsp;в&nbsp;Excel</a>
                             <a class="nav-link border-bottom" href="#" data-toggle="modal" data-target="#addModalWindow" id="addLink"><i class="far fa-plus-square"></i>&nbsp;Добавить</a>
+                            <a class="nav-link border-bottom" href="#" data-toggle="modal" data-target="#copyModalWindow" id="copyLink"><i class="far fa-copy"></i>&nbsp;Копировать</a>
                             <a class="nav-link border-bottom" href="#" data-toggle="modal" data-target="#editModalWindow" id="editLink"><i class="far fa-edit"></i>&nbsp;Редактировать</a>
                             <a class="nav-link disabled border-bottom" href="#" data-toggle="modal" data-target="#deleteModalWindow" id="deleteLink"><i class="far fa-minus-square"></i>&nbsp;Удалить</a>
                         </nav>
@@ -168,7 +169,9 @@ require_once "../fillNonBreak.php";
                             <form name="formEdit" id="formEdit" method="post">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="alert alert-primary d-print-none" role="alert" id="messageEditModal">Для редактирования данных реагента заполните нужными значениями поля формы.</div>
+                                        <div class="alert alert-primary d-print-none" role="alert" id="messageEditModal">
+                                            Для редактирования данных реагента заполните нужными значениями поля формы.
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="contentEditModal">
@@ -185,7 +188,7 @@ require_once "../fillNonBreak.php";
         </div>
         <!-- Add Modal Window -->
         <div class="modal fade" id="addModalWindow" tabindex="-1" role="dialog" aria-labelledby="addModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addModalLongTitle">Добавить новый реагент</h5>
@@ -214,6 +217,37 @@ require_once "../fillNonBreak.php";
                 </div>
             </div>
         </div>
+        <!-- Copy Modal Window -->
+        <div class="modal fade" id="copyModalWindow" tabindex="-1" role="dialog" aria-labelledby="copyModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="copyModalLongTitle">Копировать реагент</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <!-- Modal From for Copying Data -->
+                            <form name="formCopy" id="formCopy" method="post">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="alert alert-primary d-print-none" role="alert" id="messageCopyModal">Для копирования нового реагента заполните нужными значениями поля формы.</div>
+                                    </div>
+                                </div>
+                                <div id="contentCopyModal">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <button type="button" class="btn btn-primary" id="buttonOKCopy">Копировать</button>
+                    </div>
+                </div>
+            </div>
+        </div>        
         <!-- Delete Modal Window -->
         <div class="modal fade" id="deleteModalWindow" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -241,6 +275,37 @@ require_once "../fillNonBreak.php";
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
                         <button type="button" class="btn btn-primary" id="buttonOKDelete">Удалить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Message Modal Windows -->
+        <div class="modal fade" id="messageModalWindow" tabindex="-1" role="dialog" aria-labelledby="messageModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="messageModalLongTitle">Promtest Laboratories</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <!-- Modal From for Deleting Data -->
+                            <form name="formMessage" id="formMessage" method="post">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="alert alert-primary d-print-none" role="alert" id="messageTitleModal">Сообщение системы.</div>
+                                    </div>
+                                </div>
+                                <div id="contentMessageModal">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрить</button>
+                        <!-- <button type="button" class="btn btn-primary" id="buttonOKmessage">Удалить</button> -->
                     </div>
                 </div>
             </div>

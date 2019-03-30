@@ -65,51 +65,36 @@ $(function()
     //getting selected value of select tag with id "selectReagent" 
     $("#selectReagent").change(function(){
         $("#searchReagent").val("");
-        filterObj.reagentId = $("#selectReagent").val();
-        filterObj.groupId = 0;
-        $("#selectGroup").val("0");
-        filterObj.methodId = 0;
-        $("#selectMethod").val("0");
-        filterObj.generalSelectionId = 0;
-        $("#generalSelectionId").val("0");
-        updateContent(filterObj);
+        var reagentId = $("#selectReagent").val();
+        showEditForm(reagentId);
+        $("#editLink").click();
     });
 
     //getting searched value of input tag with id "searchReagent"
     $("#searchButton").click(function()
     {
         var temp = $("#searchReagent").val();
-        if(temp.length == 0)
+        if(temp.length == 0 || temp == null)
         {
+            
             temp = 0;
         }
-        filterObj.reagentId = parseInt(temp);
-        $("#selectReagent").val(filterObj.reagentId);
-        if($("#selectReagent").val()==null)
+        else
         {
-            $("#selectReagent").val("0");
-            var loaderMsg = '';
-            loaderMsg  = '<div class="alert alert-primary d-print-none" role="alert">';
-            loaderMsg += 	'По данной выборке ничего не найдено.';
-            loaderMsg += '</div>';   
-            $("#content").html(loaderMsg);
-            return;
+            temp = parseInt(temp);
         }
-
-        filterObj.groupId = 0;
-        $("#selectGroup").val("0");
-        filterObj.methodId = 0;
-        $("#selectMethod").val("0");
-        filterObj.generalSelectionId = 0;
-        $("#generalSelectionId").val("0");
-
-        updateContent(filterObj);
+        showEditForm(temp);
+        $("#editLink").click();
     });
 
     $("#searchReagent").focus(function () {
+        $("#selectReagent").val(0);
         $(this).select();
      });
-
+    
+     $("#selectReagent").focus(function () {
+        $("#searchReagent").val("");
+     });
     $("#exportLink").click(function()
     {
         exportToExcel();
@@ -183,12 +168,34 @@ function setSearchReagentData()
 
     $("#searchReagent").catcomplete({
         delay: 0,
-        source: data
+        source: data,
+        select: function(event,ui)
+        {
+            var temp = ui.item.value;
+            if(temp.length == 0 || temp == null)
+            {
+                
+                temp = 0;
+            }
+            else
+            {
+                temp = parseInt(temp);
+            }
+            showEditForm(temp);
+            $("#editLink").click();
+        }
     });
     $("#searchReagent").prop("disabled",false);
 }
 
+function showEditForm(reagentId)
+{
+    var formMsg = "Для редактирования данных реагента заполните нужными значениями поля формы.";
+    $("#messageEditModal").html(formMsg);
 
+    $("#reagent_id").val(reagentId);
+    setReagentEMWData();
+}
 
 //functions
 function setSelectGroupData()
@@ -231,7 +238,6 @@ function setSelectMethodData()
 }
 function funcSuccessSetSelectMethodData(result)
 {
-    console.log(result);
     $('#selectMethod').html(result);
     $("#selectMethod").prop("disabled",false);
 }
@@ -255,7 +261,62 @@ function funcSuccessSetSelectReagentData(result)
     $('#selectReagent').html(result);
     $("#selectReagent").prop("disabled",false);
 }
+function updateRow(reagentId)
+{
+    var row = $("#r_" + reagentId);
+    //get list of td tags in tr tag
+    if(typeof row != "undefined")
+    {
+        var rowNumber = 0;
+        $(row).find("td").each(function(index, element){
+            if(index == 1)
+            {
+                rowNumber = parseInt($(element).text());
+                //console.log("rowNumber=" + rowNumber);
+            }
+        });
+        
+        if(typeof rowNumber != "undefined" && rowNumber > 0)
+        {
+            /// ajax setup
+            $.ajaxSetup({
+                type: "POST",
+                url: "../reagents/getReagentRowData.php",
+                cache: false,
+                data: dataString = $("form[name='tempData']").serialize(),
+                success: funcSuccessGetReagentRowData,
+                error: funcError
+            });
+            ///process
+            $.ajax();
+        }
+    }
 
+}
+function funcSuccessGetReagentRowData(result)
+{
+    //console.log(result);
+    var reagentId = $("#reagent_id").val();
+
+    var rowNumber = "";
+    //getting row number
+    $("#r_" + reagentId).find("td").each(function(index, element){
+        if(index == 1)
+        {
+            rowNumber = $(element).html();
+        }
+    });
+    
+    //changing row content
+    $("#r_" + reagentId).html(result);
+    //setting row number
+    $("#r_" + reagentId).find("td").each(function(index, element){
+        if(index == 1)
+        {
+            $(element).html(rowNumber);
+        }
+    });
+}
 function updateContent(filterObj)
 {
     var groupId = filterObj.groupId;
@@ -264,7 +325,7 @@ function updateContent(filterObj)
     var reagentId = filterObj.reagentId;
     
     var loaderMsg = '';
-    if(groupId==0 && methodId==0 && generalSelectionId==0 && reagentId==0)
+    if(groupId==0 && methodId==0 && generalSelectionId==0/*  && reagentId==0 */)
     {
         loaderMsg  = '<div class="alert alert-primary d-print-none" role="alert">';
         loaderMsg += 'Сделайте выборку с помощью фильтров методов и групп, общей выборки или же выберите конкретный реагент с помощью фильтра реагентов.';
@@ -272,14 +333,16 @@ function updateContent(filterObj)
         $("#content").html(loaderMsg);
         $("#exportLink").hide(); 
         $("#addLink").hide();
+        $("#copyLink").hide();
         $("#editLink").hide();
         $("#deleteLink").hide();
         return;
     }
-    else if(groupId!=0 || methodId!=0 || generalSelectionId!=0 || reagentId!=0)
+    else if(groupId!=0 || methodId!=0 || generalSelectionId!=0/*  || reagentId!=0 */)
     {
         $("#exportLink").show(); 
         $("#addLink").show();
+        $("#copyLink").hide();
         $("#editLink").hide();
         $("#deleteLink").hide();
         setReagentAMWData();
@@ -305,6 +368,8 @@ function updateContent(filterObj)
             $("input[name='radioReagent']").on("click",this,function()
             {
                 $("#reagent_id").val($(this).val());
+                setReagentCMWData();
+                $("#copyLink").show();
                 setReagentEMWData();
                 $("#editLink").show();
                 setReagentDMWData();
@@ -330,7 +395,52 @@ function setReagentEMWData()
 }
 function funcSuccessSetReagentEMWData(result)
 {
-    $("#contentEditModal").html(result);
+    if(result == "no_reagent")
+    {
+        var msg = `
+            По данной выборке ничего не найдено.
+        `;
+        $("#messageEditModal").html(msg);
+        $("#contentEditModal").html("");
+        return;
+    }
+    else
+    {
+        $("#contentEditModal").html(result);
+    }
+    
+}
+
+//setting copyModalWindow data
+function setReagentCMWData()
+{
+    /// ajax setup
+    $.ajaxSetup({
+    type: "POST",
+    url: "../reagents/getReagentCMWData.php",
+    cache: false,
+    data: dataString = $("form[name='tempData']").serialize(),
+    success: funcSuccessSetReagentCMWData,
+    error: funcError
+    });
+    ///process
+    $.ajax();
+}
+function funcSuccessSetReagentCMWData(result)
+{
+    if(result == "no_reagent")
+    {
+        var msg = `
+            По данной выборке ничего не найдено.
+        `;
+        $("#messageCopyModal").html(msg);
+        $("#contentCopyModal").html("");
+        return;
+    }
+    else
+    {
+        $("#contentCopyModal").html(result);
+    }
 }
 //setting addModalWindow data
 function setReagentAMWData()
@@ -455,11 +565,232 @@ function funcSuccessEditFreeDays()
     setCalendar();
 }
 
+/////////////////////////////////////////////////////
+
+
+
+
+// copyModalWindow button OK handler
+$('#copyModalWindow').on('click','#buttonOKCopy', function(){
+    
+    var frmCopy = CreateFormCopyObject();
+    frmCopy.getFormData();
+    frmCopy.validate();
+    if(!frmCopy.isValid)
+    {
+        $('#messageCopyModal').html(frmCopy.message);
+        $('#' + frmCopy.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageCopyModal').html(frmCopy.message);
+    }
+    
+    ///updateing reagent data
+    /// ajax setup
+    $.ajaxSetup({
+        type: "POST",
+        url: "../reagents/copyReagent.php",
+        cache: false,
+        data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formCopy']").serialize()),
+        success: function(res)
+        {
+            var filterObj = {};
+            filterObj.groupId = $("#selectGroup").val();
+            filterObj.methodId = $("#selectMethod").val();
+            filterObj.visibilityId = $("#selectVisibility").val();
+            filterObj.generalSelectionId = $("#generalSelectionId").val();
+            filterObj.reagentId = $("#selectReagent").val();
+            updateContent(filterObj);
+            setSelectReagentData();
+            $("#copyModalWindow").modal('hide');
+            $("#copyLink").hide();
+            $("#editLink").hide();
+            $("#deleteLink").hide();
+            $("#messageTitleModal").text(res);
+            $("#messageModalWindow").modal("show");
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown)
+        {
+            $('#messageCopyModal').html("Status: " + textStatus + ", " + "Error: " + errorThrown);
+        }
+    });
+    ///process
+    $.ajax();
+    return;    
+});
+
+// copyModalWindow shown handler
+$('#copyModalWindow').on('shown.bs.modal', function () {
+ 
+});
+
+// copyModalWindow close handler
+$('#copyModalWindow').on('hidden.bs.modal', function () {
+
+});
+
+/// FormCopy Object
+function CreateFormCopyObject()
+{
+    var frm = {};
+
+    ///general properties ======================================
+    frm.message = "Для добавления нового реагента заполните нужными значениями поля формы.";
+    frm.isValid = true;
+    frm.invalidField = null;
+    
+    frm.getFormData = function()
+    {
+        frm.mashinidCopy = $('#MashinidCopy').val();
+        frm.reagentIdCopy = $('#ReagentIdCopy').val();
+        frm.reagentDescCopy = $('#ReagentDescCopy').val();
+        frm.reagentDescRusCopy = $('#ReagentDescRusCopy').val();
+        frm.reagentDescArmCopy = $('#ReagentDescArmCopy').val();
+        frm.groupIdCopy = $('#GroupIdCopy').val();
+        frm.analysisPriceCopy = $('#AnalysisPriceCopy').val();
+        frm.methodIdCopy = $('#MethodIdCopy').val();
+        frm.norm_maleCopy = $('#Norm_maleCopy').val();
+        frm.norm_male_topCopy = $('#norm_male_topCopy').val();
+        frm.norm_male_bottomCopy = $('#norm_male_bottomCopy').val();
+        frm.norm_femaleCopy = $('#Norm_femaleCopy').val();
+        frm.norm_female_topCopy = $('#norm_female_topCopy').val();
+        frm.norm_female_bottomCopy = $('#norm_female_bottomCopy').val();
+        frm.calibrationCopy = $('#CalibrationCopy').val();
+        frm.controlCopy = $('#ControlCopy').val();
+        frm.ed_ismerCopy = $('#ed_ismerCopy').val();
+        frm.dilutionCopy = $('#dilutionCopy').val();
+        frm.unitPriceCopy = $('#UnitPriceCopy').val();
+        frm.loincCopy = $('#LoincCopy').val();
+        frm.producerIdCopy = $('#ProducerIdCopy').val();
+        frm.reagentEquivalentCopy = $('#ReagentEquivalentCopy').val();
+        frm.materialCopy = $('#MaterialCopy').val();
+        frm.probirkaIdCopy = $('#probirkaIdCopy').val();
+        frm.probirka2IdCopy = $('#probirka2IdCopy').val();
+        frm.probirka3IdCopy = $('#probirka3IdCopy').val();
+        frm.activCopy = $('#activCopy').val();
+        frm.titleCopy = $('#TitleCopy').val();
+        frm.do12Copy = $('#do12Copy').val();
+        frm.posle12Copy = $('#posle12Copy').val();
+        frm.method2IdCopy = $('#Method2IdCopy').val();
+        frm.gotovnostCopy = $('#gotovnostCopy').val();
+        frm.probirka_zCopy = $('#probirka_zCopy').val();
+        frm.srok_gotovnostiCopy = $('#srok_gotovnostiCopy').val();
+        frm.gotovnostNCopy = $('#gotovnostNCopy').val();
+        frm.visibilityCopy = $('#visibilityCopy').val();
+    };
+    frm.validate = function()
+    {
+        frm.message = 'Для добавления нового реагента заполните нужными значениями поля формы.';
+        frm.isValid = true;
+        frm.invalidField = null;
+        
+        //MashinidCopy
+        if(frm.mashinidCopy.length == 0)
+        {
+            frm.message = 'Введите код машины в поле Mashinid.';
+            frm.invalidField ='MashinidCopy';
+            frm.isValid = false;
+            return;            
+        }
+        //MashinidCopy is negative
+        else if(frm.mashinidCopy < 0)
+        {
+            frm.message = 'Введите положительное число в поле Mashinid.';
+            frm.invalidField ='MashinidCopy';
+            frm.isValid = false;
+            return;
+        }
+        //MashinidCopy is not unique
+        else if(frm.mashinidCopy != 0 && frm.machineIdIsNotUnique())
+        {
+            frm.message = 'Введите уникальный код машины в поле Mashinid.';
+            frm.invalidField ='MashinidCopy';
+            frm.isValid = false;
+            return; 
+        }
+        //ReagentDescCopy
+        else if(frm.reagentDescCopy.length == 0)
+        {
+            frm.message = 'Введите описание реагента на английском в поле ReagentDesc.';
+            frm.invalidField ='ReagentDescCopy';
+            frm.isValid = false;
+            return;
+        }
+        //ReagentDescRusCopy
+        else if(frm.reagentDescRusCopy.length == 0)
+        {
+            frm.message = 'Введите описание реагента на русском в поле ReagentDescRus.';
+            frm.invalidField ='ReagentDescRusCopy';
+            frm.isValid = false;
+            return;
+        }
+        //GroupIdCopy
+        else if(frm.groupIdCopy == 0)
+        {
+            frm.message = 'Выберите GroupId.';
+            frm.invalidField ='GroupIdCopy';
+            frm.isValid = false;
+            return;
+        }
+        //MethodIdCopy
+        else if(frm.methodIdCopy == 0)
+        {
+            frm.message = 'Выберите MethodId.';
+            frm.invalidField ='MethodIdCopy';
+            frm.isValid = false;
+            return;
+        }
+        else
+        {
+            frm.message = 'Для добавления нового реагента заполните нужными значениями поля формы.';
+            frm.invalidField = null;
+            frm.isValid = true;
+            return;
+        }
+    };
+    //MashinidIsNotUnique function
+    frm.machineIdIsNotUnique = function()
+    {
+        resultReceived = null;
+        /// ajax setup
+        $.ajaxSetup({
+            type: "POST",
+            url: "../reagents/checkIfMachineIdIsNotUnique.php",
+            cache: false,
+            async: false,
+            data: dataString = $("form[name='tempData']").serialize().concat('&').concat("Mashinid=").concat(frm.mashinidCopy),
+            success: function(result)
+            {
+                resultReceived = result;
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                $('#messageCopyModal').html("Status: " + textStatus + ", " + "Error: " + errorThrown);
+            }
+        });
+        ///process
+        $.ajax();
+        
+        return resultReceived;
+    };
+    return frm;
+}
+
+////////////////////////////////////////////////////
+
 // editModalWindow button OK handler
 $('#editModalWindow').on('click','#buttonOKEdit', function(){
 
     var frmEdit = CreateFormEditObject();
     frmEdit.getFormData();
+    if(frmEdit.reagentIdEdit == null) 
+    {
+        $('#editModalWindow').modal('hide');
+        return;
+    }
     frmEdit.validate();
     if(!frmEdit.isValid)
     {
@@ -472,6 +803,15 @@ $('#editModalWindow').on('click','#buttonOKEdit', function(){
         $('#messageEditModal').html(frmEdit.message);
     }
     
+    //getting reagentId 
+    var reagentId = $("#reagent_id").val();
+    if(typeof reagentId == "undefined")
+    {
+        //console.log("reagentId="+ undefined);
+        $('#editModalWindow').modal('hide');
+        return;
+    }
+
     ///updateing reagent data
     /// ajax setup
     $.ajaxSetup({
@@ -481,12 +821,14 @@ $('#editModalWindow').on('click','#buttonOKEdit', function(){
         data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formEdit']").serialize()),
         success: function(res)
         {
-            var filterObj = {};
-            filterObj.groupId = $("#selectGroup").val();
-            filterObj.methodId = $("#selectMethod").val();
-            filterObj.visibilityId = $("#selectVisibility").val();
-            filterObj.reagentId = $("#selectReagent").val();
-            updateContent(filterObj);
+            // var filterObj = {};
+            // filterObj.groupId = $("#selectGroup").val();
+            // filterObj.methodId = $("#selectMethod").val();
+            // filterObj.visibilityId = $("#selectVisibility").val();
+            // filterObj.reagentId = $("#selectReagent").val();
+            // updateContent(filterObj);
+
+            updateRow(reagentId);
             setSelectReagentData();
             $('#editModalWindow').modal('hide');
         },
@@ -565,7 +907,6 @@ function CreateFormEditObject()
             frm.message = 'Введите код машины в поле Mashinid.';
             frm.invalidField ='MashinidEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return;
         }
         //MashinidEdit is negative
@@ -574,7 +915,6 @@ function CreateFormEditObject()
             frm.message = 'Введите положительное число в поле Mashinid.';
             frm.invalidField ='MashinidEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return;
         }
         //MashinidEdit is not unique
@@ -583,7 +923,6 @@ function CreateFormEditObject()
             frm.message = 'Введите уникальный код машины в поле Mashinid.';
             frm.invalidField ='MashinidEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return; 
         }
         //ReagentDescEdit
@@ -592,7 +931,6 @@ function CreateFormEditObject()
             frm.message = 'Введите описание реагента на английском в поле ReagentDesc.';
             frm.invalidField ='ReagentDescEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return;
         }
         //ReagentDescRusEdit
@@ -601,7 +939,6 @@ function CreateFormEditObject()
             frm.message = 'Введите описание реагента на русском в поле ReagentDescRus.';
             frm.invalidField ='ReagentDescRusEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return;
         }
         //GroupIdEdit
@@ -610,7 +947,6 @@ function CreateFormEditObject()
             frm.message = 'Выберите GroupId.';
             frm.invalidField ='GroupIdEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return;
         }
         //MethodIdEdit
@@ -619,7 +955,6 @@ function CreateFormEditObject()
             frm.message = 'Выберите MethodId.';
             frm.invalidField ='MethodIdEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return;
         }
         else
@@ -627,7 +962,6 @@ function CreateFormEditObject()
             frm.message = 'Для редактирования данных реагента заполните нужными значениями поля формы.';
             frm.invalidField = null;
             frm.isValid = true;
-            frm.invalidTab = null;
             return;
         }
     };
@@ -689,23 +1023,11 @@ $('#addModalWindow').on('click','#buttonOKAdd', function(){
     
     var frmAdd = CreateFormAddObject();
     frmAdd.getFormData();
-    frmAdd.getActiveTab();
-
     frmAdd.validate();
     if(!frmAdd.isValid)
     {
         $('#messageAddModal').html(frmAdd.message);
-        if(frmAdd.activeTab == frmAdd.invalidTab)
-        {
-            $('#' + frmAdd.invalidField).focus();
-        }
-        else
-        {
-            $('#' + frmAdd.invalidTab).on('shown.bs.tab', function(){
-                $('#' + frmAdd.invalidField).focus();
-            });
-            $('#' + frmAdd.invalidTab).tab('show');
-        }
+        $('#' + frmAdd.invalidField).focus();
         return;
     }
     else
@@ -730,7 +1052,8 @@ $('#addModalWindow').on('click','#buttonOKAdd', function(){
             filterObj.reagentId = $("#selectReagent").val();
             updateContent(filterObj);
             setSelectReagentData();
-            $('#addModalWindow').modal('hide');
+            $("#addModalWindow").modal('hide');
+            $("#copyLink").hide();
             $("#editLink").hide();
             $("#deleteLink").hide();
         },
@@ -797,28 +1120,9 @@ function CreateFormAddObject()
     frm.message = "Для добавления нового реагента заполните нужными значениями поля формы.";
     frm.isValid = true;
     frm.invalidField = null;
-    frm.invalidTab = null;
-    frm.activeTab = null;
-
-    frm.getActiveTab = function()
-    {
-        if($('#nav-add-part1-tab').hasClass('active')) frm.activeTab = 'nav-add-part1-tab';
-        else if($('#nav-add-part2-tab').hasClass('active')) frm.activeTab = 'nav-add-part2-tab';
-        else if($('#nav-add-part3-tab').hasClass('active')) frm.activeTab = 'nav-add-part3-tab';
-        else if($('#nav-add-part4-tab').hasClass('active')) frm.activeTab = 'nav-add-part4-tab';
-        else if($('#nav-add-part5-tab').hasClass('active')) frm.activeTab = 'nav-add-part5-tab';     
-    };
+    
     frm.getFormData = function()
     {
-        frm.getTab1Data();
-        frm.getTab2Data();
-        frm.getTab3Data();
-        frm.getTab4Data();
-        frm.getTab5Data();
-    };
-    frm.getTab1Data = function()
-    {
-        ///tab 1 ===================================================
         frm.mashinidAdd = $('#MashinidAdd').val();
         frm.reagentIdAdd = $('#ReagentIdAdd').val();
         frm.reagentDescAdd = $('#ReagentDescAdd').val();
@@ -827,20 +1131,12 @@ function CreateFormAddObject()
         frm.groupIdAdd = $('#GroupIdAdd').val();
         frm.analysisPriceAdd = $('#AnalysisPriceAdd').val();
         frm.methodIdAdd = $('#MethodIdAdd').val();
-    };
-    frm.getTab2Data = function()
-    {
-        ///tab 2 ===================================================
         frm.norm_maleAdd = $('#Norm_maleAdd').val();
         frm.norm_male_topAdd = $('#norm_male_topAdd').val();
         frm.norm_male_bottomAdd = $('#norm_male_bottomAdd').val();
         frm.norm_femaleAdd = $('#Norm_femaleAdd').val();
         frm.norm_female_topAdd = $('#norm_female_topAdd').val();
         frm.norm_female_bottomAdd = $('#norm_female_bottomAdd').val();
-    };
-    frm.getTab3Data = function()
-    {
-        ///tab 3 ===================================================
         frm.calibrationAdd = $('#CalibrationAdd').val();
         frm.controlAdd = $('#ControlAdd').val();
         frm.ed_ismerAdd = $('#ed_ismerAdd').val();
@@ -849,10 +1145,6 @@ function CreateFormAddObject()
         frm.loincAdd = $('#LoincAdd').val();
         frm.producerIdAdd = $('#ProducerIdAdd').val();
         frm.reagentEquivalentAdd = $('#ReagentEquivalentAdd').val();
-    };
-    frm.getTab4Data = function()
-    {
-        ///tab 4 ====================================================
         frm.materialAdd = $('#MaterialAdd').val();
         frm.probirkaIdAdd = $('#probirkaIdAdd').val();
         frm.probirka2IdAdd = $('#probirka2IdAdd').val();
@@ -861,10 +1153,6 @@ function CreateFormAddObject()
         frm.titleAdd = $('#TitleAdd').val();
         frm.do12Add = $('#do12Add').val();
         frm.posle12Add = $('#posle12Add').val();
-    };
-    frm.getTab5Data = function()
-    {
-        ///tab 5 ====================================================
         frm.method2IdAdd = $('#Method2IdAdd').val();
         frm.gotovnostAdd = $('#gotovnostAdd').val();
         frm.probirka_zAdd = $('#probirka_zAdd').val();
@@ -874,23 +1162,9 @@ function CreateFormAddObject()
     };
     frm.validate = function()
     {
-        frm.validateTab1();
-        if(frm.isValid) frm.validateTab2();
-        else return;
-        if(frm.isValid) frm.validateTab3();
-        else return;
-        if(frm.isValid) frm.validateTab4();
-        else return;
-        if(frm.isValid) frm.validateTab5();
-        else return;
-    };
-    //Tab1
-    frm.validateTab1 = function()
-    {
         frm.message = 'Для добавления нового реагента заполните нужными значениями поля формы.';
         frm.isValid = true;
         frm.invalidField = null;
-        frm.invalidTab = null;
         
         //MashinidAdd
         if(frm.mashinidAdd.length == 0)
@@ -898,7 +1172,6 @@ function CreateFormAddObject()
             frm.message = 'Введите код машины в поле Mashinid.';
             frm.invalidField ='MashinidAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return;            
         }
         //MashinidAdd is negative
@@ -907,7 +1180,6 @@ function CreateFormAddObject()
             frm.message = 'Введите положительное число в поле Mashinid.';
             frm.invalidField ='MashinidAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return;
         }
         //MashinidAdd is not unique
@@ -916,7 +1188,6 @@ function CreateFormAddObject()
             frm.message = 'Введите уникальный код машины в поле Mashinid.';
             frm.invalidField ='MashinidAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return; 
         }
         //ReagentDescAdd
@@ -925,7 +1196,6 @@ function CreateFormAddObject()
             frm.message = 'Введите описание реагента на английском в поле ReagentDesc.';
             frm.invalidField ='ReagentDescAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return;
         }
         //ReagentDescRusAdd
@@ -934,7 +1204,6 @@ function CreateFormAddObject()
             frm.message = 'Введите описание реагента на русском в поле ReagentDescRus.';
             frm.invalidField ='ReagentDescRusAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return;
         }
         //GroupIdAdd
@@ -943,7 +1212,6 @@ function CreateFormAddObject()
             frm.message = 'Выберите GroupId.';
             frm.invalidField ='GroupIdAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return;
         }
         //MethodIdAdd
@@ -952,7 +1220,6 @@ function CreateFormAddObject()
             frm.message = 'Выберите MethodId.';
             frm.invalidField ='MethodIdAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return;
         }
         else
@@ -960,41 +1227,8 @@ function CreateFormAddObject()
             frm.message = 'Для добавления нового реагента заполните нужными значениями поля формы.';
             frm.invalidField = null;
             frm.isValid = true;
-            frm.invalidTab = null;
             return;
         }
-    };
-    //Tab2
-    frm.validateTab2 = function()
-    {
-        frm.message = 'Для добавления нового реагента заполните нужными значениями поля формы.';
-        frm.isValid = true;
-        frm.invalidField = null;
-        frm.invalidTab = null;
-    };
-    //Tab3
-    frm.validateTab3 = function()
-    {
-        frm.message = 'Для добавления нового реагента заполните нужными значениями поля формы.';
-        frm.isValid = true;
-        frm.invalidField = null;
-        frm.invalidTab = null;
-    };
-    //Tab4
-    frm.validateTab4 = function()
-    {
-        frm.message = 'Для добавления нового реагента заполните нужными значениями поля формы.';
-        frm.isValid = true;
-        frm.invalidField = null;
-        frm.invalidTab = null;
-    };
-    //Tab5
-    frm.validateTab5 = function()
-    {
-        frm.message = 'Для добавления нового реагента заполните нужными значениями поля формы.';
-        frm.isValid = true;
-        frm.invalidField = null;
-        frm.invalidTab = null;
     };
     //MashinidIsNotUnique function
     frm.machineIdIsNotUnique = function()

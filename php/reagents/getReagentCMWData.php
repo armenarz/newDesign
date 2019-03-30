@@ -78,14 +78,14 @@ $msg ='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="MashinidEdit">Mashinid</label>
-                    <input type="number" min="0" id="MashinidEdit" class="form-control" placeholder="Mashinid" name="MashinidEdit" value="'.$Mashinid.'">
+                    <label for="MashinidCopy">Mashinid</label>
+                    <input type="number" min="0" id="MashinidCopy" class="form-control" placeholder="Mashinid" name="MashinidCopy" value="'.$Mashinid.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="ReagentIdEdit">ReagentId</label>
-                    <input type="text" id="ReagentIdEdit" class="form-control" placeholder="ReagentId" name="ReagentIdEdit" readonly value="'.$reagent_id.'">
+                    <label for="ReagentIdCopy">ReagentId</label>
+                    <input type="text" id="ReagentIdCopy" class="form-control" placeholder="ReagentId" name="ReagentIdCopy" readonly value="'.$reagent_id.'">
                 </div>
             </div>
         </div>
@@ -94,14 +94,14 @@ $msg ='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="LoincEdit">Loinc</label>
-                    <input type="number" min="0" id="LoincEdit" class="form-control" placeholder="Loinc" name="LoincEdit" value="'.$Loinc.'">
+                    <label for="LoincCopy">Loinc</label>
+                    <input type="number" min="0" id="LoincCopy" class="form-control" placeholder="Loinc" name="LoincCopy" value="'.$Loinc.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="ReagentDescEdit">ReagentDesc</label>
-                    <input type="text" id="ReagentDescEdit" class="form-control" placeholder="ReagentDesc" name="ReagentDescEdit" value="'.$ReagentDesc.'">
+                    <label for="ReagentDescCopy">ReagentDesc</label>
+                    <input type="text" id="ReagentDescCopy" class="form-control" placeholder="ReagentDesc" name="ReagentDescCopy" value="'.$ReagentDesc.'">
                 </div>
             </div>
         </div>
@@ -112,14 +112,14 @@ $msg ='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="ReagentDescRusEdit">ReagentDescRus</label>
-                    <input type="text" id="ReagentDescRusEdit" class="form-control" placeholder="ReagentDescRus" name="ReagentDescRusEdit" value="'.$ReagentDescRus.'">
+                    <label for="ReagentDescRusCopy">ReagentDescRus</label>
+                    <input type="text" id="ReagentDescRusCopy" class="form-control" placeholder="ReagentDescRus" name="ReagentDescRusCopy" value="'.$ReagentDescRus.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="ReagentDescArmEdit">ReagentDescArm</label>
-                    <input type="text" id="ReagentDescArmEdit" class="form-control" placeholder="ReagentDescArm" name="ReagentDescArmEdit" value="'.$ReagentDescArm.'">
+                    <label for="ReagentDescArmCopy">ReagentDescArm</label>
+                    <input type="text" id="ReagentDescArmCopy" class="form-control" placeholder="ReagentDescArm" name="ReagentDescArmCopy" value="'.$ReagentDescArm.'">
                 </div>
             </div>
         </div>
@@ -128,8 +128,8 @@ $msg ='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="GroupIdEdit">GroupId</label>
-                    <select id="GroupIdEdit" class="form-control" placeholder="GroupId" name="GroupIdEdit">
+                    <label for="GroupIdCopy">GroupId</label>
+                    <select id="GroupIdCopy" class="form-control" placeholder="GroupId" name="GroupIdCopy">
                         <option value="0"></option>
 ';
 
@@ -151,8 +151,8 @@ $msg .= '
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="MethodIdEdit">MethodId</label>
-                    <select id="MethodIdEdit" class="form-control" placeholder="MethodIdEdit" name="MethodIdEdit">
+                    <label for="MethodIdCopy">MethodId</label>
+                    <select id="MethodIdCopy" class="form-control" placeholder="MethodIdCopy" name="MethodIdCopy">
                         <option value="0"></option>
 ';
 $sql = "SELECT MethodId, Method FROM method";
@@ -178,8 +178,8 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="Norm_maleEdit">Norm_male</label>
-                    <textarea id="Norm_maleEdit" class="form-control" placeholder="Norm_male" name="Norm_maleEdit">'.$Norm_male.'</textarea>
+                    <label for="Norm_maleCopy">Norm_male</label>
+                    <textarea id="Norm_maleCopy" class="form-control" placeholder="Norm_male" name="Norm_maleCopy">'.$Norm_male.'</textarea>
                 </div>
             </div>
         </div>
@@ -188,42 +188,8 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                <label for="Norm_femaleEdit">Norm_female</label>
-                <textarea id="Norm_femaleEdit" class="form-control" placeholder="Norm_female" name="Norm_femaleEdit">'.$Norm_female.'</textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="norm_male_topEdit">norm_male_top</label>
-                    <input type="number" min="0" step="0.001" id="norm_male_topEdit" class="form-control" placeholder="norm_male_top" name="norm_male_topEdit" value="'.$norm_male_top.'">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="norm_male_bottomEdit">norm_male_bottom</label>
-                    <input type="number" min="0" step="0.001" id="norm_male_bottomEdit" class="form-control" placeholder="norm_male_bottom" name="norm_male_bottomEdit" value="'.$norm_male_bottom.'">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="norm_female_topEdit">norm_female_top</label>
-                    <input type="number" min="0" step="0.001" id="norm_female_topEdit" class="form-control" placeholder="norm_female_top" name="norm_female_topEdit" value="'.$norm_female_top.'">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="norm_female_bottomEdit">norm_female_bottom</label>
-                    <input type="number" min="0" step="0.001" id="norm_female_bottomEdit" class="form-control" placeholder="norm_female_bottom" name="norm_female_bottomEdit" value="'.$norm_female_bottom.'">
+                <label for="Norm_femaleCopy">Norm_female</label>
+                <textarea id="Norm_femaleCopy" class="form-control" placeholder="Norm_female" name="Norm_femaleCopy">'.$Norm_female.'</textarea>
                 </div>
             </div>
         </div>
@@ -234,14 +200,14 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="CalibrationEdit">Норма мужчин</label>
-                    <input type="text" id="CalibrationEdit" class="form-control" placeholder="Calibration" name="CalibrationEdit" value="'.$Calibration.'">
+                    <label for="norm_male_topCopy">norm_male_top</label>
+                    <input type="number" min="0" step="0.001" id="norm_male_topCopy" class="form-control" placeholder="norm_male_top" name="norm_male_topCopy" value="'.$norm_male_top.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="ControlEdit">Норма женщин</label>
-                    <input type="text" id="ControlEdit" class="form-control" placeholder="Control" name="ControlEdit" value="'.$Control.'">
+                    <label for="norm_male_bottomCopy">norm_male_bottom</label>
+                    <input type="number" min="0" step="0.001" id="norm_male_bottomCopy" class="form-control" placeholder="norm_male_bottom" name="norm_male_bottomCopy" value="'.$norm_male_bottom.'">
                 </div>
             </div>
         </div>
@@ -250,14 +216,48 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="ed_ismerEdit">ed_ismer</label>
-                    <input type="text" id="ed_ismerEdit" class="form-control" placeholder="ed_ismer" name="ed_ismerEdit" value="'.$ed_ismer.'">
+                    <label for="norm_female_topCopy">norm_female_top</label>
+                    <input type="number" min="0" step="0.001" id="norm_female_topCopy" class="form-control" placeholder="norm_female_top" name="norm_female_topCopy" value="'.$norm_female_top.'">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="norm_female_bottomCopy">norm_female_bottom</label>
+                    <input type="number" min="0" step="0.001" id="norm_female_bottomCopy" class="form-control" placeholder="norm_female_bottom" name="norm_female_bottomCopy" value="'.$norm_female_bottom.'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="CalibrationCopy">Норма мужчин</label>
+                    <input type="text" id="CalibrationCopy" class="form-control" placeholder="Calibration" name="CalibrationCopy" value="'.$Calibration.'">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="ControlCopy">Норма женщин</label>
+                    <input type="text" id="ControlCopy" class="form-control" placeholder="Control" name="ControlCopy" value="'.$Control.'">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="ed_ismerCopy">ed_ismer</label>
+                    <input type="text" id="ed_ismerCopy" class="form-control" placeholder="ed_ismer" name="ed_ismerCopy" value="'.$ed_ismer.'">
                 </div>
             </div>        
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="dilutionEdit">dilution</label>
-                    <input type="number" min="0" id="dilutionEdit" class="form-control" placeholder="dilution" name="dilutionEdit" value="'.$dilution.'">
+                    <label for="dilutionCopy">dilution</label>
+                    <input type="number" min="0" id="dilutionCopy" class="form-control" placeholder="dilution" name="dilutionCopy" value="'.$dilution.'">
                 </div>
             </div>
         </div>
@@ -268,14 +268,14 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="UnitPriceEdit">UnitPrice</label>
-                    <input type="number" min="0" step="0.01" id="UnitPriceEdit" class="form-control" placeholder="UnitPrice" name="UnitPriceEdit" value="'.$UnitPrice.'">
+                    <label for="UnitPriceCopy">UnitPrice</label>
+                    <input type="number" min="0" step="0.01" id="UnitPriceCopy" class="form-control" placeholder="UnitPrice" name="UnitPriceCopy" value="'.$UnitPrice.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="AnalysisPriceEdit">AnalysisPrice</label>
-                    <input type="number" min="0" id="AnalysisPriceEdit" class="form-control" placeholder="AnalysisPrice" name="AnalysisPriceEdit" value="'.$AnalysisPrice.'">
+                    <label for="AnalysisPriceCopy">AnalysisPrice</label>
+                    <input type="number" min="0" id="AnalysisPriceCopy" class="form-control" placeholder="AnalysisPrice" name="AnalysisPriceCopy" value="'.$AnalysisPrice.'">
                 </div>
             </div>
         </div>
@@ -284,14 +284,14 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="ProducerIdEdit">ProducerId</label>
-                    <input type="number" min="1" id="ProducerIdEdit" class="form-control" placeholder="ProducerId" name="ProducerIdEdit" value="'.$ProducerId.'">
+                    <label for="ProducerIdCopy">ProducerId</label>
+                    <input type="number" min="1" id="ProducerIdCopy" class="form-control" placeholder="ProducerId" name="ProducerIdCopy" value="'.$ProducerId.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="ReagentEquivalentEdit">ReagentEquivalent</label>
-                    <input type="number" min="0" id="ReagentEquivalentEdit" class="form-control" placeholder="ReagentEquivalent" name="ReagentEquivalentEdit" value="'.$ReagentEquivalent.'">
+                    <label for="ReagentEquivalentCopy">ReagentEquivalent</label>
+                    <input type="number" min="0" id="ReagentEquivalentCopy" class="form-control" placeholder="ReagentEquivalent" name="ReagentEquivalentCopy" value="'.$ReagentEquivalent.'">
                 </div>
             </div>
         </div>
@@ -302,14 +302,14 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="MaterialEdit">Material</label>
-                    <input type="text" id="MaterialEdit" class="form-control" placeholder="Material" name="MaterialEdit" value="'.$Material.'">
+                    <label for="MaterialCopy">Material</label>
+                    <input type="text" id="MaterialCopy" class="form-control" placeholder="Material" name="MaterialCopy" value="'.$Material.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="probirkaIdEdit">probirka</label>
-                    <select id="probirkaIdEdit" class="form-control" placeholder="probirkaIdEdit" name="probirkaIdEdit">
+                    <label for="probirkaIdCopy">probirka</label>
+                    <select id="probirkaIdCopy" class="form-control" placeholder="probirkaIdCopy" name="probirkaIdCopy">
                         <option value="0"></option>
 ';
 
@@ -335,8 +335,8 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="probirka2IdEdit">probirka2</label>
-                    <select id="probirka2IdEdit" class="form-control" placeholder="probirka2IdEdit" name="probirka2IdEdit">
+                    <label for="probirka2IdCopy">probirka2</label>
+                    <select id="probirka2IdCopy" class="form-control" placeholder="probirka2IdCopy" name="probirka2IdCopy">
                         <option value="0"></option>
 ';
 
@@ -358,8 +358,8 @@ $msg .='
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="probirka3IdEdit">probirka3</label>
-                    <select id="probirka3IdEdit" class="form-control" placeholder="probirka3IdEdit" name="probirka3IdEdit">
+                    <label for="probirka3IdCopy">probirka3</label>
+                    <select id="probirka3IdCopy" class="form-control" placeholder="probirka3IdCopy" name="probirka3IdCopy">
                         <option value="0"></option>
 ';
 
@@ -387,8 +387,8 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="activEdit">activ</label>
-                    <select id="activEdit" class="form-control" placeholder="activEdit" name="activEdit">
+                    <label for="activCopy">activ</label>
+                    <select id="activCopy" class="form-control" placeholder="activCopy" name="activCopy">
                         <option value="0"></option>
                         <option value="1" 
 ';
@@ -403,8 +403,8 @@ $msg .='
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="TitleEdit">Title</label>
-                    <input type="text" id="TitleEdit" class="form-control" placeholder="Title" name="TitleEdit" value="'.$Title.'">
+                    <label for="TitleCopy">Title</label>
+                    <input type="text" id="TitleCopy" class="form-control" placeholder="Title" name="TitleCopy" value="'.$Title.'">
                 </div>
             </div>
         </div>
@@ -413,14 +413,14 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="do12Edit">do12</label>
-                    <input type="text" id="do12Edit" class="form-control" placeholder="do12" name="do12Edit" value="'.$do12.'">
+                    <label for="do12Copy">do12</label>
+                    <input type="text" id="do12Copy" class="form-control" placeholder="do12" name="do12Copy" value="'.$do12.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="posle12Edit">posle12</label>
-                    <input type="text" id="posle12Edit" class="form-control" placeholder="posle12" name="posle12Edit" value="'.$posle12.'">
+                    <label for="posle12Copy">posle12</label>
+                    <input type="text" id="posle12Copy" class="form-control" placeholder="posle12" name="posle12Copy" value="'.$posle12.'">
                 </div>
             </div>
         </div>
@@ -431,8 +431,8 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="Method2IdEdit">Method2</label>
-                    <select id="Method2IdEdit" class="form-control" placeholder="Method2IdEdit" name="Method2IdEdit">
+                    <label for="Method2IdCopy">Method2</label>
+                    <select id="Method2IdCopy" class="form-control" placeholder="Method2IdCopy" name="Method2IdCopy">
                         <option value="0"></option>
 ';
 
@@ -453,8 +453,8 @@ $msg .='
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="gotovnostEdit">gotovnost</label>
-                    <input type="text" id="gotovnostEdit" class="form-control" placeholder="gotovnost" name="gotovnostEdit" value="'.$gotovnost.'">
+                    <label for="gotovnostCopy">gotovnost</label>
+                    <input type="text" id="gotovnostCopy" class="form-control" placeholder="gotovnost" name="gotovnostCopy" value="'.$gotovnost.'">
                 </div>
             </div>
         </div>
@@ -463,8 +463,8 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="probirka_zEdit[]">probirka_z</label>
-                    <select id="probirka_zEdit" class="form-control" placeholder="probirka_zEdit" name="probirka_zEdit[]" size="6" multiple>
+                    <label for="probirka_zCopy[]">probirka_z</label>
+                    <select id="probirka_zCopy" class="form-control" placeholder="probirka_zCopy" name="probirka_zCopy[]" size="6" multiple>
                         <option value="0"></option>
 ';
 
@@ -485,8 +485,8 @@ $msg .='
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="srok_gotovnostiEdit">srok_gotovnosti</label>
-                    <input type="text" id="srok_gotovnostiEdit" class="form-control" placeholder="srok_gotovnosti" name="srok_gotovnostiEdit" value="'.$srok_gotovnosti.'">
+                    <label for="srok_gotovnostiCopy">srok_gotovnosti</label>
+                    <input type="text" id="srok_gotovnostiCopy" class="form-control" placeholder="srok_gotovnosti" name="srok_gotovnostiCopy" value="'.$srok_gotovnosti.'">
                 </div>
             </div>
         </div>
@@ -497,14 +497,14 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="gotovnostNEdit">gotovnostN</label>
-                    <input type="text" id="gotovnostNEdit" class="form-control" placeholder="gotovnostN" name="gotovnostNEdit" value="'.$gotovnostN.'">
+                    <label for="gotovnostNCopy">gotovnostN</label>
+                    <input type="text" id="gotovnostNCopy" class="form-control" placeholder="gotovnostN" name="gotovnostNCopy" value="'.$gotovnostN.'">
                 </div>
             </div>
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="visibilityEdit">visibility</label>
-                    <select id="visibilityEdit" class="form-control" placeholder="visibilityEdit" name="visibilityEdit">
+                    <label for="visibilityCopy">visibility</label>
+                    <select id="visibilityCopy" class="form-control" placeholder="visibilityCopy" name="visibilityCopy">
                         <option value="0"></option>
                         <option value="1" 
 ';

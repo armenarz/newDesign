@@ -72,7 +72,7 @@ else
 	return;
 }
 //when selectReagent is selected
-if($reagentId != 0)
+/* if($reagentId != 0)
 {
 	$filter = " ReagentId='".$reagentId."'";
 	$sql = "SELECT * FROM reagent WHERE ".$filter;
@@ -106,7 +106,7 @@ if($reagentId != 0)
 		echo $utf8_bom.$msg;
 		return;
 	}
-}
+} */
 
 $msg.= '
 <table class="table" border="1">

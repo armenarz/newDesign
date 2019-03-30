@@ -108,7 +108,7 @@ if($methodId != 0 || $groupId != 0)
 		$filter = " Method='".$method."' AND GroupId='".$groupId."' AND visibility='".$visibilityId."'";
 	}
 }
-else if($reagentId != 0)
+/* else if($reagentId != 0)
 {
 	$filter = " ReagentId='".$reagentId."'";
 	$sql = "SELECT * FROM reagent WHERE ".$filter;
@@ -151,7 +151,7 @@ else if($reagentId != 0)
 		echo $msg;
 		return;
 	}
-}
+} */
 else if($generalSelectionId != 0)
 {
 	//Все реагенты
@@ -192,7 +192,7 @@ else if($generalSelectionId != 0)
 }
 
 $msg.= '
-<table class="table table-bordered table-hover table-responsive">
+<table class="table table-bordered table-hover table-responsive"  id="reagentData">
 	<thead>
 		<th scope="col"></th>
 		<th scope="col">#</th>
@@ -290,7 +290,7 @@ if($result)
 		$i++;
 
 		$msg.= '
-		<tr>
+		<tr id="r_'.$row["ReagentId"].'">
 			<td><input type="radio" name="radioReagent" value="'.$row["ReagentId"].'" aria-label="Выберите реагент"></td>
 			<td scope="row"><strong>'.$i.'</strong></td>
 			<td>'.$row["Mashinid"].'</td>
