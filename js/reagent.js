@@ -84,7 +84,7 @@ $(function()
             temp = parseInt(temp);
         }
         showEditForm(temp);
-        $("#editLink").click();
+        //$("#editLink").click();
     });
 
     $("#searchReagent").focus(function () {
@@ -182,7 +182,7 @@ function setSearchReagentData()
                 temp = parseInt(temp);
             }
             showEditForm(temp);
-            $("#editLink").click();
+            //$("#editLink").click();
         }
     });
     $("#searchReagent").prop("disabled",false);
@@ -195,6 +195,7 @@ function showEditForm(reagentId)
 
     $("#reagent_id").val(reagentId);
     setReagentEMWData();
+    $("#editLink").click();
 }
 
 //functions

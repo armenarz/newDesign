@@ -155,7 +155,7 @@ require_once "../fillNonBreak.php";
         </div>        
         <!-- Edit Modal Window -->
         <div class="modal fade" id="editModalWindow" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg  modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModalLongTitle">Редактировать данные реагента</h5>
@@ -179,14 +179,14 @@ require_once "../fillNonBreak.php";
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                        <button type="button" class="btn btn-primary" id="buttonOKEdit">Сохранить</button>
+                        <button type="button" class="btn btn-primary" id="buttonOKEdit" disabled>Сохранить</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Add Modal Window -->
         <div class="modal fade" id="addModalWindow" tabindex="-1" role="dialog" aria-labelledby="addModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addModalLongTitle">Добавить новый реагент</h5>

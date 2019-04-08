@@ -108,7 +108,7 @@ if($salesId != 0 || $workplaceId != 0 || $specialityId != 0)
 		$filter = " sales_id='".$salesId."' AND doctor.WorkPlaceId='".$workplaceId."' AND profession='".$speciality."'";
 	}
 }
-else if($doctorId != 0)
+/* else if($doctorId != 0)
 {
 	$filter = " DoctorId='".$doctorId."'";
 	$sql = "SELECT * FROM doctor WHERE ".$filter;
@@ -141,7 +141,7 @@ else if($doctorId != 0)
 		echo $msg;
 		return;
 	}
-}
+} */
 else if($generalSelectionId != 0)
 {
 	//Все докторы
@@ -220,7 +220,7 @@ if($result)
 		$i++;
 
 		$msg.= '
-		<tr>
+		<tr id="r_'.$row["DoctorId"].'">
 			<td><input type="radio" name="radioDoctor" value="'.$row["DoctorId"].'" aria-label="Выберите доктора"></td>
 			<td scope="row"><strong>'.$i.'</strong></td>
 			<td>'.$row["DoctorId"].'</td>

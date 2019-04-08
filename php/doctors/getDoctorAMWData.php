@@ -20,102 +20,84 @@ if(isset($_POST["specialityId"]))
 }
 //<!-- BEGIN Tabs HTML Markup -->
 $msg = '
-<!-- BEGIN Tabs HTML Markup -->
-<nav>
-    <div class="nav nav-tabs" id="nav-add-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-add-part1-tab" data-toggle="tab" href="#nav-add-part1" role="tab" aria-controls="nav-add-part1" aria-selected="true">1</a>
-        <a class="nav-item nav-link" id="nav-add-part2-tab" data-toggle="tab" href="#nav-add-part2" role="tab" aria-controls="nav-add-part2" aria-selected="true">2</a>
-        <a class="nav-item nav-link" id="nav-add-part3-tab" data-toggle="tab" href="#nav-add-part3" role="tab" aria-controls="nav-add-part3" aria-selected="true">3</a>
-    </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-    <!-- Tab 1 -->
-    <div class="tab-pane fade show active" id="nav-add-part1" role="tabpanel" aria-labelledby="nav-add-part1-tab">
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="DoctorIdAdd">DoctorId</label>
-                    <input type="number" min="0" id="DoctorIdAdd" class="form-control" placeholder="DoctorId" name="DoctorIdAdd" readonly>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="FirstNameAdd">FirstName</label>
-                    <input type="text" id="FirstNameAdd" class="form-control" placeholder="FirstName" name="FirstNameAdd">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="LastNameAdd">LastName</label>
-                    <input type="text" id="LastNameAdd" class="form-control" placeholder="LastName" name="LastNameAdd">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="MidNameAdd">MidName</label>
-                    <input type="text" id="MidNameAdd" class="form-control" placeholder="MidName" name="MidNameAdd">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="personality_typeAdd">Тип личности</label>
-                    <input type="text" id="personality_typeAdd" class="form-control" placeholder="Тип личности" name="personality_typeAdd">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="loyaltyAdd">Лояльность</label>
-                    <input type="text" id="loyaltyAdd" class="form-control" placeholder="Лояльность" name="loyaltyAdd">
-                </div>
-            </div>
+<div class="row">
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="DoctorIdAdd">DoctorId</label>
+            <input type="number" min="0" id="DoctorIdAdd" class="form-control" placeholder="DoctorId" name="DoctorIdAdd" readonly>
         </div>
     </div>
-    <!-- Tab 2 -->
-    <div class="tab-pane fade" id="nav-add-part2" role="tabpanel" aria-labelledby="nav-add-part2-tab">
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="BirthDateAdd">Дата рождения</label>
-                    <input type="text" id="BirthDateAdd" class="form-control" placeholder="dd-mm-yyyy" name="BirthDateAdd">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="DiscountAdd">Скидка</label>
-                    <input type="number" min="0" id="DiscountAdd" class="form-control" placeholder="Discount" name="DiscountAdd">
-                </div>
-            </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="FirstNameAdd">FirstName</label>
+            <input type="text" id="FirstNameAdd" class="form-control" placeholder="FirstName" name="FirstNameAdd">
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="Phone1Add">Номер телефона N1</label>
-                    <input type="text" id="Phone1Add" class="form-control" placeholder="Phone1" name="Phone1Add">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="Phone2Add">Номер телефона N2</label>
-                    <input type="text" id="Phone2Add" class="form-control" placeholder="Phone2" name="Phone2Add">
-                </div>
-            </div>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="LastNameAdd">LastName</label>
+            <input type="text" id="LastNameAdd" class="form-control" placeholder="LastName" name="LastNameAdd">
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="EmailAdd">Электронная почта</label>
-                    <input type="email" id="EmailAdd" class="form-control" placeholder="Email" name="EmailAdd">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="WorkPlaceIdAdd">Место работы</label>
-                    <select id="WorkPlaceIdAdd" class="form-control" name="WorkPlaceIdAdd">
-                        <option value="0"></option>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="MidNameAdd">MidName</label>
+            <input type="text" id="MidNameAdd" class="form-control" placeholder="MidName" name="MidNameAdd">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="personality_typeAdd">Тип личности</label>
+            <input type="text" id="personality_typeAdd" class="form-control" placeholder="Тип личности" name="personality_typeAdd">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="loyaltyAdd">Лояльность</label>
+            <input type="text" id="loyaltyAdd" class="form-control" placeholder="Лояльность" name="loyaltyAdd">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="BirthDateAdd">Дата рождения</label>
+            <input type="text" id="BirthDateAdd" class="form-control" placeholder="dd-mm-yyyy" name="BirthDateAdd">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="DiscountAdd">Скидка</label>
+            <input type="number" min="0" id="DiscountAdd" class="form-control" placeholder="Discount" name="DiscountAdd">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="Phone1Add">Номер телефона N1</label>
+            <input type="text" id="Phone1Add" class="form-control" placeholder="Phone1" name="Phone1Add">
+        </div>
+    </div>
+</div>
+<div class="row">       
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="Phone2Add">Номер телефона N2</label>
+            <input type="text" id="Phone2Add" class="form-control" placeholder="Phone2" name="Phone2Add">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="EmailAdd">Электронная почта</label>
+            <input type="email" id="EmailAdd" class="form-control" placeholder="Email" name="EmailAdd">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="WorkPlaceIdAdd">Место работы</label>
+            <select id="WorkPlaceIdAdd" class="form-control" name="WorkPlaceIdAdd">
+                <option value="0"></option>
 ';
 $sql = "SELECT WorkPlaceId, WorkPlaceDesc FROM cworkplace";
 $result = mysqli_query($link,$sql);
@@ -129,33 +111,28 @@ if($result)
     }
 }
 $msg .='
-                    </select>
-                </div>
-            </div>
+            </select>
         </div>
     </div>
-    <!-- Tab 3 -->
-    <div class="tab-pane fade" id="nav-add-part3" role="tabpanel" aria-labelledby="nav-add-part3-tab">
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="LoginAdd">Логин</label>
-                    <input type="text" id="LoginAdd" class="form-control" placeholder="Login" name="LoginAdd">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="PasswordAdd">Пароль</label>
-                    <input type="text" id="PasswordAdd" class="form-control" placeholder="Password" name="PasswordAdd">
-                </div>
-            </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="LoginAdd">Логин</label>
+            <input type="text" id="LoginAdd" class="form-control" placeholder="Login" name="LoginAdd">
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="SalesIdAdd">Sales</label>
-                    <select id="SalesIdAdd" class="form-control" name="SalesIdAdd">
-                        <option value="0"></option>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="PasswordAdd">Пароль</label>
+            <input type="text" id="PasswordAdd" class="form-control" placeholder="Password" name="PasswordAdd">
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="SalesIdAdd">Sales</label>
+            <select id="SalesIdAdd" class="form-control" name="SalesIdAdd">
+                <option value="0"></option>
 ';
 $sql = "SELECT salesId, salesName FROM sales WHERE salesId<>'1'";
 $result = mysqli_query($link,$sql);
@@ -169,14 +146,16 @@ if($result)
     }
 }
 $msg .='
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="SpecialityIdAdd">Специальность</label>
-                    <select id="SpecialityIdAdd" class="form-control" name="SpecialityIdAdd">
-                        <option value="0"></option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="SpecialityIdAdd">Специальность</label>
+            <select id="SpecialityIdAdd" class="form-control" name="SpecialityIdAdd">
+                <option value="0"></option>
 ';
 $sql = "SELECT MethodId, Method FROM profession";
 $result = mysqli_query($link,$sql);
@@ -190,27 +169,24 @@ if($result)
     }
 }
 $msg .='
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="ActiveIdAdd">Активность</label>
-                    <select id="ActiveIdAdd" class="form-control" name="ActiveIdAdd">
-                        <option value="0">0&nbsp;not active</option>
-                        <option value="1" selected>1&nbsp;active</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col">
-            </div>
+            </select>
         </div>
     </div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="ActiveIdAdd">Активность</label>
+            <select id="ActiveIdAdd" class="form-control" name="ActiveIdAdd">
+                <option value="0">0&nbsp;not active</option>
+                <option value="1" selected>1&nbsp;active</option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+    </div>
 </div>
-<!-- END Tabs HTML Markup -->
 ';
+//<!-- END Tabs HTML Markup -->
+
 
 echo $msg;
 ?>

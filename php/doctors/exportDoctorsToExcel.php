@@ -87,7 +87,7 @@ else
 }
 
 //when doctor is searched by searchDoctor
-if($doctorId != 0)
+/* if($doctorId != 0)
 {
 	$filter = " DoctorId='".$doctorId."'";
 	$sql = "SELECT * FROM doctor WHERE ".$filter;
@@ -121,7 +121,7 @@ if($doctorId != 0)
 		echo $utf8_bom.$msg;
 		return;
 	}
-}
+} */
 
 //when selectSale and/or selectWorkplace and/or selectSpeciality are/is selected
 $msg.= '

@@ -28,7 +28,7 @@ $(function()
     //getting selected value of select tag with id "selectWorkplace"
     $("#selectWorkplace").change(function(){
         filterObj.workplaceId = $("#selectWorkplace").val();
-        console.log(filterObj.workplaceId);
+        //console.log(filterObj.workplaceId);
         filterObj.doctorId = 0;
         $("#searchDoctor").val("");
         filterObj.generalSelectionId = 0;
@@ -55,7 +55,7 @@ $(function()
         $("#selectSale").val("0");
         filterObj.workplaceId = 0;
         $("#selectWorkplace").val("0");
-        filterObj.reagentId = 0;
+        filterObj.doctorId = 0;
         $("#searchDoctor").val("0");
         updateContent(filterObj);
     });
@@ -64,32 +64,16 @@ $(function()
     $("#searchButton").click(function()
     {
         var temp = $("#searchDoctor").val();
-        if(temp.length == 0)
+        if(temp.length == 0 || temp == null)
         {
+            
             temp = 0;
         }
-        filterObj.doctorId = parseInt(temp);
-        $("#searchDoctor").val(filterObj.doctorId);
-        if($("#searchDoctor").val()==null)
+        else
         {
-            var loaderMsg = '';
-            loaderMsg  = '<div class="alert alert-primary d-print-none" role="alert">';
-            loaderMsg += 	'По данной выборке ничего не найдено.';
-            loaderMsg += '</div>';   
-            $("#content").html(loaderMsg);
-            return;
+            temp = parseInt(temp);
         }
-
-        filterObj.salesId = 0;
-        $("#selectSale").val("0");
-        filterObj.workplaceId = 0;
-        $("#selectWorkplace").val("0");
-        filterObj.specialityId = 0;
-        $("#selectSpeciality").val("0");
-        filterObj.generalSelectionId = 0;
-        $("#generalSelectionId").val("0");
-
-        updateContent(filterObj);
+        showEditForm(temp);
     });
 
     $("#searchDoctor").focus(function () {
@@ -232,9 +216,90 @@ function setSearchDoctorData()
 
     $("#searchDoctor").catcomplete({
         delay: 0,
-        source: data
+        source: data,
+        select: function(event,ui)
+        {
+            var temp = ui.item.value;
+            if(temp.length == 0 || temp == null)
+            {
+                
+                temp = 0;
+            }
+            else
+            {
+                temp = parseInt(temp);
+            }
+            showEditForm(temp);
+        }
     });
     $("#searchDoctor").prop("disabled",false);
+}
+
+function showEditForm(doctorId)
+{
+    var formMsg = "Для редактирования данных доктора заполните нужными значениями поля формы.";
+    $("#messageEditModal").html(formMsg);
+
+    $("#doctor_id").val(doctorId);
+    setDoctorEMWData();
+    $("#editLink").click();
+}
+
+function updateRow(doctorId)
+{
+    var row = $("#r_" + doctorId);
+    //get list of td tags in tr tag
+    if(typeof row != "undefined")
+    {
+        var rowNumber = 0;
+        $(row).find("td").each(function(index, element){
+            if(index == 1)
+            {
+                rowNumber = parseInt($(element).text());
+                //console.log("rowNumber=" + rowNumber);
+            }
+        });
+        
+        if(typeof rowNumber != "undefined" && rowNumber > 0)
+        {
+            /// ajax setup
+            $.ajaxSetup({
+                type: "POST",
+                url: "../doctors/getDoctorRowData.php",
+                cache: false,
+                data: dataString = $("form[name='tempData']").serialize(),
+                success: funcSuccessGetDoctorRowData,
+                error: funcError
+            });
+            ///process
+            $.ajax();
+        }
+    }
+
+}
+function funcSuccessGetDoctorRowData(result)
+{
+    //console.log(result);
+    var doctorId = $("#doctor_id").val();
+
+    var rowNumber = "";
+    //getting row number
+    $("#r_" + doctorId).find("td").each(function(index, element){
+        if(index == 1)
+        {
+            rowNumber = $(element).html();
+        }
+    });
+    
+    //changing row content
+    $("#r_" + doctorId).html(result);
+    //setting row number
+    $("#r_" + doctorId).find("td").each(function(index, element){
+        if(index == 1)
+        {
+            $(element).html(rowNumber);
+        }
+    });
 }
 
 function updateContent(filterObj)
@@ -333,7 +398,20 @@ function setDoctorEMWData()
 }
 function funcSuccessSetDoctorEMWData(result)
 {
-    $("#contentEditModal").html(result);
+    if(result == "no_doctor")
+    {
+        var msg = `
+            По данной выборке ничего не найдено.
+        `;
+        $("#messageEditModal").html(msg);
+        $("#contentEditModal").html("");
+        return;
+    }
+    else
+    {
+        $("#contentEditModal").html(result);
+    }
+    //$("#contentEditModal").html(result);
 }
 
 //setting deleteModalWindow data
@@ -411,29 +489,28 @@ $('#editModalWindow').on('click','#buttonOKEdit', function(){
 
     var frmEdit = CreateFormEditObject();
     frmEdit.getFormData();
-    frmEdit.getActiveTab();
 
     frmEdit.validate();
     if(!frmEdit.isValid)
     {
         $('#messageEditModal').html(frmEdit.message);
-        if(frmEdit.activeTab == frmEdit.invalidTab)
-        {
-            $('#' + frmEdit.invalidField).focus();
-        }
-        else
-        {
-            $('#' + frmEdit.invalidTab).on('shown.bs.tab', function(){
-                $('#' + frmEdit.invalidField).focus();
-            });
-            $('#' + frmEdit.invalidTab).tab('show');
-        }
+        $('#' + frmEdit.invalidField).focus();
         return;
     }
     else
     {
         $('#messageEditModal').html(frmEdit.message);
     }
+    
+    //getting doctorId 
+    var doctorId = $("#doctor_id").val();
+    if(typeof doctorId == "undefined")
+    {
+        //console.log("doctorId="+ undefined);
+        $('#editModalWindow').modal('hide');
+        return;
+    }
+
     ///updateing doctor data
     /// ajax setup
     $.ajaxSetup({
@@ -443,14 +520,16 @@ $('#editModalWindow').on('click','#buttonOKEdit', function(){
         data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formEdit']").serialize()),
         success: function(res)
         {
-            console.log(res);
-            var filterObj = {};
-            filterObj.salesId = $("#selectSale").val();
-            filterObj.workplaceId = $("#selectWorkplace").val();
-            filterObj.specialityId = $("#selectSpeciality").val();
-            filterObj.doctorId = $("#searchDoctor").val();
-            filterObj.generalSelectionId = $('#generalSelectionId').val();
-            updateContent(filterObj);
+            // console.log(res);
+            // var filterObj = {};
+            // filterObj.salesId = $("#selectSale").val();
+            // filterObj.workplaceId = $("#selectWorkplace").val();
+            // filterObj.specialityId = $("#selectSpeciality").val();
+            // filterObj.doctorId = $("#searchDoctor").val();
+            // filterObj.generalSelectionId = $('#generalSelectionId').val();
+            // updateContent(filterObj);
+
+            updateRow(doctorId);
             setSearchDoctorData();
             $('#editModalWindow').modal('hide');
         },
@@ -473,48 +552,21 @@ function CreateFormEditObject()
     frm.message = "Для редактирования данных реагента заполните нужными значениями поля формы.";
     frm.isValid = true;
     frm.invalidField = null;
-    frm.invalidTab = null;
-    frm.activeTab = null;
-
-    frm.getActiveTab = function()
-    {
-        if($('#nav-edit-part1-tab').hasClass('active')) frm.activeTab = 'nav-edit-part1-tab';
-        else if($('#nav-edit-part2-tab').hasClass('active')) frm.activeTab = 'nav-edit-part2-tab';
-        else if($('#nav-edit-part3-tab').hasClass('active')) frm.activeTab = 'nav-edit-part3-tab';   
-    };
 
     frm.getFormData = function()
     {
-        frm.getTab1Data();
-        frm.getTab2Data();
-        frm.getTab3Data();
-    };
-
-    frm.getTab1Data = function()
-    {
-        ///tab 1 ===================================================
         frm.doctorIdEdit = $('#DoctorIdEdit').val();
         frm.firstNameEdit = $('#FirstNameEdit').val();
         frm.lastNameEdit = $('#LastNameEdit').val();
         frm.midNameEdit = $('#MidNameEdit').val();
         frm.personality_typeEdit = $('#personality_typeEdit').val();
         frm.loyaltyEdit = $('#loyaltyEdit').val();
-    }
-
-    frm.getTab2Data = function()
-    {
-        ///tab 2 ===================================================
         frm.birthDateEdit = $('#BirthDateEdit').val();
         frm.discountEdit = $('#DiscountEdit').val();
         frm.phone1Edit = $('#Phone1Edit').val();
         frm.phone2Edit = $('#Phone2Edit').val();
         frm.emailEdit = $('#EmailEdit').val();
         frm.workPlaceIdEdit = $('#WorkPlaceIdEdit').val();
-    }
-
-    frm.getTab3Data = function()
-    {
-        ///tab 3 ===================================================
         frm.loginEdit = $('#LoginEdit').val();
         frm.passwordEdit = $('#PasswordEdit').val();
         frm.salesIdEdit = $('#SalesIdEdit').val();
@@ -524,19 +576,9 @@ function CreateFormEditObject()
 
     frm.validate = function()
     {
-        frm.validateTab1();
-        if(frm.isValid) frm.validateTab2();
-        else return;
-        if(frm.isValid) frm.validateTab3();
-        else return;
-    };
-    //Tab1
-    frm.validateTab1 = function()
-    {
         frm.message = 'Для редактирования данных текущего доктора заполните нужными значениями поля формы.';
         frm.isValid = true;
         frm.invalidField = null;
-        frm.invalidTab = null;
         
         //FirstNameEdit
         if(frm.firstNameEdit.length == 0)
@@ -544,7 +586,6 @@ function CreateFormEditObject()
             frm.message = 'Введите имя доктора в поле FirstName.';
             frm.invalidField ='FirstNameEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return;            
         }
         //LastNameEdit
@@ -553,7 +594,6 @@ function CreateFormEditObject()
             frm.message = 'Введите фамилия доктора в поле LastNameEdit.';
             frm.invalidField ='LastNameEdit';
             frm.isValid = false;
-            frm.invalidTab = 'nav-edit-part1-tab';
             return;
         }
         else
@@ -561,26 +601,9 @@ function CreateFormEditObject()
             frm.message = 'Для редактирования данных текущего доктора заполните нужными значениями поля формы.';
             frm.invalidField = null;
             frm.isValid = true;
-            frm.invalidTab = null;
             return;
         }
     };
-    //Tab2
-    frm.validateTab2 = function()
-    {
-        frm.message = 'Для редактирования данных текущего доктора заполните нужными значениями поля формы.';
-        frm.isValid = true;
-        frm.invalidField = null;
-        frm.invalidTab = null;
-    }
-    //Tab3
-    frm.validateTab3 = function()
-    {
-        frm.message = 'Для редактирования данных текущего доктора заполните нужными значениями поля формы.';
-        frm.isValid = true;
-        frm.invalidField = null;
-        frm.invalidTab = null;
-    }
     
     return frm;
 }
@@ -590,23 +613,11 @@ $('#addModalWindow').on('click','#buttonOKAdd', function(){
     
     var frmAdd = CreateFormAddObject();
     frmAdd.getFormData();
-    frmAdd.getActiveTab();
-
     frmAdd.validate();
     if(!frmAdd.isValid)
     {
         $('#messageAddModal').html(frmAdd.message);
-        if(frmAdd.activeTab == frmAdd.invalidTab)
-        {
-            $('#' + frmAdd.invalidField).focus();
-        }
-        else
-        {
-            $('#' + frmAdd.invalidTab).on('shown.bs.tab', function(){
-                $('#' + frmAdd.invalidField).focus();
-            });
-            $('#' + frmAdd.invalidTab).tab('show');
-        }
+        $('#' + frmAdd.invalidField).focus();
         return;
     }
     else
@@ -623,7 +634,7 @@ $('#addModalWindow').on('click','#buttonOKAdd', function(){
         data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formAdd']").serialize()),
         success: function(res)
         {
-            console.log(res);
+            //console.log(res);
             var filterObj = {};
             filterObj.salesId = $("#selectSale").val();
             filterObj.workplaceId = $("#selectWorkplace").val();
@@ -683,44 +694,21 @@ function CreateFormAddObject()
     frm.message = "Для добавления нового доктора заполните нужными значениями поля формы.";
     frm.isValid = true;
     frm.invalidField = null;
-    frm.invalidTab = null;
-    frm.activeTab = null;
 
-    frm.getActiveTab = function()
-    {
-        if($('#nav-add-part1-tab').hasClass('active')) frm.activeTab = 'nav-add-part1-tab';
-        else if($('#nav-add-part2-tab').hasClass('active')) frm.activeTab = 'nav-add-part2-tab';
-        else if($('#nav-add-part3-tab').hasClass('active')) frm.activeTab = 'nav-add-part3-tab';     
-    };
     frm.getFormData = function()
     {
-        frm.getTab1Data();
-        frm.getTab2Data();
-        frm.getTab3Data();
-    };
-    frm.getTab1Data = function()
-    {
-        ///tab 1 ===================================================
         frm.doctorIdAdd = $('#DoctorIdAdd').val();
         frm.firstNameAdd = $('#FirstNameAdd').val();
         frm.lastNameAdd = $('#LastNameAdd').val();
         frm.midNameAdd = $('#MidNameAdd').val();
         frm.personality_typeAdd = $('#personality_typeAdd').val();
         frm.loyaltyAdd = $('#loyaltyAdd').val();
-    };
-    frm.getTab2Data = function()
-    {
-        ///tab 2 ===================================================
         frm.birthDateAdd = $('#BirthDateAdd').val();
         frm.discountAdd = $('#DiscountAdd').val();
         frm.phone1Add = $('#Phone1Add').val();
         frm.phone2Add = $('#Phone2Add').val();
         frm.emailAdd = $('#EmailAdd').val();
         frm.workPlaceIdAdd = $('#WorkPlaceIdAdd').val();
-    };
-    frm.getTab3Data = function()
-    {
-        ///tab 3 ===================================================
         frm.loginAdd = $('#LoginAdd').val();
         frm.passwordAdd = $('#PasswordAdd').val();
         frm.salesIdAdd = $('#SalesIdAdd').val();
@@ -729,19 +717,9 @@ function CreateFormAddObject()
     };
     frm.validate = function()
     {
-        frm.validateTab1();
-        if(frm.isValid) frm.validateTab2();
-        else return;
-        if(frm.isValid) frm.validateTab3();
-        else return;
-    };
-    //Tab1
-    frm.validateTab1 = function()
-    {
         frm.message = 'Для добавления нового доктора заполните нужными значениями поля формы.';
         frm.isValid = true;
         frm.invalidField = null;
-        frm.invalidTab = null;
         
         //FirstNameAdd
         if(frm.firstNameAdd.length == 0)
@@ -749,7 +727,6 @@ function CreateFormAddObject()
             frm.message = 'Введите имя доктора в поле FirstName.';
             frm.invalidField ='FirstNameAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return;            
         }
         //LastNameAdd
@@ -758,59 +735,22 @@ function CreateFormAddObject()
             frm.message = 'Введите фамилия доктора в поле LastName.';
             frm.invalidField ='LastNameAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part1-tab';
             return;
         }
-        else
-        {
-            frm.message = 'Для добавления нового доктора заполните нужными значениями поля формы.';
-            frm.invalidField = null;
-            frm.isValid = true;
-            frm.invalidTab = null;
-            return;
-        }
-    };
-    //Tab2
-    frm.validateTab2 = function()
-    {
-        frm.message = 'Для добавления нового доктора заполните нужными значениями поля формы.';
-        frm.isValid = true;
-        frm.invalidField = null;
-        frm.invalidTab = null;
-
         //WorkPlaceIdAdd
-        if(frm.workPlaceIdAdd == 0)
+        else if(frm.workPlaceIdAdd == 0)
         {
             frm.message = 'Выберите место работы доктора.';
             frm.invalidField ='WorkPlaceIdAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part2-tab';
             return;
         }
-        else
-        {
-            frm.message = 'Для добавления нового доктора заполните нужными значениями поля формы.';
-            frm.invalidField = null;
-            frm.isValid = true;
-            frm.invalidTab = null;
-            return;
-        }
-    };
-    //Tab3
-    frm.validateTab3 = function()
-    {
-        frm.message = 'Для добавления нового доктора заполните нужными значениями поля формы.';
-        frm.isValid = true;
-        frm.invalidField = null;
-        frm.invalidTab = null;
-
         //SalesIdAdd
-        if(frm.salesIdAdd == 0)
+        else if(frm.salesIdAdd == 0)
         {
             frm.message = 'Выберите sales доктора.';
             frm.invalidField ='SalesIdAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part3-tab';
             return;
         }
         //SpecialityIdAdd
@@ -819,7 +759,6 @@ function CreateFormAddObject()
             frm.message = 'Выберите специальность доктора.';
             frm.invalidField ='SpecialityIdAdd';
             frm.isValid = false;
-            frm.invalidTab = 'nav-add-part3-tab';
             return;
         }
         else
@@ -827,7 +766,6 @@ function CreateFormAddObject()
             frm.message = 'Для добавления нового доктора заполните нужными значениями поля формы.';
             frm.invalidField = null;
             frm.isValid = true;
-            frm.invalidTab = null;
             return;
         }
     };

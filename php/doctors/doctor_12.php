@@ -84,8 +84,8 @@ require_once "../fillNonBreak.php";
                     <div class="col-lg-2">
                         <nav class="nav navbar-white bg-white flex-column d-print-none" id="toolbars">
                             <a class="nav-link border-bottom active border-top" href="#" id="exportLink"><i class="far fa-file-excel"></i>&nbsp;Экспорт&nbsp;в&nbsp;Excel</a>
-                            <a class="nav-link border-bottom" href="#" data-toggle="modal" data-target="#addModalWindow" id="addLink"><i class="far fa-plus-square"></i>&nbsp;Добавить</a>
-                            <a class="nav-link border-bottom" href="#" data-toggle="modal" data-target="#editModalWindow" id="editLink"><i class="far fa-edit"></i>&nbsp;Редактировать</a>
+                            <a class="nav-link disabled border-bottom" href="#" data-toggle="modal" data-target="#addModalWindow" id="addLink"><i class="far fa-plus-square"></i>&nbsp;Добавить</a>
+                            <a class="nav-link disabled border-bottom" href="#" data-toggle="modal" data-target="#editModalWindow" id="editLink"><i class="far fa-edit"></i>&nbsp;Редактировать</a>
                             <a class="nav-link disabled border-bottom" href="#" data-toggle="modal" data-target="#deleteModalWindow" id="deleteLink"><i class="far fa-minus-square"></i>&nbsp;Удалить</a>
                         </nav>
                     </div>
@@ -125,7 +125,7 @@ require_once "../fillNonBreak.php";
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                        <button type="button" class="btn btn-primary" id="buttonOKEdit">Сохранить</button>
+                        <button type="button" class="btn btn-primary" id="buttonOKEdit" disabled>Сохранить</button>
                     </div>
                 </div>
             </div>

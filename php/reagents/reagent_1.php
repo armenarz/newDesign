@@ -179,7 +179,7 @@ require_once "../fillNonBreak.php";
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                        <button type="button" class="btn btn-primary" id="buttonOKEdit">Сохранить</button>
+                        <button type="button" class="btn btn-primary" id="buttonOKEdit" disabled>Сохранить</button>
                     </div>
                 </div>
             </div>
