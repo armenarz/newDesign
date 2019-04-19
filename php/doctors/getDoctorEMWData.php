@@ -5,6 +5,7 @@ require_once "../fillNonBreak.php";
 require_once "../concatWithBrackets.php";
 
 if(isset($_POST["doctor_id"])) $doctor_id = $_POST["doctor_id"];
+//Getting doctor's data
 $sql = "SELECT * FROM doctor WHERE DoctorId='".$doctor_id."'";
 $result = mysqli_query($link,$sql);
 if($result)
@@ -28,11 +29,30 @@ if($result)
     $Phone2 = $row["Phone2"];
     $Email = $row["Phone3"];
     $WorkPlaceId = $row["WorkPlaceId"];
-    $Login = $row["Comment"];
-    $Password = $row["wp"];
+    //$Login = $row["Comment"];
+    //$Password = $row["wp"];
     $SalesId = $row["sales_id"];
     $Speciality = $row["profession"];
     $ActiveId = $row["active"];
+}
+
+//Getting doctor's login and password
+$sql_lp = "
+SELECT us22.log, us22.passw FROM us22
+INNER JOIN usr_priv ON us22.id=usr_priv.usr_id
+WHERE usr_priv.DoctoId='".$doctor_id."'
+";
+
+$result_lp = mysqli_query($link,$sql_lp);
+if($result_lp)
+{
+    $row_cnt_lp = mysqli_num_rows($result_lp);
+    if($row_cnt_lp > 0)
+    {
+        $row_lp = mysqli_fetch_array($result_lp);
+        $Login = $row_lp["log"];
+        $Password = $row_lp["passw"];
+    }
 }
 //<!-- BEGIN Tabs HTML Markup -->
 $msg = '

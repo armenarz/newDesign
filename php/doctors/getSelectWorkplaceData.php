@@ -6,7 +6,7 @@ require_once "../shorten.php";
 
 $msg = '<option value="0"></option>';
 
-$sql  = "SELECT WorkPlaceId, WorkPlaceDesc FROM cworkplace";
+$sql  = "SELECT WorkPlaceId, WorkPlaceDesc FROM cworkplace ORDER BY WorkPlaceDesc";
 $result = mysqli_query($link,$sql);
 if($result)
 {

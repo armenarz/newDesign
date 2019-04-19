@@ -6,7 +6,7 @@ require_once "../shorten.php";
 
 $msg = '<option value="0"></option>';
 
-$sql  = "SELECT MethodId, Method FROM profession";
+$sql  = "SELECT MethodId, Method FROM profession ORDER BY Method";
 $result = mysqli_query($link,$sql);
 if($result)
 {

@@ -6,7 +6,7 @@ require_once "../concatWithBrackets.php";
 
 $msg = '<option value="0"></option>';
 
-$sql  = "SELECT salesId, salesName FROM sales WHERE salesId<>'1'";
+$sql  = "SELECT salesId, salesName FROM sales WHERE salesId<>'1' ORDER BY salesName";
 $result = mysqli_query($link,$sql);
 if($result)
 {

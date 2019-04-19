@@ -47,8 +47,6 @@ Phone1='".$Phone1Edit."',
 Phone2='".$Phone2Edit."',
 Phone3='".$EmailEdit."',
 WorkPlaceId='".$WorkPlaceIdEdit."',
-Comment='".$LoginEdit."',
-wp='".$PasswordEdit."',
 profession='".$SpecialityEdit."',
 active='".$ActiveIdEdit."',
 sales_id='".$SalesIdEdit."' 
@@ -56,13 +54,29 @@ WHERE DoctorId='".$DoctorIdEdit."'
 ";
 
 $result = mysqli_query($link,$sql);
-if($result)
-{
-    $msg = "Reagent data successfully updated.";
-}
-else
+if(!$result)
 {
     $msg = mysqli_error($link);
+    echo $msg;
+    return;
 }
+
+//Setting login and password
+$sql_lp = "
+UPDATE us22 
+INNER JOIN usr_priv ON us22.id = usr_priv.usr_id
+SET
+us22.log='".$LoginEdit."',
+us22.passw='".$PasswordEdit."'
+WHERE usr_priv.DoctoId =  '".$DoctorIdEdit."'
+";
+$result_lp = mysqli_query($link,$sql_lp);
+if(!$result_lp)
+{
+    $msg = mysqli_error($link);
+    echo $msg;
+    return;
+}
+$msg = "Doctor data successfully updated.";
 echo $msg;
 ?>
