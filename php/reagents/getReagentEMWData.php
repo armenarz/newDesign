@@ -256,8 +256,8 @@ $msg .='
             </div>        
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="dilutionEdit">dilution</label>
-                    <input type="number" min="0" id="dilutionEdit" class="form-control" placeholder="dilution" name="dilutionEdit" value="'.$dilution.'">
+                    <label for="dilutionEdit">Склад</label>
+                    <input type="number" min="0" id="dilutionEdit" class="form-control" placeholder="видимый/невидимый" name="dilutionEdit" value="'.$dilution.'">
                 </div>
             </div>
         </div>
@@ -268,8 +268,8 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="UnitPriceEdit">UnitPrice</label>
-                    <input type="number" min="0" step="0.01" id="UnitPriceEdit" class="form-control" placeholder="UnitPrice" name="UnitPriceEdit" value="'.$UnitPrice.'">
+                    <label for="UnitPriceEdit">Натощак</label>
+                    <input type="number" min="0" step="0.01" id="UnitPriceEdit" class="form-control" placeholder="Натощак" name="UnitPriceEdit" value="'.$UnitPrice.'">
                 </div>
             </div>
             <div class="col">

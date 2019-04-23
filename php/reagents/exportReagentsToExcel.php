@@ -249,7 +249,7 @@ $msg.= '
 		<!--ReagentDescArm-->
 		<th scope="col">Описание на армянском</th>
 		<!--UnitPrice-->
-		<th scope="col">UnitPrice</th>
+		<th scope="col">Натощак</th>
 		<!--ed_ismer-->
 		<th scope="col">Единица измерения</th>
 		<!--AnalysisPrice-->
@@ -273,7 +273,7 @@ $msg.= '
 		<!--Control-->
 		<th scope="col">Control</th>
 		<!--dilution-->
-		<th scope="col">dilution</th>
+		<th scope="col">Склад(видимый/невидимый)</th>
 		<!--GroupId-->
 		<th scope="col">Код группы</th>
 		<!--ProducerId-->

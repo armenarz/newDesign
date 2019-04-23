@@ -233,9 +233,9 @@ $msg.= '
 		<!-- Норма женщин -->
 		<th scope="col">Норма женщин</th>
 		<!-- Dilution -->
-		<th scope="col">Dilution</th>
+		<th scope="col">Склад(видимый/невидимый)</th>
 		<!-- UnitPrice -->
-		<th scope="col">UnitPrice</th>
+		<th scope="col">Натощак</th>
 		<!-- ProducerId -->
 		<th scope="col">ProducerId</th>
 		<!-- ReagentEquivalent -->
