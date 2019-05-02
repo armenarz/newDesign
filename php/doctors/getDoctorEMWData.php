@@ -135,7 +135,7 @@ $msg = '
             <select id="WorkPlaceIdEdit" class="form-control" name="WorkPlaceIdEdit">
                 <option value="0"></option>
 ';
-$sql = "SELECT WorkPlaceId, WorkPlaceDesc FROM cworkplace";
+$sql = "SELECT WorkPlaceId, WorkPlaceDesc FROM cworkplace ORDER BY WorkPlaceDesc";
 $result = mysqli_query($link,$sql);
 if($result)
 {
@@ -143,7 +143,7 @@ if($result)
     {
         $msg .=  '<option value="'.$row["WorkPlaceId"].'"';
         if($WorkPlaceId == $row["WorkPlaceId"]) $msg .= ' selected';
-        $msg .=  '>'.FillNonBreak($row["WorkPlaceId"],2).'&nbsp;'.$row["WorkPlaceDesc"].'</option>';
+        $msg .=  '>'.FillNonBreak($row["WorkPlaceId"],3).'&nbsp;'.$row["WorkPlaceDesc"].'</option>';
     }
 }
 $msg .='
@@ -170,7 +170,7 @@ $msg .='
             <select id="SalesIdEdit" class="form-control" name="SalesIdEdit">
                 <option value="0"></option>
 ';
-$sql = "SELECT salesId, salesName FROM sales WHERE salesId<>'1'";
+$sql = "SELECT salesId, salesName FROM sales WHERE salesId<>'1' ORDER BY salesName";
 $result = mysqli_query($link,$sql);
 if($result)
 {
@@ -193,7 +193,7 @@ $msg .='
             <select id="SpecialityIdEdit" class="form-control" name="SpecialityIdEdit">
                 <option value="0"></option>
 ';
-$sql = "SELECT MethodId, Method FROM profession";
+$sql = "SELECT MethodId, Method FROM profession ORDER BY Method";
 $result = mysqli_query($link,$sql);
 if($result)
 {
