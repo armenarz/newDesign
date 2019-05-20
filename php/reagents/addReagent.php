@@ -58,7 +58,7 @@ if($ProducerIdAdd == "") $ProducerIdAdd = 0;
 $ReagentEquivalentAdd = $_POST["ReagentEquivalentAdd"];
 if($ReagentEquivalentAdd == "") $ReagentEquivalentAdd = 0;
 
-$MaterialAdd = $_POST["MaterialAdd"];
+$MaterialIdAdd = $_POST["MaterialIdAdd"];
 $numAdd = $_POST["numAdd"];
 
 $activAdd = "";
@@ -198,7 +198,7 @@ $sql .= "dilution, ";
 $sql .= "GroupId, ";
 $sql .= "ProducerId, ";
 $sql .= "ReagentEquivalent, ";
-$sql .= "Material, ";
+//$sql .= "Material, ";
 $sql .= "activ, ";
 $sql .= "ed_ismer, ";
 $sql .= "Mashinid, ";
@@ -214,7 +214,8 @@ $sql .= "srok_gotovnosti, ";
 $sql .= "gotovnostN, ";
 $sql .= "probirka2, ";
 $sql .= "probirka3, ";
-$sql .= "visibility";
+$sql .= "visibility, ";
+$sql .= "material_id";//material_id
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescAdd."', '";
 $sql .= $ReagentDescRusAdd."', '";
@@ -235,7 +236,7 @@ $sql .= $dilutionAdd."', '";
 $sql .= $GroupIdAdd."', '";
 $sql .= $ProducerIdAdd."', '";
 $sql .= $ReagentEquivalentAdd."', '";
-$sql .= $MaterialAdd."', '";
+//$sql .= $MaterialIdAdd."', '";
 $sql .= $activAdd."', '";
 $sql .= $ed_ismerAdd."', '";
 $sql .= $MashinidAdd."', '";
@@ -251,7 +252,8 @@ $sql .= $srok_gotovnostiAdd."', '";
 $sql .= $gotovnostNAdd."', '";
 $sql .= $probirka2Add."', '";
 $sql .= $probirka3Add."', '";
-$sql .= $visibilityAdd."'";
+$sql .= $visibilityAdd."', '";
+$sql .= $MaterialIdAdd."'";
 $sql .= ")";
 
 $result = mysqli_query($link,$sql);
@@ -261,7 +263,7 @@ if($result)
 }
 else
 {
-    $msg = mysqli_error($link);
+    $msg = $sql." | ".mysqli_error($link);
 }
 echo $msg;
 ?>

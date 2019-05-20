@@ -66,7 +66,17 @@ if($result)
         <td>'.$row["UnitPrice"].'</td>
         <td>'.$row["ProducerId"].'</td>
         <td>'.$row["ReagentEquivalent"].'</td>
-        <td>'.$row["Material"].'</td>
+        <td>';
+		$sql_material = "SELECT Material FROM material WHERE id = '".$row["material_id"]."'";
+		$result_material = mysqli_query($link,$sql_material);
+		if($result_material)
+		{
+			$row_material = mysqli_fetch_array($result_material);
+			$msg.=$row_material["Material"];
+		}
+		
+	$msg.='
+		</td>
         <td>'.$row["probirka"].'</td>
         <td>'.$row["probirka2"].'</td>
         <td>'.$row["probirka3"].'</td>

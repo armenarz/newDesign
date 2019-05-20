@@ -36,7 +36,7 @@ if($result)
     $GroupId = $row["GroupId"];
     $ProducerId = $row["ProducerId"];
     $ReagentEquivalent = $row["ReagentEquivalent"];
-    $Material = $row["Material"];
+    //$Material = $row["Material"];
     $num = $row["num"];
     $activ = $row["activ"];
     $ed_ismer = $row["ed_ismer"];
@@ -70,6 +70,7 @@ if($result)
     $probirka2 = $row["probirka2"];
     $probirka3 = $row["probirka3"];
     $visibility = $row["visibility"];
+    $MaterialId = $row["material_id"];
 }
 //<!-- BEGIN Tabs HTML Markup -->
 $msg ='
@@ -302,8 +303,23 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="MaterialEdit">Material</label>
-                    <input type="text" id="MaterialEdit" class="form-control" placeholder="Material" name="MaterialEdit" value="'.$Material.'">
+                    <label for="MaterialIdEdit">Material</label>
+                    <select id="MaterialIdEdit" class="form-control" placeholder="MaterialIdEdit" name="MaterialIdEdit">
+                        <option value="1"></option>
+                        ';
+$sql = "SELECT id, Material FROM material WHERE id <> 1";
+$result = mysqli_query($link,$sql);
+if($result)
+{
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["id"].'"';
+        if($MaterialId == $row["id"]) $msg .= ' selected';
+        $msg .= '>'.FillNonBreak($row["id"],2).'&nbsp;'.$row["Material"].'</option>';
+    }
+}
+                        $msg .='                        
+                    </select>
                 </div>
             </div>
             <div class="col">

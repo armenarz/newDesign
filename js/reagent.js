@@ -605,6 +605,7 @@ $('#copyModalWindow').on('click','#buttonOKCopy', function(){
             filterObj.reagentId = $("#selectReagent").val();
             updateContent(filterObj);
             setSelectReagentData();
+            setSearchReagentData();
             $("#copyModalWindow").modal('hide');
             $("#copyLink").hide();
             $("#editLink").hide();
@@ -822,13 +823,6 @@ $('#editModalWindow').on('click','#buttonOKEdit', function(){
         data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formEdit']").serialize()),
         success: function(res)
         {
-            // var filterObj = {};
-            // filterObj.groupId = $("#selectGroup").val();
-            // filterObj.methodId = $("#selectMethod").val();
-            // filterObj.visibilityId = $("#selectVisibility").val();
-            // filterObj.reagentId = $("#selectReagent").val();
-            // updateContent(filterObj);
-
             updateRow(reagentId);
             setSelectReagentData();
             $('#editModalWindow').modal('hide');
@@ -1045,6 +1039,7 @@ $('#addModalWindow').on('click','#buttonOKAdd', function(){
         data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formAdd']").serialize()),
         success: function(res)
         {
+            //console.log(res);
             var filterObj = {};
             filterObj.groupId = $("#selectGroup").val();
             filterObj.methodId = $("#selectMethod").val();
@@ -1053,6 +1048,7 @@ $('#addModalWindow').on('click','#buttonOKAdd', function(){
             filterObj.reagentId = $("#selectReagent").val();
             updateContent(filterObj);
             setSelectReagentData();
+            setSearchReagentData();
             $("#addModalWindow").modal('hide');
             $("#copyLink").hide();
             $("#editLink").hide();

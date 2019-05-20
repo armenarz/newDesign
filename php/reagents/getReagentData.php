@@ -108,50 +108,6 @@ if($methodId != 0 || $groupId != 0)
 		$filter = " Method='".$method."' AND GroupId='".$groupId."' AND visibility='".$visibilityId."'";
 	}
 }
-/* else if($reagentId != 0)
-{
-	$filter = " ReagentId='".$reagentId."'";
-	$sql = "SELECT * FROM reagent WHERE ".$filter;
-	$result = mysqli_query($link,$sql);
-	
-	if($result)
-	{
-		$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-		$msg.= '
-		<table class="table table-bordered table-hover table-fluid">
-			<thead>
-				<th scope="col">Параметр</th>
-				<th scope="col">Значение</th>
-			</thead>
-			<tbody>
-		';
-		
-		foreach($row as $key => $value)
-		{
-			$msg.='<tr>';
-			$msg.='<td><strong>'.$key.'</strong></td>';
-			$msg.='<td>';
-			if($key == "Norm_male")
-			{
-				$msg.='<textarea id="textAreaNorm_male" readonly>'.$value.'</textarea>';
-			}
-			elseif($key == "Norm_female")
-			{
-				$msg.='<textarea id="textAreaNorm_female" readonly>'.$value.'</textarea>';
-			}
-			else
-			{
-				$msg.= $value;
-			}
-			$msg.='</td>';
-			$msg.='</tr>';
-		}	
-		$msg.= '</tbody>';
-		$msg.= '</table>';
-		echo $msg;
-		return;
-	}
-} */
 else if($generalSelectionId != 0)
 {
 	//Все реагенты
@@ -311,9 +267,6 @@ if($result)
 			<td>'.$row_group["GroupDesc"].'</td>
 			';
 		}
-		// $msg.='	
-		// 	<td>'.$row["GroupId"].'</td>
-		// ';
 		$msg.='
 			<td>'.$row["AnalysisPrice"].'</td>
 			<td>'.$row["Method"].'</td>
@@ -330,7 +283,17 @@ if($result)
 			<td>'.$row["UnitPrice"].'</td>
 			<td>'.$row["ProducerId"].'</td>
 			<td>'.$row["ReagentEquivalent"].'</td>
-			<td>'.$row["Material"].'</td>
+			<td>';
+		$sql_material = "SELECT Material FROM material WHERE id = '".$row["material_id"]."'";
+		$result_material = mysqli_query($link,$sql_material);
+		if($result_material)
+		{
+			$row_material = mysqli_fetch_array($result_material);
+			$msg.=$row_material["Material"];
+		}
+		
+		$msg.='
+			</td>
 			<td>'.$row["probirka"].'</td>
 			<td>'.$row["probirka2"].'</td>
 			<td>'.$row["probirka3"].'</td>
@@ -350,12 +313,6 @@ if($result)
 			<td>'.$row_method2["Method"].'</td>
 			';
 		}
-		// $msg.='
-		// 	<td>'.$row["Method2"].'</td>
-		// 	';
-		// $msg.='
-		// 	<td>'.$row["probirka_z"].'</td>
-		// 	';
 		$probirka_z = array();
 		if(json_decode($row["probirka_z"],true) == NULL)
 		{

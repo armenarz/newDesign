@@ -60,8 +60,6 @@ if($ProducerIdEdit == "") $ProducerIdEdit = 0;
 $ReagentEquivalentEdit = $_POST["ReagentEquivalentEdit"];
 if($ReagentEquivalentEdit == "") $ReagentEquivalentEdit = 0;
 
-$MaterialEdit = $_POST["MaterialEdit"];
-
 $probirkaIdEdit = $_POST["probirkaIdEdit"];
 if($probirkaIdEdit == 0)
 {
@@ -168,6 +166,7 @@ $gotovnostNEdit = $_POST["gotovnostNEdit"];
 //if($gotovnostNEdit == "") $gotovnostNEdit = "&nbsp;";
 
 $visibilityEdit = $_POST["visibilityEdit"];
+$MaterialIdEdit = $_POST["MaterialIdEdit"];
 
 $sql  = "UPDATE reagent SET ";
 $sql .= "ReagentDesc='".$ReagentDescEdit."',";
@@ -189,7 +188,6 @@ $sql .= "dilution='".$dilutionEdit."',";
 $sql .= "GroupId='".$GroupIdEdit."',";
 $sql .= "ProducerId='".$ProducerIdEdit."',";
 $sql .= "ReagentEquivalent='".$ReagentEquivalentEdit."',";
-$sql .= "Material='".$MaterialEdit."',";
 $sql .= "activ='".$activEdit."',";
 $sql .= "ed_ismer='".$ed_ismerEdit."',";
 $sql .= "Mashinid='".$MashinidEdit."',";
@@ -205,7 +203,8 @@ $sql .= "srok_gotovnosti='".$srok_gotovnostiEdit."',";
 $sql .= "gotovnostN='".$gotovnostNEdit."',";
 $sql .= "probirka2='".$probirka2Edit."',";
 $sql .= "probirka3='".$probirka3Edit."',";
-$sql .= "visibility='".$visibilityEdit."' ";
+$sql .= "visibility='".$visibilityEdit."',";
+$sql .= "material_id='".$MaterialIdEdit."' ";
 $sql .= "WHERE ReagentId='".$ReagentIdEdit."'";
 
 $result = mysqli_query($link,$sql);

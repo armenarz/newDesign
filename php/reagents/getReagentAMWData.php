@@ -231,8 +231,21 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
-                    <label for="MaterialAdd">Material</label>
-                    <input type="text" id="MaterialAdd" class="form-control" placeholder="Material" name="MaterialAdd">
+                    <label for="MaterialIdAdd">Material</label>
+                    <select id="MaterialIdAdd" class="form-control" placeholder="MaterialIdAdd" name="MaterialIdAdd">
+                        <option value="1"></option>
+';
+$sql = "SELECT id, Material FROM material WHERE id <> 1";
+$result = mysqli_query($link,$sql);
+if($result)
+{
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["Material"].'</option>';
+    }
+}
+$msg .='
+                    </select>
                 </div>
             </div>
             <div class="col">

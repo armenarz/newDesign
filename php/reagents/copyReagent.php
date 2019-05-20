@@ -176,8 +176,8 @@ else
     }
 }
 
-
 $visibilityCopy = $_POST["visibilityCopy"];
+$MaterialIdCopy = $_POST["MaterialIdCopy"];
 
 $sql = "INSERT INTO reagent(";
 $sql .= "ReagentDesc, ";
@@ -199,7 +199,6 @@ $sql .= "dilution, ";
 $sql .= "GroupId, ";
 $sql .= "ProducerId, ";
 $sql .= "ReagentEquivalent, ";
-$sql .= "Material, ";
 $sql .= "activ, ";
 $sql .= "ed_ismer, ";
 $sql .= "Mashinid, ";
@@ -215,7 +214,8 @@ $sql .= "srok_gotovnosti, ";
 $sql .= "gotovnostN, ";
 $sql .= "probirka2, ";
 $sql .= "probirka3, ";
-$sql .= "visibility";
+$sql .= "visibility, ";
+$sql .= "material_id";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescCopy."', '";
 $sql .= $ReagentDescRusCopy."', '";
@@ -236,7 +236,6 @@ $sql .= $dilutionCopy."', '";
 $sql .= $GroupIdCopy."', '";
 $sql .= $ProducerIdCopy."', '";
 $sql .= $ReagentEquivalentCopy."', '";
-$sql .= $MaterialCopy."', '";
 $sql .= $activCopy."', '";
 $sql .= $ed_ismerCopy."', '";
 $sql .= $MashinidCopy."', '";
@@ -252,8 +251,9 @@ $sql .= $srok_gotovnostiCopy."', '";
 $sql .= $gotovnostNCopy."', '";
 $sql .= $probirka2Copy."', '";
 $sql .= $probirka3Copy."', '";
-$sql .= $visibilityCopy."'";
-$sql .= ")";
+$sql .= $visibilityCopy."', '";
+$sql .= $MaterialIdCopy;
+$sql .= "')";
 
 $result = mysqli_query($link,$sql);
 if($result)
@@ -265,7 +265,7 @@ if($result)
 }
 else
 {
-    $msg = mysqli_error($link);
+    $msg = $sql." | ".mysqli_error($link);
     echo $msg;
 }
 
