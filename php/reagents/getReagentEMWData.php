@@ -71,6 +71,8 @@ if($result)
     $probirka3 = $row["probirka3"];
     $visibility = $row["visibility"];
     $MaterialId = $row["material_id"];
+	
+	$gotovnost4 = $row["gotovnost4"];
 }
 //<!-- BEGIN Tabs HTML Markup -->
 $msg ='
@@ -399,7 +401,7 @@ $msg .='
     </div>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="col-3">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -417,16 +419,17 @@ $msg .='
                     </select>
                 </div>
             </div>
-            <div class="col">
+            
+        </div>
+    </div>
+    <div class="col border border-secondary">
+        <div class="row">
+			<div class="col">
                 <div class="form-group d-print-none">
                     <label for="TitleEdit">Title</label>
                     <input type="text" id="TitleEdit" class="form-control" placeholder="Title" name="TitleEdit" value="'.$Title.'">
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
                     <label for="do12Edit">do12</label>
@@ -442,42 +445,64 @@ $msg .='
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="Method2IdEdit">Method2</label>
-                    <select id="Method2IdEdit" class="form-control" placeholder="Method2IdEdit" name="Method2IdEdit">
-                        <option value="0"></option>
-';
+<div class="row mt-1">   
+	<div class="col">
+		<div class="row">
+			<div class="col-3">
+				<div class="form-group d-print-none">
+					<label for="Method2IdEdit">Method2</label>
+					<select id="Method2IdEdit" class="form-control" placeholder="Method2IdEdit" name="Method2IdEdit">
+						<option value="0"></option>
+		';
 
-$sql = "SELECT MethodId, Method FROM method2";
-$result = mysqli_query($link,$sql);
-if($result)
-{
-    while($row = mysqli_fetch_array($result))
-    {
-        $msg .=  '<option value="'.$row["MethodId"].'"';
-        if($Method2id == $row["MethodId"]) $msg .= ' selected';
-        $msg .='>'.FillNonBreak($row["MethodId"],3).'&nbsp;'.$row["Method"].'</option>';
-    }
-}
-$msg .='
+		$sql = "SELECT MethodId, Method FROM method2";
+		$result = mysqli_query($link,$sql);
+		if($result)
+		{
+		while($row = mysqli_fetch_array($result))
+		{
+		$msg .=  '<option value="'.$row["MethodId"].'"';
+		if($Method2id == $row["MethodId"]) $msg .= ' selected';
+		$msg .='>'.FillNonBreak($row["MethodId"],3).'&nbsp;'.$row["Method"].'</option>';
+		}
+		}
+		$msg .='
+					</select>
+				</div>
+			</div>
+			<div class="col-3 border border-secondary">
+				<div class="form-group d-print-none">
+					<label for="gotovnostNEdit">gotovnostN</label>
+					<input type="text" id="gotovnostNEdit" class="form-control" placeholder="gotovnostN" name="gotovnostNEdit" value="'.$gotovnostN.'">
+				</div>	
+			</div>
+			<div class="col-3">				
+				<div class="form-group d-print-none">
+                    <label for="visibilityEdit">visibility</label>
+                    <select id="visibilityEdit" class="form-control" placeholder="visibilityEdit" name="visibilityEdit">
+                        <option value="0"></option>
+                        <option value="1" 
+';
+if($visibility == 1) $msg .= 'selected';
+$msg .='                >1&nbsp;Видимый</option>
+                        <option value="2" 
+';
+if($visibility == 2) $msg .= 'selected';
+$msg .='                >2&nbsp;Скрытый</option>
                     </select>
                 </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="gotovnostEdit">gotovnost</label>
-                    <input type="text" id="gotovnostEdit" class="form-control" placeholder="gotovnost" name="gotovnostEdit" value="'.$gotovnost.'">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="row">
-            <div class="col">
+			</div>
+			<div class="col-3 border border-secondary">																			
+				<div class="form-group d-print-none">
+					<label for="gotovnost4Edit">Gotovnost4</label>
+					<input type="text" id="gotovnost4Edit" class="form-control" placeholder="Gotovnost4" name="gotovnost4Edit" value="'.$gotovnost4.'">
+				</div>			
+			</div>
+		</div>	
+	</div>			    
+    <div class="col d-none">
+        <div class="row">			
+            <div class="col d-none">
                 <div class="form-group d-print-none">
                     <label for="probirka_zEdit[]">probirka_z</label>
                     <select id="probirka_zEdit" class="form-control" placeholder="probirka_zEdit" name="probirka_zEdit[]" size="6" multiple>
@@ -499,40 +524,24 @@ $msg .='
                     </select>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="srok_gotovnostiEdit">srok_gotovnosti</label>
-                    <input type="text" id="srok_gotovnostiEdit" class="form-control" placeholder="srok_gotovnosti" name="srok_gotovnostiEdit" value="'.$srok_gotovnosti.'">
-                </div>
-            </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col">
+<div class="row mt-1">
+    <div class="col border border-secondary">
         <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="gotovnostNEdit">gotovnostN</label>
-                    <input type="text" id="gotovnostNEdit" class="form-control" placeholder="gotovnostN" name="gotovnostNEdit" value="'.$gotovnostN.'">
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="visibilityEdit">visibility</label>
-                    <select id="visibilityEdit" class="form-control" placeholder="visibilityEdit" name="visibilityEdit">
-                        <option value="0"></option>
-                        <option value="1" 
-';
-if($visibility == 1) $msg .= 'selected';
-$msg .='                >1&nbsp;Видимый</option>
-                        <option value="2" 
-';
-if($visibility == 2) $msg .= 'selected';
-$msg .='                >2&nbsp;Скрытый</option>
-                    </select>
-                </div>
-            </div>
+			<div class="col-6">
+				<div class="form-group d-print-none">
+					<label for="gotovnostEdit">gotovnost</label>
+					<input type="text" id="gotovnostEdit" class="form-control" placeholder="gotovnost" name="gotovnostEdit" value="'.$gotovnost.'">
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group d-print-none">
+					<label for="srok_gotovnostiEdit">srok_gotovnosti</label>
+					<input type="text" id="srok_gotovnostiEdit" class="form-control" placeholder="srok_gotovnosti" name="srok_gotovnostiEdit" value="'.$srok_gotovnosti.'">
+				</div>
+			</div>
         </div>
     </div>
 </div>

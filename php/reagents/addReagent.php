@@ -140,6 +140,8 @@ $srok_gotovnostiAdd = $_POST["srok_gotovnostiAdd"];
 $gotovnostNAdd = $_POST["gotovnostNAdd"];
 //if($gotovnostNAdd == "") $gotovnostNAdd = "&nbsp;";
 
+$gotovnost4Add = $_POST["gotovnost4Add"];
+
 $probirka2IdAdd = $_POST["probirka2IdAdd"];
 if($probirka2IdAdd == 0)
 {
@@ -215,6 +217,7 @@ $sql .= "gotovnostN, ";
 $sql .= "probirka2, ";
 $sql .= "probirka3, ";
 $sql .= "visibility, ";
+$sql .= "gotovnost4, ";
 $sql .= "material_id";//material_id
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescAdd."', '";
@@ -253,6 +256,7 @@ $sql .= $gotovnostNAdd."', '";
 $sql .= $probirka2Add."', '";
 $sql .= $probirka3Add."', '";
 $sql .= $visibilityAdd."', '";
+$sql .= $gotovnost4Add."', '";
 $sql .= $MaterialIdAdd."'";
 $sql .= ")";
 

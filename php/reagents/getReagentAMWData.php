@@ -315,7 +315,7 @@ $msg .='
     </div>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="col-3">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -327,16 +327,16 @@ $msg .='
                     </select>
                 </div>
             </div>
-            <div class="col">
+        </div>
+    </div>
+    <div class="col border border-secondary">
+        <div class="row">
+			<div class="col">
                 <div class="form-group d-print-none">
                     <label for="TitleAdd">Title</label>
                     <input type="text" id="TitleAdd" class="form-control" placeholder="01:20" name="TitleAdd">
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
                     <label for="do12Add">do12</label>
@@ -352,10 +352,10 @@ $msg .='
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row mt-1">
     <div class="col">
         <div class="row">
-            <div class="col">
+            <div class="col-3">
                 <div class="form-group d-print-none">
                     <label for="Method2IdAdd">Method2</label>
                     <select id="Method2IdAdd" class="form-control" placeholder="Method2IdAdd" name="Method2IdAdd">
@@ -375,17 +375,33 @@ $msg .='
                     </select>
                 </div>
             </div>
-            <div class="col">
+			<div class="col-3 border border-secondary">
                 <div class="form-group d-print-none">
-                    <label for="gotovnostAdd">gotovnost</label>
-                    <input type="text" id="gotovnostAdd" class="form-control" placeholder="1(8:00)-2(10:15) 2(10:16)-5(14:25) 5(14:26)-6(19:00)" name="gotovnostAdd">
+                    <label for="gotovnostNAdd">gotovnostN</label>
+                    <input type="text" id="gotovnostNAdd" class="form-control" placeholder="gotovnostN" name="gotovnostNAdd">
+                </div>
+            </div>
+			<div class="col-3">
+                <div class="form-group d-print-none">
+                    <label for="visibilityAdd">visibility</label>
+                    <select id="visibilityAdd" class="form-control" placeholder="visibilityAdd" name="visibilityAdd">
+                        <option value="0"></option>
+                        <option value="1">1&nbsp;Видимый</option>
+                        <option value="2">2&nbsp;Скрытый</option>
+                    </select>
+                </div>
+            </div>
+			<div class="col-3 border border-secondary">
+                <div class="form-group d-print-none">
+                    <label for="gotovnost4Add">Gotovnost4</label>
+                    <input type="text" id="gotovnost4Add" class="form-control" placeholder="Gotovnost4" name="gotovnost4Add">
                 </div>
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col d-none">
         <div class="row">
-            <div class="col">
+            <div class="col d-none">
                 <div class="form-group d-print-none">
                     <label for="probirka_zAdd[]">probirka_z</label>
                     <select id="probirka_zAdd" class="form-control" placeholder="probirka_zAdd" name="probirka_zAdd[]" size="6" multiple>
@@ -405,32 +421,22 @@ $msg .='
                     </select>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="srok_gotovnostiAdd">srok_gotovnosti</label>
-                    <input type="text" id="srok_gotovnostiAdd" class="form-control" placeholder="3-2-10:20 4-3-16:20 2-5-14:10" name="srok_gotovnostiAdd">
-                </div>
-            </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col">
+<div class="row mt-1">
+    <div class="col border border-secondary">
         <div class="row">
-            <div class="col">
+			<div class="col-6">
                 <div class="form-group d-print-none">
-                    <label for="gotovnostNAdd">gotovnostN</label>
-                    <input type="text" id="gotovnostNAdd" class="form-control" placeholder="gotovnostN" name="gotovnostNAdd">
+                    <label for="gotovnostAdd">gotovnost</label>
+                    <input type="text" id="gotovnostAdd" class="form-control" placeholder="1(8:00)-2(10:15) 2(10:16)-5(14:25) 5(14:26)-6(19:00)" name="gotovnostAdd">
                 </div>
             </div>
-            <div class="col">
+			<div class="col-6">
                 <div class="form-group d-print-none">
-                    <label for="visibilityAdd">visibility</label>
-                    <select id="visibilityAdd" class="form-control" placeholder="visibilityAdd" name="visibilityAdd">
-                        <option value="0"></option>
-                        <option value="1">1&nbsp;Видимый</option>
-                        <option value="2">2&nbsp;Скрытый</option>
-                    </select>
+                    <label for="srok_gotovnostiAdd">srok_gotovnosti</label>
+                    <input type="text" id="srok_gotovnostiAdd" class="form-control" placeholder="3-2-10:20 4-3-16:20 2-5-14:10" name="srok_gotovnostiAdd">
                 </div>
             </div>
         </div>

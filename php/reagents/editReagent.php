@@ -158,6 +158,8 @@ else
     $probirka_zEdit = "{}";
 }
 
+$gotovnost4Edit = $_POST["gotovnost4Edit"];
+
 
 $srok_gotovnostiEdit = $_POST["srok_gotovnostiEdit"];
 //if($srok_gotovnostiEdit == "") $srok_gotovnostiEdit = "&nbsp;";
@@ -204,6 +206,7 @@ $sql .= "gotovnostN='".$gotovnostNEdit."',";
 $sql .= "probirka2='".$probirka2Edit."',";
 $sql .= "probirka3='".$probirka3Edit."',";
 $sql .= "visibility='".$visibilityEdit."',";
+$sql .= "gotovnost4='".$gotovnost4Edit."',";
 $sql .= "material_id='".$MaterialIdEdit."' ";
 $sql .= "WHERE ReagentId='".$ReagentIdEdit."'";
 

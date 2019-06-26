@@ -222,6 +222,7 @@ $msg.= '
 		<th scope="col">Срок&nbsp;готовности</th>
 		<!-- Готовность3 -->
 		<th scope="col">Готовность3</th>
+		<th scope="col">Готовность4</th>
 		<!-- Visibility -->
 		<th scope="col">Видимость</th>
 	</thead>
@@ -350,6 +351,7 @@ if($result)
 			<td>'.$row["gotovnost"].'</td>
 			<td>'.$row["srok_gotovnosti"].'</td>
 			<td>'.$row["gotovnostN"].'</td>
+			<td>'.$row["gotovnost4"].'</td>
 			<td>'.$row["vis"].'</td>
 		</tr>
 		';
