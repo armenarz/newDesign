@@ -152,79 +152,82 @@ $msg.= '
 	<thead>
 		<th scope="col"></th>
 		<th scope="col">#</th>
-		<!-- Mashinid -->
+		<!-- 1. Mashinid -->
 		<th scope="col">Код анализатора</th>
-		<!-- ReagentId -->
+		<!-- 2. ReagentId -->
 		<th scope="col">Код реагента</th>
-		<!-- Loinc -->
+		<!-- 3. Loinc -->
 		<th scope="col">Loinc</th>
-		<!-- ReagentDesc -->
+		<!-- 4. ReagentDesc -->
 		<th scope="col">Описание</th>
-		<!-- ReagentDescRus -->
+		<!-- 5. ReagentDescRus -->
 		<th scope="col">Описание на русском</th>
-		<!-- ReagentDescArm -->
+		<!-- 6. ReagentDescArm -->
 		<th scope="col">Описание на армянском</th>
-		<!-- GroupDesc -->
+		<!-- 7. GroupDesc -->
 		<th scope="col">Группа</th>
-		<!-- AnalysisPrice -->
+		<!-- 8. AnalysisPrice -->
 		<th scope="col">AnalysisPrice</th>
-		<!-- Method -->
+		<!-- 9. Method -->
 		<th scope="col">Метод</th>
-		<!-- Norm_male -->
+		<!-- 10. Norm_male -->
 		<th scope="col">Norm_male</th>
-		<!-- norm_male_top -->
+		<!-- 11. norm_male_top -->
 		<th scope="col">norm_male_top</th>
-		<!-- norm_male_bottom -->
+		<!-- 12. norm_male_bottom -->
 		<th scope="col">norm_male_bottom</th>
-		<!-- Norm_female -->
+		<!-- 13. Norm_female -->
 		<th scope="col">Norm_female</th>
-		<!-- norm_female_top -->
+		<!-- 14. norm_female_top -->
 		<th scope="col">norm_female_top</th>
-		<!-- norm_female_bottom -->
+		<!-- 15. norm_female_bottom -->
 		<th scope="col">norm_female_bottom</th>
-		<!-- ed_ismer -->
+		<!-- 16. ed_ismer -->
 		<th scope="col">Единица измерения</th>
-		<!-- Норма мужчин -->
+		<!-- 17. Норма мужчин -->
 		<th scope="col">Норма мужчин</th>
-		<!-- Норма женщин -->
+		<!-- 18. Норма женщин -->
 		<th scope="col">Норма женщин</th>
-		<!-- Dilution -->
+		<!-- 19. Dilution -->
 		<th scope="col">Склад(видимый/невидимый)</th>
-		<!-- UnitPrice -->
+		<!-- 20. UnitPrice -->
 		<th scope="col">Натощак</th>
-		<!-- ProducerId -->
+		<!-- 21. ProducerId -->
 		<th scope="col">ProducerId</th>
-		<!-- ReagentEquivalent -->
+		<!-- 22. ReagentEquivalent -->
 		<th scope="col">ReagentEquivalent</th>
-		<!-- Material -->
+		<!-- 23. Material -->
 		<th scope="col">Material</th>
-		<!-- Probirka -->
+		<!-- 24. Probirka -->
 		<th scope="col">Probirka</th>
-		<!-- Probirka2 -->
+		<!-- 25. Probirka2 -->
 		<th scope="col">Probirka2</th>
-		<!-- Probirka3 -->
+		<!-- 26. Probirka3 -->
 		<th scope="col">Probirka3</th>
-		<!-- Activ -->
+		<!-- 27. Activ -->
 		<th scope="col">Activ</th>
-		<!-- Title -->
+		<!-- 28. Title -->
 		<th scope="col">Title</th>
-		<!-- До Title -->
+		<!-- 29. До Title -->
 		<th scope="col">До&nbsp;Title</th>
-		<!-- После Title -->
+		<!-- 30. После Title -->
 		<th scope="col">После&nbsp;Title</th>
-		<!-- Method2 -->
+		<!-- 31. Method2 -->
 		<th scope="col">Method2</th>
-		<!-- Пробирки заказа -->
+		<!-- 32. Пробирки заказа -->
 		<th scope="col">Пробирки заказа</th>
-		<!-- Готовность -->
+		<!-- 33. Готовность -->
 		<th scope="col">Готовность</th>
-		<!-- Срок готовности -->
+		<!-- 34. Срок готовности -->
 		<th scope="col">Срок&nbsp;готовности</th>
-		<!-- Готовность3 -->
+		<!-- 35. Готовность3 -->
 		<th scope="col">Готовность3</th>
+		<!-- 36. Готовность4 -->
 		<th scope="col">Готовность4</th>
-		<!-- Visibility -->
+		<!-- 37. Visibility -->
 		<th scope="col">Видимость</th>
+		<!-- 38. sorting -->
+		<th scope="col">Сортировка</th>
 	</thead>
 	<tbody>
 ';
@@ -353,6 +356,7 @@ if($result)
 			<td>'.$row["gotovnostN"].'</td>
 			<td>'.$row["gotovnost4"].'</td>
 			<td>'.$row["vis"].'</td>
+			<td>'.$row["sorting"].'</td>
 		</tr>
 		';
 	}

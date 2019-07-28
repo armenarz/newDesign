@@ -71,42 +71,6 @@ else
 	echo $msg;
 	return;
 }
-//when selectReagent is selected
-/* if($reagentId != 0)
-{
-	$filter = " ReagentId='".$reagentId."'";
-	$sql = "SELECT * FROM reagent WHERE ".$filter;
-	$result = mysqli_query($link,$sql);
-	
-	if($result)
-	{	
-		$row = mysqli_fetch_array($result,MYSQL_ASSOC);
-	
-		$msg = '
-		<table class="table" border="1">
-			<caption><h2>Справка о реагенте #'.$reagentId.'</h2></caption>
-			<thead>
-				<th scope="col">Параметр</th>
-				<th scope="col">Значение</th>
-			</thead>
-		<tbody>
-		';
-		
-		foreach($row as $key => $value)
-		{
-			$msg.='<tr>';
-			$msg.='<td>'.$key.'</td>';
-			$msg.='<td>'.$value.'</td>';
-			$msg.='</tr>';
-		}	
-		$msg.= '</tbody>';
-        $msg.= '</table>';
-
-		header("Content-Disposition: attachement; filename=reagent_".$reagentId.".xls");
-		echo $utf8_bom.$msg;
-		return;
-	}
-} */
 
 $msg.= '
 <table class="table" border="1">
@@ -316,6 +280,8 @@ $msg.= '
 		<th scope="col">probirka3</th>
 		<!--visibility-->
 		<th scope="col">Код видимости</th>
+		<!--sorting-->
+		<th scope="col">Сортировка</th>
 	</thead>
 	<tbody>
 ';
@@ -371,6 +337,7 @@ if($result)
 			<td>'.$row["probirka2"].'</td>
 			<td>'.$row["probirka3"].'</td>
 			<td>'.$row["visibility"].'</td>
+			<td>'.$row["sorting"].'</td>
 		</tr>
 		';
 	}

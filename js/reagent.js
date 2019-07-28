@@ -409,7 +409,6 @@ function funcSuccessSetReagentEMWData(result)
     {
         $("#contentEditModal").html(result);
     }
-    
 }
 
 //setting copyModalWindow data
@@ -1101,6 +1100,7 @@ $('#addModalWindow').on('shown.bs.modal', function () {
     $('#srok_gotovnostiAdd').val('');
     $('#gotovnostNAdd').val('');
     $('#visibilityAdd').val($('#selectVisibility').val());
+    $('#sortingAdd').val('0');
 });
 
 // addModalWindow close handler
@@ -1156,6 +1156,7 @@ function CreateFormAddObject()
         frm.srok_gotovnostiAdd = $('#srok_gotovnostiAdd').val();
         frm.gotovnostNAdd = $('#gotovnostNAdd').val();
         frm.visibilityAdd = $('#visibilityAdd').val();
+        frm.sortingAdd = $('#sortingAdd').val();
     };
     frm.validate = function()
     {
@@ -1218,6 +1219,14 @@ function CreateFormAddObject()
             frm.invalidField ='MethodIdAdd';
             frm.isValid = false;
             return;
+        }
+        else if(frm.sortingAdd < 0)
+        {
+            frm.message = 'Введит положительное число или ноль.';
+            frm.invalidField ='sortingAdd';
+            frm.isValid = false;
+            return;
+
         }
         else
         {

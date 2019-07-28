@@ -179,6 +179,8 @@ else
 $visibilityCopy = $_POST["visibilityCopy"];
 $MaterialIdCopy = $_POST["MaterialIdCopy"];
 
+$sortingCopy = $_POST["sortingCopy"];
+
 $sql = "INSERT INTO reagent(";
 $sql .= "ReagentDesc, ";
 $sql .= "ReagentDescRus, ";
@@ -215,7 +217,8 @@ $sql .= "gotovnostN, ";
 $sql .= "probirka2, ";
 $sql .= "probirka3, ";
 $sql .= "visibility, ";
-$sql .= "material_id";
+$sql .= "material_id, ";
+$sql .= "sorting";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescCopy."', '";
 $sql .= $ReagentDescRusCopy."', '";
@@ -252,8 +255,9 @@ $sql .= $gotovnostNCopy."', '";
 $sql .= $probirka2Copy."', '";
 $sql .= $probirka3Copy."', '";
 $sql .= $visibilityCopy."', '";
-$sql .= $MaterialIdCopy;
-$sql .= "')";
+$sql .= $MaterialIdCopy."', '";
+$sql .= $sortingCopy."'";
+$sql .= ")";
 
 $result = mysqli_query($link,$sql);
 if($result)

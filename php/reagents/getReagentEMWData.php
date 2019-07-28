@@ -72,7 +72,8 @@ if($result)
     $visibility = $row["visibility"];
     $MaterialId = $row["material_id"];
 	
-	$gotovnost4 = $row["gotovnost4"];
+    $gotovnost4 = $row["gotovnost4"];
+    $sorting = $row["sorting"];
 }
 //<!-- BEGIN Tabs HTML Markup -->
 $msg ='
@@ -140,12 +141,12 @@ $sql = "SELECT GroupId, GroupDesc, GroupDescRus FROM reagentgroup";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["GroupId"].'"';
-if($GroupId == $row["GroupId"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["GroupId"],2).'&nbsp;'.ConcatWithBrackets($row["GroupDesc"],$row["GroupDescRus"]).'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["GroupId"].'"';
+        if($GroupId == $row["GroupId"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["GroupId"],2).'&nbsp;'.ConcatWithBrackets($row["GroupDesc"],$row["GroupDescRus"]).'</option>';
+    }
 }
 
 $msg .= '
@@ -162,12 +163,12 @@ $sql = "SELECT MethodId, Method FROM method";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["MethodId"].'"';
-if($Method == $row["Method"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["MethodId"],2).'&nbsp;'.$row["Method"].'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["MethodId"].'"';
+        if($Method == $row["Method"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["MethodId"],2).'&nbsp;'.$row["Method"].'</option>';
+    }
 }
 $msg .='
                     </select>
@@ -335,12 +336,12 @@ $sql = "SELECT id, prob, prob_arm, short_name FROM probirka WHERE id <> 1";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["id"].'"';
-if($probirka == $row["prob"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["id"].'"';
+        if($probirka == $row["prob"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
+    }
 }
 
 $msg .='
@@ -362,12 +363,12 @@ $sql = "SELECT id, prob, prob_arm, short_name FROM probirka WHERE id <> 1";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["id"].'"';
-if($probirka2 == $row["prob"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["id"].'"';
+        if($probirka2 == $row["prob"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
+    }
 }
 
 $msg .='
@@ -385,12 +386,12 @@ $sql = "SELECT id, prob, prob_arm, short_name FROM probirka WHERE id <> 1";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["id"].'"';
-if($probirka3 == $row["prob"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["id"].'"';
+        if($probirka3 == $row["prob"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
+    }
 }
 
 $msg .='
@@ -412,14 +413,13 @@ $msg .='
 ';
 if($activ == "activ") $msg .= 'selected';
 $msg .='                >1&nbsp;activ</option>
-                <option value="2" ';
+                        <option value="2" ';
 if($activ == "not activ") $msg .=   'selected';
 $msg .='
                         >2&nbsp;not activ</option>
                     </select>
                 </div>
-            </div>
-            
+            </div> 
         </div>
     </div>
     <div class="col border border-secondary">
@@ -459,12 +459,12 @@ $msg .='
 		$result = mysqli_query($link,$sql);
 		if($result)
 		{
-		while($row = mysqli_fetch_array($result))
-		{
-		$msg .=  '<option value="'.$row["MethodId"].'"';
-		if($Method2id == $row["MethodId"]) $msg .= ' selected';
-		$msg .='>'.FillNonBreak($row["MethodId"],3).'&nbsp;'.$row["Method"].'</option>';
-		}
+            while($row = mysqli_fetch_array($result))
+            {
+                $msg .=  '<option value="'.$row["MethodId"].'"';
+                if($Method2id == $row["MethodId"]) $msg .= ' selected';
+                $msg .='>'.FillNonBreak($row["MethodId"],3).'&nbsp;'.$row["Method"].'</option>';
+            }
 		}
 		$msg .='
 					</select>
@@ -545,8 +545,23 @@ $msg .='
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+			<div class="col-9">
+            </div>
+			<div class="col-3">
+                <div class="form-group d-print-none">
+                    <label for="sortingEdit">Сортировка</label>
+                    <input type="number" min="0" id="sortingEdit" class="form-control" placeholder="Введите номер сортировки." name="sortingEdit" value="'.$sorting.'">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 ';
 
 echo $msg;
+
 //<!-- END Tabs HTML Markup -->
 ?>

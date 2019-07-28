@@ -170,6 +170,8 @@ $gotovnostNEdit = $_POST["gotovnostNEdit"];
 $visibilityEdit = $_POST["visibilityEdit"];
 $MaterialIdEdit = $_POST["MaterialIdEdit"];
 
+$sortingEdit = $_POST["sortingEdit"];
+
 $sql  = "UPDATE reagent SET ";
 $sql .= "ReagentDesc='".$ReagentDescEdit."',";
 $sql .= "ReagentDescRus='".$ReagentDescRusEdit."',";
@@ -207,7 +209,8 @@ $sql .= "probirka2='".$probirka2Edit."',";
 $sql .= "probirka3='".$probirka3Edit."',";
 $sql .= "visibility='".$visibilityEdit."',";
 $sql .= "gotovnost4='".$gotovnost4Edit."',";
-$sql .= "material_id='".$MaterialIdEdit."' ";
+$sql .= "material_id='".$MaterialIdEdit."', ";
+$sql .= "sorting='".$sortingEdit."' ";
 $sql .= "WHERE ReagentId='".$ReagentIdEdit."'";
 
 $result = mysqli_query($link,$sql);

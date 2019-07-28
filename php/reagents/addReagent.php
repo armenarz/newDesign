@@ -177,8 +177,9 @@ else
     }
 }
 
-
 $visibilityAdd = $_POST["visibilityAdd"];
+
+$sortingAdd = $_POST["sortingAdd"];
 
 $sql = "INSERT INTO reagent(";
 $sql .= "ReagentDesc, ";
@@ -218,7 +219,8 @@ $sql .= "probirka2, ";
 $sql .= "probirka3, ";
 $sql .= "visibility, ";
 $sql .= "gotovnost4, ";
-$sql .= "material_id";//material_id
+$sql .= "material_id, ";//material_id
+$sql .= "sorting";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescAdd."', '";
 $sql .= $ReagentDescRusAdd."', '";
@@ -257,7 +259,8 @@ $sql .= $probirka2Add."', '";
 $sql .= $probirka3Add."', '";
 $sql .= $visibilityAdd."', '";
 $sql .= $gotovnost4Add."', '";
-$sql .= $MaterialIdAdd."'";
+$sql .= $MaterialIdAdd."', '";
+$sql .= $sortingAdd."'";
 $sql .= ")";
 
 $result = mysqli_query($link,$sql);

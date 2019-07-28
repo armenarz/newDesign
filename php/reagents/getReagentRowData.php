@@ -134,7 +134,9 @@ if($result)
         <td>'.$row["gotovnost"].'</td>
         <td>'.$row["srok_gotovnosti"].'</td>
         <td>'.$row["gotovnostN"].'</td>
+        <td>'.$row["gotovnost4"].'</td>
         <td>'.$row["vis"].'</td>
+        <td>'.$row["sorting"].'</td>
     ';
 	
 }

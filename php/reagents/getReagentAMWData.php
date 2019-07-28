@@ -442,6 +442,20 @@ $msg .='
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+			<div class="col-9">
+            </div>
+			<div class="col-3">
+                <div class="form-group d-print-none">
+                    <label for="sortingAdd">Сортировка</label>
+                    <input type="number" value="0" min="0" id="sortingAdd" class="form-control" placeholder="Введите номер сортировки." name="sortingAdd">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 ';
 
 echo $msg;

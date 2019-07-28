@@ -71,6 +71,9 @@ if($result)
     $probirka3 = $row["probirka3"];
     $visibility = $row["visibility"];
     $MaterialId = $row["material_id"];
+
+    $gotovnost4 = $row["gotovnost4"];
+    $sorting = $row["sorting"];
 }
 //<!-- BEGIN Tabs HTML Markup -->
 $msg ='
@@ -138,12 +141,12 @@ $sql = "SELECT GroupId, GroupDesc, GroupDescRus FROM reagentgroup";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["GroupId"].'"';
-if($GroupId == $row["GroupId"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["GroupId"],2).'&nbsp;'.ConcatWithBrackets($row["GroupDesc"],$row["GroupDescRus"]).'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["GroupId"].'"';
+        if($GroupId == $row["GroupId"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["GroupId"],2).'&nbsp;'.ConcatWithBrackets($row["GroupDesc"],$row["GroupDescRus"]).'</option>';
+    }
 }
 
 $msg .= '
@@ -160,12 +163,12 @@ $sql = "SELECT MethodId, Method FROM method";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["MethodId"].'"';
-if($Method == $row["Method"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["MethodId"],2).'&nbsp;'.$row["Method"].'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["MethodId"].'"';
+        if($Method == $row["Method"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["MethodId"],2).'&nbsp;'.$row["Method"].'</option>';
+    }
 }
 $msg .='
                     </select>
@@ -360,12 +363,12 @@ $sql = "SELECT id, prob, prob_arm, short_name FROM probirka WHERE id <> 1";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["id"].'"';
-if($probirka2 == $row["prob"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["id"].'"';
+        if($probirka2 == $row["prob"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
+    }
 }
 
 $msg .='
@@ -383,12 +386,12 @@ $sql = "SELECT id, prob, prob_arm, short_name FROM probirka WHERE id <> 1";
 $result = mysqli_query($link,$sql);
 if($result)
 {
-while($row = mysqli_fetch_array($result))
-{
-$msg .=  '<option value="'.$row["id"].'"';
-if($probirka3 == $row["prob"]) $msg .= ' selected';
-$msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
-}
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["id"].'"';
+        if($probirka3 == $row["prob"]) $msg .= ' selected';
+        $msg .='>'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["prob"],$row["prob_arm"]).'</option>';
+    }
 }
 
 $msg .='
@@ -399,7 +402,7 @@ $msg .='
     </div>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="col-3">
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
@@ -410,23 +413,23 @@ $msg .='
 ';
 if($activ == "activ") $msg .= 'selected';
 $msg .='                >1&nbsp;activ</option>
-                <option value="2" ';
+                        <option value="2" ';
 if($activ == "not activ") $msg .=   'selected';
 $msg .='
                         >2&nbsp;not activ</option>
                     </select>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="col border border-secondary">
+        <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
                     <label for="TitleCopy">Title</label>
                     <input type="text" id="TitleCopy" class="form-control" placeholder="Title" name="TitleCopy" value="'.$Title.'">
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
                     <label for="do12Copy">do12</label>
@@ -442,10 +445,10 @@ $msg .='
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row mt-1">
     <div class="col">
         <div class="row">
-            <div class="col">
+            <div class="col-3">
                 <div class="form-group d-print-none">
                     <label for="Method2IdCopy">Method2</label>
                     <select id="Method2IdCopy" class="form-control" placeholder="Method2IdCopy" name="Method2IdCopy">
@@ -467,23 +470,44 @@ $msg .='
                     </select>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-3 border border-secondary">
                 <div class="form-group d-print-none">
-                    <label for="gotovnostCopy">gotovnost</label>
-                    <input type="text" id="gotovnostCopy" class="form-control" placeholder="gotovnost" name="gotovnostCopy" value="'.$gotovnost.'">
+                    <label for="gotovnostNCopy">gotovnostN</label>
+                    <input type="text" id="gotovnostNCopy" class="form-control" placeholder="gotovnostN" name="gotovnostNCopy" value="'.$gotovnost.'">
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group d-print-none">
+                    <label for="visibilityCopy">visibility</label>
+                    <select id="visibilityCopy" class="form-control" placeholder="visibilityCopy" name="visibilityCopy">
+                        <option value="0"></option>
+                        <option value="1" 
+';
+if($visibility == 1) $msg .= 'selected';
+$msg .='                >1&nbsp;Видимый</option>
+                        <option value="2" 
+';
+if($visibility == 2) $msg .= 'selected';
+$msg .='                >2&nbsp;Скрытый</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3 border border-secondary">
+                <div class="form-group d-print-none">
+                    <label for="gotovnost4Copy">Gotovnost4</label>
+                    <input type="text" id="gotovnost4Copy" class="form-control" placeholder="Gotovnost4" name="gotovnost4Copy" value="'.$srok_gotovnosti.'">
                 </div>
             </div>
         </div>
     </div>
-    <div class="col">
+    <div class="col d-none">
         <div class="row">
-            <div class="col">
+            <div class="col d-none">
                 <div class="form-group d-print-none">
                     <label for="probirka_zCopy[]">probirka_z</label>
-                    <select id="probirka_zCopy" class="form-control" placeholder="probirka_zCopy" name="probirka_zCopy[]" size="6" multiple>
+                    <select id="probirka_zEdit" class="form-control" placeholder="probirka_zEdit" name="probirka_zEdit[]" size="6" multiple>
                         <option value="0"></option>
 ';
-
 $sql = "SELECT id, prob FROM probirka_z";
 $result = mysqli_query($link,$sql);
 if($result)
@@ -499,38 +523,36 @@ $msg .='
                     </select>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="srok_gotovnostiCopy">srok_gotovnosti</label>
-                    <input type="text" id="srok_gotovnostiCopy" class="form-control" placeholder="srok_gotovnosti" name="srok_gotovnostiCopy" value="'.$srok_gotovnosti.'">
-                </div>
-            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-1">
+    <div class="col border border-secondary">
+        <div class="row">
+			<div class="col-6">
+				<div class="form-group d-print-none">
+					<label for="gotovnostCopy">gotovnost</label>
+					<input type="text" id="gotovnostCopy" class="form-control" placeholder="gotovnost" name="gotovnostCopy" value="'.$gotovnost.'">
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group d-print-none">
+					<label for="srok_gotovnostiCopy">srok_gotovnosti</label>
+					<input type="text" id="srok_gotovnostiCopy" class="form-control" placeholder="srok_gotovnosti" name="srok_gotovnostiCopy" value="'.$srok_gotovnosti.'">
+				</div>
+			</div>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col">
         <div class="row">
-            <div class="col">
-                <div class="form-group d-print-none">
-                    <label for="gotovnostNCopy">gotovnostN</label>
-                    <input type="text" id="gotovnostNCopy" class="form-control" placeholder="gotovnostN" name="gotovnostNCopy" value="'.$gotovnostN.'">
-                </div>
+			<div class="col-9">
             </div>
-            <div class="col">
+			<div class="col-3">
                 <div class="form-group d-print-none">
-                    <label for="visibilityCopy">visibility</label>
-                    <select id="visibilityCopy" class="form-control" placeholder="visibilityCopy" name="visibilityCopy">
-                        <option value="0"></option>
-                        <option value="1" 
-';
-if($visibility == 1) $msg .= 'selected';
-$msg .='                >1&nbsp;Видимый</option>
-                        <option value="2" 
-';
-if($visibility == 2) $msg .= 'selected';
-$msg .='                >2&nbsp;Скрытый</option>
-                    </select>
+                    <label for="sortingCopy">Сортировка</label>
+                    <input type="number" min="0" id="sortingCopy" class="form-control" placeholder="Введите номер сортировки." name="sortingCopy" value="'.$sorting.'">
                 </div>
             </div>
         </div>
