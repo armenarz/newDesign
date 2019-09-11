@@ -213,10 +213,171 @@ $sql .= "material_id='".$MaterialIdEdit."', ";
 $sql .= "sorting='".$sortingEdit."' ";
 $sql .= "WHERE ReagentId='".$ReagentIdEdit."'";
 
+$editDate = date("Y-m-d H:i:s");
 $result = mysqli_query($link,$sql);
 if($result)
 {
     $msg = "Reagent data successfully updated.";
+    $user_id = $_POST["user_id"];
+    $ReagentId = $_POST["ReagentIdOld"];
+    
+    //getting form's old data into variables
+    $MashinidOld = $_POST["MashinidOld"];
+    $LoincOld = $_POST["LoincOld"];
+    $ReagentDescOld = $_POST["ReagentDescOld"];
+    $ReagentDescRusOld = $_POST["ReagentDescRusOld"];
+    $ReagentDescArmOld = $_POST["ReagentDescArmOld"];
+    $GroupIdOld = $_POST["GroupIdOld"];
+    $MethodIdOld = $_POST["MethodIdOld"];
+    $Norm_maleOld = $_POST["Norm_maleOld"];
+    $Norm_femaleOld = $_POST["Norm_femaleOld"];
+    $norm_male_topOld = $_POST["norm_male_topOld"];
+    $norm_male_bottomOld = $_POST["norm_male_bottomOld"];
+    $norm_female_topOld = $_POST["norm_female_topOld"];
+    $norm_female_bottomOld = $_POST["norm_female_bottomOld"];
+    $CalibrationOld = $_POST["CalibrationOld"];
+    $ControlOld = $_POST["ControlOld"];
+    $ed_ismerOld = $_POST["ed_ismerOld"];
+    $dilutionOld = $_POST["dilutionOld"];
+    $UnitPriceOld = $_POST["UnitPriceOld"];
+    $AnalysisPriceOld = $_POST["AnalysisPriceOld"];
+    $ProducerIdOld = $_POST["ProducerIdOld"];
+    $ReagentEquivalentOld = $_POST["ReagentEquivalentOld"];
+    $MaterialIdOld = $_POST["MaterialIdOld"];
+    $probirkaIdOld = $_POST["probirkaIdOld"];
+    $probirka2IdOld = $_POST["probirka2IdOld"];
+    $probirka3IdOld = $_POST["probirka3IdOld"];
+
+    $activOld = "";
+    if($_POST["activOld"] == 0) $activOld = "activ";
+    elseif($_POST["activOld"] == 1) $activOld = "activ";
+    elseif($_POST["activOld"] == 2) $activOld = "not activ";
+
+    $TitleOld = $_POST["TitleOld"];
+    $do12Old = $_POST["do12Old"];
+    $posle12Old = $_POST["posle12Old"];
+    $Method2IdOld = $_POST["Method2IdOld"];
+    $gotovnostNOld = $_POST["gotovnostNOld"];
+    $visibilityOld = $_POST["visibilityOld"];
+    $gotovnost4Old = $_POST["gotovnost4Old"];
+    $gotovnostOld = $_POST["gotovnostOld"];
+    $srok_gotovnostiOld = $_POST["srok_gotovnostiOld"];
+    $sortingOld = $_POST["sortingOld"];
+
+    //putting form's old data into associative array
+    $formOldData = array(   "Mashinid" => $MashinidOld, 
+                            "Loinc" => $LoincOld, 
+                            "ReagentDesc" => $ReagentDescOld, 
+                            "ReagentDescRus" => $ReagentDescRusOld, 
+                            "ReagentDescArm" => $ReagentDescArmOld,
+                            "GroupId" => $GroupIdOld, 
+                            "MethodId" => $MethodIdOld, 
+                            "Norm_male" => $Norm_maleOld, 
+                            "Norm_female" => $Norm_femaleOld, 
+                            "norm_male_top" => $norm_male_topOld,
+                            "norm_male_bottom" => $norm_male_bottomOld, 
+                            "norm_female_top" => $norm_female_topOld, 
+                            "norm_female_bottom" => $norm_female_bottomOld, 
+                            "Calibration" => $CalibrationOld,
+                            "Control" => $ControlOld, 
+                            "ed_ismer" => $ed_ismerOld, 
+                            "dilution" => $dilutionOld, 
+                            "UnitPrice" => $UnitPriceOld, 
+                            "AnalysisPrice" => $AnalysisPriceOld,
+                            "ProducerId" => $ProducerIdOld, 
+                            "ReagentEquivalent" => $ReagentEquivalentOld, 
+                            "MaterialId" => $MaterialIdOld, 
+                            "probirkaId" => $probirkaIdOld, 
+                            "probirka2Id" => $probirka2IdOld,
+                            "probirka3Id" => $probirka3IdOld, 
+                            "activ" => $activOld, 
+                            "Title" => $TitleOld, 
+                            "do12" => $do12Old, 
+                            "posle12" => $posle12Old, 
+                            "Method2Id" => $Method2IdOld,
+                            "gotovnostN" => $gotovnostNOld, 
+                            "visibility" => $visibilityOld, 
+                            "gotovnost4" => $gotovnost4Old, 
+                            "gotovnost" => $gotovnostOld, 
+                            "srok_gotovnosti" => $srok_gotovnostiOld,
+                            "sorting" => $sortingOld
+                        );
+
+    //putting form's new data into associative array
+    $formNewData = array(   "Mashinid" => $MashinidEdit, 
+                            "Loinc" => $LoincEdit, 
+                            "ReagentDesc" => $ReagentDescEdit, 
+                            "ReagentDescRus" => $ReagentDescRusEdit, 
+                            "ReagentDescArm" => $ReagentDescArmEdit,
+                            "GroupId" => $GroupIdEdit, 
+                            "MethodId" => $MethodIdEdit, 
+                            "Norm_male" => $Norm_maleEdit, 
+                            "Norm_female" => $Norm_femaleEdit, 
+                            "norm_male_top" => $norm_male_topEdit,
+                            "norm_male_bottom" => $norm_male_bottomEdit, 
+                            "norm_female_top" => $norm_female_topEdit, 
+                            "norm_female_bottom" => $norm_female_bottomEdit, 
+                            "Calibration" => $CalibrationEdit,
+                            "Control" => $ControlEdit, 
+                            "ed_ismer" => $ed_ismerEdit, 
+                            "dilution" => $dilutionEdit, 
+                            "UnitPrice" => $UnitPriceEdit, 
+                            "AnalysisPrice" => $AnalysisPriceEdit,
+                            "ProducerId" => $ProducerIdEdit, 
+                            "ReagentEquivalent" => $ReagentEquivalentEdit, 
+                            "MaterialId" => $MaterialIdEdit, 
+                            "probirkaId" => $probirkaIdEdit, 
+                            "probirka2Id" => $probirka2IdEdit,
+                            "probirka3Id" => $probirka3IdEdit, 
+                            "activ" => $activEdit, 
+                            "Title" => $TitleEdit, 
+                            "do12" => $do12Edit, 
+                            "posle12" => $posle12Edit, 
+                            "Method2Id" => $Method2IdEdit,
+                            "gotovnostN" => $gotovnostNEdit, 
+                            "visibility" => $visibilityEdit, 
+                            "gotovnost4" => $gotovnost4Edit, 
+                            "gotovnost" => $gotovnostEdit, 
+                            "srok_gotovnosti" => $srok_gotovnostiEdit,
+                            "sorting" => $sortingEdit
+                        );
+    
+    foreach($formNewData as $key => $value)
+    {
+        if($value != $formOldData[$key])
+        {
+            $FieldName = $key;
+            $OldValue = $formOldData[$key];
+            $NewValue = $value; 
+
+            $sql_log = " INSERT INTO 
+                        reagent_edit_log 
+                        (
+                            UserId, 
+                            EditDate, 
+                            ReagentId, 
+                            FieldName, 
+                            OldValue, 
+                            NewValue
+                        )
+                    VALUES 
+                    ( 
+                        '$user_id', 
+                        '$editDate', 
+                        '$ReagentId', 
+                        '$FieldName', 
+                        '$OldValue', 
+                        '$NewValue' 
+                    )";
+            
+            $result_log = mysqli_query($link,$sql_log);
+            if(!$result_log)
+            {
+                echo "Error: ".mysqli_error($link)." error number: ".mysqli_errno($link);
+                return;
+            }
+        }
+    }
 }
 else
 {

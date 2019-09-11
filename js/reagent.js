@@ -819,9 +819,10 @@ $('#editModalWindow').on('click','#buttonOKEdit', function(){
         type: "POST",
         url: "../reagents/editReagent.php",
         cache: false,
-        data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formEdit']").serialize()),
+        data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formEdit']").serialize()).concat("&").concat($.param(editFormOldData)),
         success: function(res)
         {
+            console.log(dataString);
             updateRow(reagentId);
             setSelectReagentData();
             $('#editModalWindow').modal('hide');
@@ -835,10 +836,56 @@ $('#editModalWindow').on('click','#buttonOKEdit', function(){
     $.ajax();
     return;    
 });
+let editFormOldData;
+// editModalWindow shown handler
+$('#editModalWindow').on('shown.bs.modal', function () {
+    editFormOldData = {};
+    editFormOldData.MashinidOld = $('#MashinidEdit').val();
+    editFormOldData.ReagentIdOld = $('#ReagentIdEdit').val();
+    editFormOldData.LoincOld = $('#LoincEdit').val();
+    editFormOldData.ReagentDescOld = $('#ReagentDescEdit').val();
+    editFormOldData.ReagentDescRusOld = $('#ReagentDescRusEdit').val();
+    editFormOldData.ReagentDescArmOld = $('#ReagentDescArmEdit').val();
+    editFormOldData.GroupIdOld = $('#GroupIdEdit').val();
+    editFormOldData.MethodIdOld = $('#MethodIdEdit').val();
+    editFormOldData.Norm_maleOld = $('#Norm_maleEdit').val();
+    editFormOldData.Norm_femaleOld = $('#Norm_femaleEdit').val();
+    editFormOldData.norm_male_topOld = $('#norm_male_topEdit').val();
+    editFormOldData.norm_male_bottomOld = $('#norm_male_bottomEdit').val();
+    editFormOldData.norm_female_topOld = $('#norm_female_topEdit').val();
+    editFormOldData.norm_female_bottomOld = $('#norm_female_bottomEdit').val();
+    editFormOldData.CalibrationOld = $('#CalibrationEdit').val();
+    editFormOldData.ControlOld = $('#ControlEdit').val();
+    editFormOldData.ed_ismerOld = $('#ed_ismerEdit').val();
+    editFormOldData.dilutionOld = $('#dilutionEdit').val();
+    editFormOldData.UnitPriceOld = $('#UnitPriceEdit').val();
+    editFormOldData.AnalysisPriceOld = $('#AnalysisPriceEdit').val();
+    editFormOldData.ProducerIdOld = $('#ProducerIdEdit').val();
+    editFormOldData.ReagentEquivalentOld = $('#ReagentEquivalentEdit').val();
+    editFormOldData.MaterialIdOld = $('#MaterialIdEdit').val();
+    editFormOldData.probirkaIdOld = $('#probirkaIdEdit').val();
+    editFormOldData.probirka2IdOld = $('#probirka2IdEdit').val();
+    editFormOldData.probirka3IdOld = $('#probirka3IdEdit').val();
+    editFormOldData.activOld = $('#activEdit').val();
+    editFormOldData.TitleOld = $('#TitleEdit').val();
+    editFormOldData.do12Old = $('#do12Edit').val();
+    editFormOldData.posle12Old = $('#posle12Edit').val();
+    editFormOldData.Method2IdOld = $('#Method2IdEdit').val();
+    editFormOldData.gotovnostNOld = $('#gotovnostNEdit').val();
+    editFormOldData.visibilityOld = $('#visibilityEdit').val();
+    editFormOldData.gotovnost4Old = $('#gotovnost4Edit').val();
+    editFormOldData.gotovnostOld = $('#gotovnostEdit').val();
+    editFormOldData.srok_gotovnostiOld = $('#srok_gotovnostiEdit').val();
+    editFormOldData.sortingOld = $('#sortingEdit').val();
+
+    //console.log(editFormOldData);
+});
 // editModalWindow close handler
 $('#editModalWindow').on('hidden.bs.modal', function () {
-
+    //console.log(editFormOldData);
 });
+
+
 
 /// FormEdit Object
 function CreateFormEditObject()
