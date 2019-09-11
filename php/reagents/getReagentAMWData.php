@@ -28,7 +28,7 @@ $msg  = '
             <div class="col">
                 <div class="form-group d-print-none">
                     <label for="LoincAdd">Loinc</label>
-                    <input type="number" min="0" id="LoincAdd" class="form-control" placeholder="Loinc" name="LoincAdd">
+                    <input type="text" id="LoincAdd" class="form-control" placeholder="Loinc" name="LoincAdd">
                 </div>
             </div>
             <div class="col">

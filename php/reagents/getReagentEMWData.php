@@ -99,7 +99,7 @@ $msg ='
             <div class="col">
                 <div class="form-group d-print-none">
                     <label for="LoincEdit">Loinc</label>
-                    <input type="number" min="0" id="LoincEdit" class="form-control" placeholder="Loinc" name="LoincEdit" value="'.$Loinc.'">
+                    <input type="text" id="LoincEdit" class="form-control" placeholder="Loinc" name="LoincEdit" value="'.$Loinc.'">
                 </div>
             </div>
             <div class="col">
