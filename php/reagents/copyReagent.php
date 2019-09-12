@@ -259,11 +259,35 @@ $sql .= $MaterialIdCopy."', '";
 $sql .= $sortingCopy."'";
 $sql .= ")";
 
+$copyDate = date("Y-m-d H:i:s");
 $result = mysqli_query($link,$sql);
 if($result)
 {
     $newReagentIdCopy = mysqli_insert_id($link);
     $msg = "Реагент с Id=".$ReagentIdCopy." был успесшно копирован в новый реагент с Id=".$newReagentIdCopy;
+    $user_id = $_POST["user_id"];
+
+    $sql_log = " INSERT INTO 
+                reagent_add_log 
+                (
+                    UserId, 
+                    AddDate, 
+                    ReagentId
+                )
+                VALUES 
+                ( 
+                    '$user_id', 
+                    '$copyDate', 
+                    '$newReagentIdCopy'
+                )";
+    
+    $result_log = mysqli_query($link,$sql_log);
+    if(!$result_log)
+    {
+        echo "Error: ".mysqli_error($link)." error number: ".mysqli_errno($link);
+        return;
+    }
+
     echo $msg;
     return;
 }

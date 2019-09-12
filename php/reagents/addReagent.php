@@ -263,10 +263,34 @@ $sql .= $MaterialIdAdd."', '";
 $sql .= $sortingAdd."'";
 $sql .= ")";
 
+$addDate = date("Y-m-d H:i:s");
 $result = mysqli_query($link,$sql);
 if($result)
 {
     $msg = "New reagent successfully added.";
+    $user_id = $_POST["user_id"];
+    $ReagentId = mysqli_insert_id($link);
+
+    $sql_log = " INSERT INTO 
+                reagent_add_log 
+                (
+                    UserId, 
+                    AddDate, 
+                    ReagentId
+                )
+                VALUES 
+                ( 
+                    '$user_id', 
+                    '$addDate', 
+                    '$ReagentId'
+                )";
+    
+    $result_log = mysqli_query($link,$sql_log);
+    if(!$result_log)
+    {
+        echo "Error: ".mysqli_error($link)." error number: ".mysqli_errno($link);
+        return;
+    }
 }
 else
 {
