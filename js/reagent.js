@@ -681,6 +681,8 @@ function CreateFormCopyObject()
         frm.srok_gotovnostiCopy = $('#srok_gotovnostiCopy').val();
         frm.gotovnostNCopy = $('#gotovnostNCopy').val();
         frm.visibilityCopy = $('#visibilityCopy').val();
+        frm.sortingCopy = $('#sortingCopy').val();
+        frm.analizatorsCopy = $('#analizatorsCopy').val();
     };
     frm.validate = function()
     {
@@ -822,7 +824,7 @@ $('#editModalWindow').on('click','#buttonOKEdit', function(){
         data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formEdit']").serialize()).concat("&").concat($.param(editFormOldData)),
         success: function(res)
         {
-            console.log(dataString);
+            //console.log(dataString);
             updateRow(reagentId);
             setSelectReagentData();
             $('#editModalWindow').modal('hide');
@@ -877,6 +879,7 @@ $('#editModalWindow').on('shown.bs.modal', function () {
     editFormOldData.gotovnostOld = $('#gotovnostEdit').val();
     editFormOldData.srok_gotovnostiOld = $('#srok_gotovnostiEdit').val();
     editFormOldData.sortingOld = $('#sortingEdit').val();
+    editFormOldData.analizatorsOld = $('#analizatorsEdit').val();
 
     //console.log(editFormOldData);
 });
@@ -935,6 +938,7 @@ function CreateFormEditObject()
         frm.srok_gotovnostiEdit = $('#srok_gotovnostiEdit').val();
         frm.gotovnostNEdit = $('#gotovnostNEdit').val();
         frm.visibilityEdit = $('#visibilityEdit').val();
+        frm.sortingEdit = $('#sortingEdit').val();
     };
     frm.validate = function()
     {

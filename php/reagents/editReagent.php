@@ -172,6 +172,11 @@ $MaterialIdEdit = $_POST["MaterialIdEdit"];
 
 $sortingEdit = $_POST["sortingEdit"];
 
+if(isset($_POST["analizatorsEdit"]))
+{
+    $analizatorsEdit = implode(',',$_POST["analizatorsEdit"]);
+}
+
 $sql  = "UPDATE reagent SET ";
 $sql .= "ReagentDesc='".$ReagentDescEdit."',";
 $sql .= "ReagentDescRus='".$ReagentDescRusEdit."',";
@@ -210,7 +215,8 @@ $sql .= "probirka3='".$probirka3Edit."',";
 $sql .= "visibility='".$visibilityEdit."',";
 $sql .= "gotovnost4='".$gotovnost4Edit."',";
 $sql .= "material_id='".$MaterialIdEdit."', ";
-$sql .= "sorting='".$sortingEdit."' ";
+$sql .= "sorting='".$sortingEdit."', ";
+$sql .= "analizators='".$analizatorsEdit."' ";
 $sql .= "WHERE ReagentId='".$ReagentIdEdit."'";
 
 $editDate = date("Y-m-d H:i:s");
@@ -264,6 +270,11 @@ if($result)
     $srok_gotovnostiOld = $_POST["srok_gotovnostiOld"];
     $sortingOld = $_POST["sortingOld"];
 
+    if(isset($_POST["analizatorsOld"]))
+    {
+        $analizatorsOld = implode(',',$_POST["analizatorsOld"]);
+    }
+
     //putting form's old data into associative array
     $formOldData = array(   "Mashinid" => $MashinidOld, 
                             "Loinc" => $LoincOld, 
@@ -300,7 +311,8 @@ if($result)
                             "gotovnost4" => $gotovnost4Old, 
                             "gotovnost" => $gotovnostOld, 
                             "srok_gotovnosti" => $srok_gotovnostiOld,
-                            "sorting" => $sortingOld
+                            "sorting" => $sortingOld,
+                            "analizators" => $analizatorsOld
                         );
 
     //putting form's new data into associative array
@@ -339,7 +351,8 @@ if($result)
                             "gotovnost4" => $gotovnost4Edit, 
                             "gotovnost" => $gotovnostEdit, 
                             "srok_gotovnosti" => $srok_gotovnostiEdit,
-                            "sorting" => $sortingEdit
+                            "sorting" => $sortingEdit,
+                            "analizators" => $analizatorsEdit
                         );
     
     foreach($formNewData as $key => $value)

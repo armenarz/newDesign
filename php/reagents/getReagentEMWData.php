@@ -74,6 +74,9 @@ if($result)
 	
     $gotovnost4 = $row["gotovnost4"];
     $sorting = $row["sorting"];
+
+    $analizators = array();
+    $analizators = explode(',',$row["analizators"]);
 }
 //<!-- BEGIN Tabs HTML Markup -->
 $msg ='
@@ -548,13 +551,32 @@ $msg .='
 <div class="row">
     <div class="col">
         <div class="row">
-			<div class="col-9">
-            </div>
 			<div class="col-3">
                 <div class="form-group d-print-none">
                     <label for="sortingEdit">Сортировка</label>
                     <input type="number" min="0" id="sortingEdit" class="form-control" placeholder="Введите номер сортировки." name="sortingEdit" value="'.$sorting.'">
                 </div>
+            </div>
+            <div class="col-6">
+                <label for="analizatorsEdit[]">Анализаторы</label>
+                <select id="analizatorsEdit" class="form-control" placeholder="analizatorsEdit" name="analizatorsEdit[]" size="6" multiple>';
+
+                    $sql = "SELECT id, an_name FROM analizators";
+                    $result = mysqli_query($link,$sql);
+                    if($result)
+                    {
+                        while($row = mysqli_fetch_array($result))
+                        {
+                            $msg .= '<option value="'.$row["id"].'"';
+                            if(in_array($row["id"],$analizators)) $msg .= ' selected';
+                            $msg .= '>'.FillNonBreak($row["id"],2).'&nbsp;'.$row["an_name"].'</option>';
+                        }
+                    }
+                    
+$msg .= '
+                </select>
+            </div>
+            <div class="col-3">
             </div>
         </div>
     </div>

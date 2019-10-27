@@ -1,4 +1,4 @@
-#searchReagent, #reagentsList, #generalSelectionId, #probirka_zAdd, #probirka3IdAdd, #probirka2IdAdd, #visibilityAdd, #Method2IdAdd, #probirkaIdAdd, #activAdd, #MethodIdAdd, #GroupIdAdd, 
+#analizatorsCopy, #analizatorsEdit, #analizatorsAdd, #searchReagent, #reagentsList, #generalSelectionId, #probirka_zAdd, #probirka3IdAdd, #probirka2IdAdd, #visibilityAdd, #Method2IdAdd, #probirkaIdAdd, #activAdd, #MethodIdAdd, #GroupIdAdd, 
 #probirka_zEdit, #probirka3IdEdit, #probirka2IdEdit, #visibilityEdit, #Method2IdEdit, #probirkaIdEdit, #activEdit, #MethodIdEdit, #GroupIdEdit, 
 #selectVisibility, #selectGroup, #selectMethod, #selectReagent {
     font-family: 'Courier New', Courier, monospace;
@@ -79,7 +79,8 @@ a.disabled
 {
 	margin-top:60px;
 }
-#probirka_zView
+#analizatorsView, #probirka_zView
 {
 	width:150px;
+	font-family: 'Courier New', Courier, monospace;
 }

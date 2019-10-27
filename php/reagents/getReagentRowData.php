@@ -137,6 +137,24 @@ if($result)
         <td>'.$row["gotovnost4"].'</td>
         <td>'.$row["vis"].'</td>
         <td>'.$row["sorting"].'</td>
+        <td><select id="analizatorsView" class="form-control" name="analizatorsView[]" size="6" multiple disabled>
+			<option value="0"></option>
+		';
+		$analizators = array();
+		$analizators = explode(',', $row["analizators"]);
+		$sql_an = "SELECT id, an_name FROM analizators";
+		$result_an = mysqli_query($link,$sql_an);
+		if($result_an)
+		{
+			while($row_an = mysqli_fetch_array($result_an))
+			{
+				$msg .= '<option value="'.$row_an["id"].'"';
+				if(in_array($row_an["id"],$analizators)) $msg .= ' selected';
+				$msg .= '>'.FillNonBreak($row_an["id"],2).'&nbsp;'.$row_an["an_name"].'</option>';
+			}
+		}
+		$msg.='
+			</select></td>
     ';
 	
 }

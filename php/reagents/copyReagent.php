@@ -181,6 +181,11 @@ $MaterialIdCopy = $_POST["MaterialIdCopy"];
 
 $sortingCopy = $_POST["sortingCopy"];
 
+if(isset($_POST["analizatorsCopy"]))
+{
+    $analizatorsCopy = implode(',',$_POST["analizatorsCopy"]);
+}
+
 $sql = "INSERT INTO reagent(";
 $sql .= "ReagentDesc, ";
 $sql .= "ReagentDescRus, ";
@@ -218,7 +223,8 @@ $sql .= "probirka2, ";
 $sql .= "probirka3, ";
 $sql .= "visibility, ";
 $sql .= "material_id, ";
-$sql .= "sorting";
+$sql .= "sorting, ";
+$sql .= "analizators";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescCopy."', '";
 $sql .= $ReagentDescRusCopy."', '";
@@ -256,7 +262,8 @@ $sql .= $probirka2Copy."', '";
 $sql .= $probirka3Copy."', '";
 $sql .= $visibilityCopy."', '";
 $sql .= $MaterialIdCopy."', '";
-$sql .= $sortingCopy."'";
+$sql .= $sortingCopy."', '";
+$sql .= $analizatorsCopy."'";
 $sql .= ")";
 
 $copyDate = date("Y-m-d H:i:s");

@@ -228,6 +228,8 @@ $msg.= '
 		<th scope="col">Видимость</th>
 		<!-- 38. sorting -->
 		<th scope="col">Сортировка</th>
+		<!-- 39. analizators -->
+		<th scope="col">Анализаторы</th>
 	</thead>
 	<tbody>
 ';
@@ -306,8 +308,10 @@ if($result)
 			<td>'.$row["do12"].'</td>
 			<td>'.$row["posle12"].'</td>
 			';
-		$sql_method2="
-		SELECT Method FROM method2 WHERE MethodId='".$row["Method2id"]."'
+		$sql_method2="	SELECT 
+							Method 
+						FROM method2 
+						WHERE MethodId='".$row["Method2id"]."'
 		";
 		$result_method2 = mysqli_query($link,$sql_method2);
 		if($result_method2)
@@ -357,6 +361,24 @@ if($result)
 			<td>'.$row["gotovnost4"].'</td>
 			<td>'.$row["vis"].'</td>
 			<td>'.$row["sorting"].'</td>
+			<td><select id="analizatorsView" class="form-control" name="analizatorsView[]" size="6" multiple disabled>
+			<option value="0"></option>
+		';
+		$analizators = array();
+		$analizators = explode(',', $row["analizators"]);
+		$sql_an = "SELECT id, an_name FROM analizators";
+		$result_an = mysqli_query($link,$sql_an);
+		if($result_an)
+		{
+			while($row_an = mysqli_fetch_array($result_an))
+			{
+				$msg .= '<option value="'.$row_an["id"].'"';
+				if(in_array($row_an["id"],$analizators)) $msg .= ' selected';
+				$msg .= '>'.FillNonBreak($row_an["id"],2).'&nbsp;'.$row_an["an_name"].'</option>';
+			}
+		}
+		$msg.='
+			</select></td>
 		</tr>
 		';
 	}

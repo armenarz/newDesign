@@ -181,6 +181,11 @@ $visibilityAdd = $_POST["visibilityAdd"];
 
 $sortingAdd = $_POST["sortingAdd"];
 
+if(isset($_POST["analizatorsAdd"]))
+{
+    $analizatorsAdd = implode(',',$_POST["analizatorsAdd"]);
+}
+
 $sql = "INSERT INTO reagent(";
 $sql .= "ReagentDesc, ";
 $sql .= "ReagentDescRus, ";
@@ -220,7 +225,8 @@ $sql .= "probirka3, ";
 $sql .= "visibility, ";
 $sql .= "gotovnost4, ";
 $sql .= "material_id, ";//material_id
-$sql .= "sorting";
+$sql .= "sorting, ";
+$sql .= "analizators";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescAdd."', '";
 $sql .= $ReagentDescRusAdd."', '";
@@ -260,7 +266,8 @@ $sql .= $probirka3Add."', '";
 $sql .= $visibilityAdd."', '";
 $sql .= $gotovnost4Add."', '";
 $sql .= $MaterialIdAdd."', '";
-$sql .= $sortingAdd."'";
+$sql .= $sortingAdd."', '";
+$sql .= $analizatorsAdd."'";
 $sql .= ")";
 
 $addDate = date("Y-m-d H:i:s");
