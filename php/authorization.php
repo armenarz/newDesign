@@ -1,8 +1,16 @@
 <?php
+if(!$_POST["uu"])
+{
+	header("Location: ../../index.php");
+	return;
+}
+$uu=$_POST["uu"];
+$userId = $uu;
+
 $num_pac=$_POST["num_pac"];
 if(!isset($_POST["num"]))
 {
-	$sql="select OrderId from orders order by OrderId desc limit 0,1";
+	$sql="select OrderId from orders WHERE user_id='".$uu."' order by OrderId desc limit 0,1";
 	$result = mysqli_query($link,$sql);
 	if($result)
 	{
@@ -14,11 +22,4 @@ else
 {
 	$num=$_POST["num"];
 }
-if(!$_POST["uu"])
-{
-	header("Location: ../../index.php");
-}
-$uu=$_POST["uu"];
-
-$userId = $uu;
 ?>
