@@ -186,6 +186,10 @@ if(isset($_POST["analizatorsAdd"]))
     $analizatorsAdd = implode(',',$_POST["analizatorsAdd"]);
 }
 
+$transportationTemperatureAdd = $_POST["transportationTemperatureAdd"];
+$storageTemperatureAdd = $_POST["storageTemperatureAdd"];
+$shelfLifeAdd = $_POST["shelfLifeAdd"];
+
 $sql = "INSERT INTO reagent(";
 $sql .= "ReagentDesc, ";
 $sql .= "ReagentDescRus, ";
@@ -226,7 +230,10 @@ $sql .= "visibility, ";
 $sql .= "gotovnost4, ";
 $sql .= "material_id, ";//material_id
 $sql .= "sorting, ";
-$sql .= "analizators";
+$sql .= "analizators, ";
+$sql .= "transportation_temperature, ";
+$sql .= "storage_temperature, ";
+$sql .= "shelf_life ";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescAdd."', '";
 $sql .= $ReagentDescRusAdd."', '";
@@ -267,7 +274,10 @@ $sql .= $visibilityAdd."', '";
 $sql .= $gotovnost4Add."', '";
 $sql .= $MaterialIdAdd."', '";
 $sql .= $sortingAdd."', '";
-$sql .= $analizatorsAdd."'";
+$sql .= $analizatorsAdd."', '";
+$sql .= $transportationTemperatureAdd."', '";
+$sql .= $storageTemperatureAdd."', '";
+$sql .= $shelfLifeAdd."'";
 $sql .= ")";
 
 $addDate = date("Y-m-d H:i:s");

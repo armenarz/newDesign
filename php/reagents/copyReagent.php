@@ -186,6 +186,10 @@ if(isset($_POST["analizatorsCopy"]))
     $analizatorsCopy = implode(',',$_POST["analizatorsCopy"]);
 }
 
+$transportationTemperatureCopy = $_POST["transportationTemperatureCopy"];
+$storageTemperatureCopy = $_POST["storageTemperatureCopy"];
+$shelfLifeCopy = $_POST["shelfLifeCopy"];
+
 $sql = "INSERT INTO reagent(";
 $sql .= "ReagentDesc, ";
 $sql .= "ReagentDescRus, ";
@@ -224,7 +228,10 @@ $sql .= "probirka3, ";
 $sql .= "visibility, ";
 $sql .= "material_id, ";
 $sql .= "sorting, ";
-$sql .= "analizators";
+$sql .= "analizators, ";
+$sql .= "transportation_temperature, ";
+$sql .= "storage_temperature, ";
+$sql .= "shelf_life";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescCopy."', '";
 $sql .= $ReagentDescRusCopy."', '";
@@ -263,7 +270,10 @@ $sql .= $probirka3Copy."', '";
 $sql .= $visibilityCopy."', '";
 $sql .= $MaterialIdCopy."', '";
 $sql .= $sortingCopy."', '";
-$sql .= $analizatorsCopy."'";
+$sql .= $analizatorsCopy."', '";
+$sql .= $transportationTemperatureCopy."', '";
+$sql .= $storageTemperatureCopy."', '";
+$sql .= $shelfLifeCopy."'";
 $sql .= ")";
 
 $copyDate = date("Y-m-d H:i:s");

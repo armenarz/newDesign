@@ -130,7 +130,8 @@ if($result)
         }
     }
     $msg.= '
-                        </select></td>
+            </select>
+        </td>
         <td>'.$row["gotovnost"].'</td>
         <td>'.$row["srok_gotovnosti"].'</td>
         <td>'.$row["gotovnostN"].'</td>
@@ -154,7 +155,11 @@ if($result)
 			}
 		}
 		$msg.='
-			</select></td>
+            </select>
+        </td>
+        <td>'.$row["transportation_temperature"].'</td>
+        <td>'.$row["storage_temperature"].'</td>
+        <td>'.$row["shelf_life"].'</td>
     ';
 	
 }

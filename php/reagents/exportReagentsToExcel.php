@@ -282,6 +282,14 @@ $msg.= '
 		<th scope="col">Код видимости</th>
 		<!--sorting-->
 		<th scope="col">Сортировка</th>
+		<!--analizators-->
+		<th scope="col">Анализаторы</th>
+		<!--transportation_temperature-->
+		<th scope="col">Температура перевозки</th>
+		<!--storage_temperature-->
+		<th scope="col">Температура хранения</th>
+		<!--shelf_life-->
+		<th scope="col">Срок годности</th>
 	</thead>
 	<tbody>
 ';
@@ -338,6 +346,10 @@ if($result)
 			<td>'.$row["probirka3"].'</td>
 			<td>'.$row["visibility"].'</td>
 			<td>'.$row["sorting"].'</td>
+			<td>'.$row["analizators"].'</td>
+			<td>'.$row["transportation_temperature"].'</td>
+			<td>'.$row["storage_temperature"].'</td>
+			<td>'.$row["shelf_life"].'</td>
 		</tr>
 		';
 	}

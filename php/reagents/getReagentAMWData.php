@@ -444,33 +444,49 @@ $msg .='
     </div>
 </div>
 <div class="row">
-    <div class="col">
-        <div class="row">
-			<div class="col-3">
-                <div class="form-group d-print-none">
-                    <label for="sortingAdd">Сортировка</label>
-                    <input type="number" value="0" min="0" id="sortingAdd" class="form-control" placeholder="Введите номер сортировки." name="sortingAdd">
-                </div>
-            </div>
-            <div class="col-6">
-                <label for="analizatorsAdd[]">Анализаторы</label>
-                <select id="analizatorsAdd" class="form-control" placeholder="analizatorsAdd" name="analizatorsAdd[]" size="6" multiple>';
+    <div class="col-3">
+        <div class="form-group d-print-none">
+            <label for="sortingAdd">Сортировка</label>
+            <input type="number" value="0" min="0" id="sortingAdd" class="form-control" placeholder="Введите номер сортировки." name="sortingAdd">
+        </div>
+    </div>
+    <div class="col-6">
+        <label for="analizatorsAdd[]">Анализаторы</label>
+        <select id="analizatorsAdd" class="form-control" placeholder="analizatorsAdd" name="analizatorsAdd[]" size="6" multiple>';
 
-                    $sql = "SELECT id, an_name FROM analizators";
-                    $result = mysqli_query($link,$sql);
-                    if($result)
-                    {
-                        while($row = mysqli_fetch_array($result))
-                        {
-                            $msg .=  '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["an_name"].'</option>';
-                        }
-                    }
-                    
+            $sql = "SELECT id, an_name FROM analizators";
+            $result = mysqli_query($link,$sql);
+            if($result)
+            {
+                while($row = mysqli_fetch_array($result))
+                {
+                    $msg .=  '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["an_name"].'</option>';
+                }
+            }
+            
 $msg .= '
-                </select>
-            </div>
-            <div class="col-3">
-            </div>
+        </select>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <div class="form-group d-print-none">
+            <label for="transportationTemperatureAdd">Температура перевозки</label>
+            <input type="text" id="transportationTemperatureAdd" class="form-control" placeholder="Температура перевозки." name="transportationTemperatureAdd">
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group d-print-none">
+            <label for="storageTemperatureAdd">Температура хранения</label>
+            <input type="text" id="storageTemperatureAdd" class="form-control" placeholder="Температура хранения." name="storageTemperatureAdd">
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group d-print-none">
+            <label for="shelfLifeAdd">Self Life</label>
+            <input type="text" id="shelfLifeAdd" class="form-control" placeholder="Self Life" name="shelfLifeAdd">
         </div>
     </div>
 </div>

@@ -177,6 +177,10 @@ if(isset($_POST["analizatorsEdit"]))
     $analizatorsEdit = implode(',',$_POST["analizatorsEdit"]);
 }
 
+$transportationTemperatureEdit = $_POST["transportationTemperatureEdit"];
+$storageTemperatureEdit = $_POST["storageTemperatureEdit"];
+$shelfLifeEdit = $_POST["shelfLifeEdit"];
+
 $sql  = "UPDATE reagent SET ";
 $sql .= "ReagentDesc='".$ReagentDescEdit."',";
 $sql .= "ReagentDescRus='".$ReagentDescRusEdit."',";
@@ -216,7 +220,10 @@ $sql .= "visibility='".$visibilityEdit."',";
 $sql .= "gotovnost4='".$gotovnost4Edit."',";
 $sql .= "material_id='".$MaterialIdEdit."', ";
 $sql .= "sorting='".$sortingEdit."', ";
-$sql .= "analizators='".$analizatorsEdit."' ";
+$sql .= "analizators='".$analizatorsEdit."', ";
+$sql .= "transportation_temperature='".$transportationTemperatureEdit."', ";
+$sql .= "storage_temperature='".$storageTemperatureEdit."', ";
+$sql .= "shelf_life='".$shelfLifeEdit."' ";
 $sql .= "WHERE ReagentId='".$ReagentIdEdit."'";
 
 $editDate = date("Y-m-d H:i:s");
@@ -275,6 +282,10 @@ if($result)
         $analizatorsOld = implode(',',$_POST["analizatorsOld"]);
     }
 
+    $transportationTemperatureOld = $_POST["transportationTemperatureOld"];
+    $storageTemperatureOld = $_POST["storageTemperatureOld"];
+    $shelfLifeOld = $_POST["shelfLifeOld"];
+
     //putting form's old data into associative array
     $formOldData = array(   "Mashinid" => $MashinidOld, 
                             "Loinc" => $LoincOld, 
@@ -312,7 +323,10 @@ if($result)
                             "gotovnost" => $gotovnostOld, 
                             "srok_gotovnosti" => $srok_gotovnostiOld,
                             "sorting" => $sortingOld,
-                            "analizators" => $analizatorsOld
+                            "analizators" => $analizatorsOld,
+                            "transportation_temperature" => $transportationTemperatureOld,
+                            "storage_temperature" => $storageTemperatureOld,
+                            "shelf_life" => $shelfLifeOld
                         );
 
     //putting form's new data into associative array
@@ -352,7 +366,10 @@ if($result)
                             "gotovnost" => $gotovnostEdit, 
                             "srok_gotovnosti" => $srok_gotovnostiEdit,
                             "sorting" => $sortingEdit,
-                            "analizators" => $analizatorsEdit
+                            "analizators" => $analizatorsEdit,
+                            "transportation_temperature" => $transportationTemperatureEdit,
+                            "storage_temperature" => $storageTemperatureEdit,
+                            "shelf_life" => $shelfLifeEdit
                         );
     
     foreach($formNewData as $key => $value)

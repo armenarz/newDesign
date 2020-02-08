@@ -683,6 +683,9 @@ function CreateFormCopyObject()
         frm.visibilityCopy = $('#visibilityCopy').val();
         frm.sortingCopy = $('#sortingCopy').val();
         frm.analizatorsCopy = $('#analizatorsCopy').val();
+        frm.transportationTemperatureCopy = $('#transportationTemperatureCopy').val();
+        frm.storageTemperatureCopy = $('#storageTemperatureCopy').val();
+        frm.shelfLifeCopy = $('#shelfLifeCopy').val();
     };
     frm.validate = function()
     {
@@ -880,6 +883,9 @@ $('#editModalWindow').on('shown.bs.modal', function () {
     editFormOldData.srok_gotovnostiOld = $('#srok_gotovnostiEdit').val();
     editFormOldData.sortingOld = $('#sortingEdit').val();
     editFormOldData.analizatorsOld = $('#analizatorsEdit').val();
+    editFormOldData.transportationTemperatureOld = $('#transportationTemperatureEdit').val();
+    editFormOldData.storageTemperatureOld = $('#storageTemperatureEdit').val();
+    editFormOldData.shelfLifeOld = $('#shelfLifeEdit').val();
 
     //console.log(editFormOldData);
 });
@@ -939,6 +945,10 @@ function CreateFormEditObject()
         frm.gotovnostNEdit = $('#gotovnostNEdit').val();
         frm.visibilityEdit = $('#visibilityEdit').val();
         frm.sortingEdit = $('#sortingEdit').val();
+        frm.analizatorsEdit = $('#analizatorsEdit').val();
+        frm.transportationTemperatureEdit = $('#transportationTemperatureEdit').val();
+        frm.storageTemperatureEdit = $('#storageTemperatureEdit').val();
+        frm.shelfLifeEdit = $('#shelfLifeEdit').val();
     };
     frm.validate = function()
     {
@@ -1152,6 +1162,10 @@ $('#addModalWindow').on('shown.bs.modal', function () {
     $('#gotovnostNAdd').val('');
     $('#visibilityAdd').val($('#selectVisibility').val());
     $('#sortingAdd').val('0');
+    $('#analizatorsAdd').val('');
+    $('#transportationTemperatureAdd').val('');
+    $('#storageTemperatureAdd').val('');
+    $('#shelfLifeAdd').val('');
 });
 
 // addModalWindow close handler
@@ -1208,6 +1222,10 @@ function CreateFormAddObject()
         frm.gotovnostNAdd = $('#gotovnostNAdd').val();
         frm.visibilityAdd = $('#visibilityAdd').val();
         frm.sortingAdd = $('#sortingAdd').val();
+        frm.analizatorsAdd = $('#analizatorsAdd').val();
+        frm.transportationTemperatureAdd = $('#transportationTemperatureAdd').val();
+        frm.storageTemperatureAdd = $('#storageTemperatureAdd').val();
+        frm.shelfLifeAdd = $('#shelfLifeAdd').val();
     };
     frm.validate = function()
     {

@@ -77,6 +77,10 @@ if($result)
 
     $analizators = array();
     $analizators = explode(',',$row["analizators"]);
+
+    $transportation_temperature = $row["transportation_temperature"];
+    $storage_temperature = $row["storage_temperature"];
+    $shelf_life = $row["shelf_life"];
 }
 //<!-- BEGIN Tabs HTML Markup -->
 $msg ='
@@ -548,35 +552,51 @@ $msg .='
     </div>
 </div>
 <div class="row">
-    <div class="col">
-        <div class="row">
-            <div class="col-3">
-                <div class="form-group d-print-none">
-                    <label for="sortingCopy">Сортировка</label>
-                    <input type="number" min="0" id="sortingCopy" class="form-control" placeholder="Введите номер сортировки." name="sortingCopy" value="'.$sorting.'">
-                </div>
-            </div>
-            <div class="col-6">
-                <label for="analizatorsCopy[]">Анализаторы</label>
-                <select id="analizatorsCopy" class="form-control" placeholder="analizatorsCopy" name="analizatorsCopy[]" size="6" multiple>';
+    <div class="col-3">
+        <div class="form-group d-print-none">
+            <label for="sortingCopy">Сортировка</label>
+            <input type="number" min="0" id="sortingCopy" class="form-control" placeholder="Введите номер сортировки." name="sortingCopy" value="'.$sorting.'">
+        </div>
+    </div>
+    <div class="col-6">
+        <label for="analizatorsCopy[]">Анализаторы</label>
+        <select id="analizatorsCopy" class="form-control" placeholder="analizatorsCopy" name="analizatorsCopy[]" size="6" multiple>';
 
-                    $sql = "SELECT id, an_name FROM analizators";
-                    $result = mysqli_query($link,$sql);
-                    if($result)
-                    {
-                        while($row = mysqli_fetch_array($result))
-                        {
-                            $msg .= '<option value="'.$row["id"].'"';
-                            if(in_array($row["id"],$analizators)) $msg .= ' selected';
-                            $msg .= '>'.FillNonBreak($row["id"],2).'&nbsp;'.$row["an_name"].'</option>';
-                        }
-                    }
-                    
+            $sql = "SELECT id, an_name FROM analizators";
+            $result = mysqli_query($link,$sql);
+            if($result)
+            {
+                while($row = mysqli_fetch_array($result))
+                {
+                    $msg .= '<option value="'.$row["id"].'"';
+                    if(in_array($row["id"],$analizators)) $msg .= ' selected';
+                    $msg .= '>'.FillNonBreak($row["id"],2).'&nbsp;'.$row["an_name"].'</option>';
+                }
+            }
+            
 $msg .= '
-                </select>
-            </div>
-            <div class="col-3">
-            </div>
+        </select>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <div class="form-group d-print-none">
+            <label for="transportationTemperatureEdit">Температура перевозки</label>
+            <input type="text" id="transportationTemperatureEdit" class="form-control" placeholder="Температура перевозки." name="transportationTemperatureEdit" value="'.$transportation_temperature.'">
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group d-print-none">
+            <label for="storageTemperatureEdit">Температура хранения</label>
+            <input type="text" id="storageTemperatureEdit" class="form-control" placeholder="Температура хранения." name="storageTemperatureEdit" value="'.$storage_temperature.'">
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="form-group d-print-none">
+            <label for="shelfLifeEdit">Self Life</label>
+            <input type="text" id="shelfLifeEdit" class="form-control" placeholder="Self Life" name="shelfLifeEdit" value="'.$shelf_life.'">
         </div>
     </div>
 </div>

@@ -230,6 +230,12 @@ $msg.= '
 		<th scope="col">Сортировка</th>
 		<!-- 39. analizators -->
 		<th scope="col">Анализаторы</th>
+		<!-- 40. transportation_temperature -->
+		<th scope="col">Температура перевозки</th>
+		<!-- 41. storage_temperature -->
+		<th scope="col">Температура хранения</th>
+		<!-- 42. shelf_life -->
+		<th scope="col">Shelf Life</th>
 	</thead>
 	<tbody>
 ';
@@ -362,7 +368,7 @@ if($result)
 			<td>'.$row["vis"].'</td>
 			<td>'.$row["sorting"].'</td>
 			<td><select id="analizatorsView" class="form-control" name="analizatorsView[]" size="6" multiple disabled>
-			<option value="0"></option>
+					<option value="0"></option>
 		';
 		$analizators = array();
 		$analizators = explode(',', $row["analizators"]);
@@ -378,7 +384,11 @@ if($result)
 			}
 		}
 		$msg.='
-			</select></td>
+				</select>
+			</td>
+			<td>'.$row["transportation_temperature"].'</td>
+			<td>'.$row["storage_temperature"].'</td>
+			<td>'.$row["shelf_life"].'</td>
 		</tr>
 		';
 	}
