@@ -1,7 +1,7 @@
 <?php
 $my_server = "localhost";
-$my_user = "root";
-$my_password = "1";
+$my_user = "kot";
+$my_password = "kot";
 $my_db = "promtest";
 $link = mysqli_connect($my_server, $my_user, $my_password, $my_db);
 
