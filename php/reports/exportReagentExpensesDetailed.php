@@ -269,6 +269,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                 <th scope="col">Дата заказа</th>
                 <!--Patient-->
                 <th scope="col">Пациент</th>
+                <!--Extra-->
+                <th scope="col">Дополнительно</th>
                 <!--count_reag-->
                 <th scope="col" class="text-right">Количество</th>
                 <!--AnalysisResult-->
@@ -305,7 +307,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
             $total += $row_group["ReagentCount"];
             $msg.= '
             <tr>
-                <td colspan="4"><strong>Группа: '.$row_group["GroupDescRus"].'</strong></td>
+                <td colspan="5"><strong>Группа: '.$row_group["GroupDescRus"].'</strong></td>
+                <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
@@ -340,7 +343,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                     $msg.= '
                     <tr>
                         <td class="text-right"></td>
-                        <td colspan="3"><strong>Реагент: '.$row_reagent["ReagentDescRus"].' [ id: '.$row_reagent["ReagentId"].' ]</strong></td>
+                        <td colspan="4"><strong>Реагент: '.$row_reagent["ReagentDescRus"].' [ id: '.$row_reagent["ReagentId"].' ]</strong></td>
+                        <!--<td></td>-->
                         <!--<td></td>-->
                         <!--<td></td>-->
                         <td class="text-right"><strong>'.$row_reagent["ReagentCount"].'</strong></td>
@@ -351,6 +355,7 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                                         orderresult.OrderId,
                                         orders.OrderDate,
                                         CONCAT(pacients.LastName,' ', pacients.FirstName,' ', pacients.MidName ) AS PatientName,
+                                        pacients.dopolnitelno,
                                         orderresult.AnalysisResult
                                     FROM orderresult
                                     INNER JOIN orders ON orders.OrderId=orderresult.OrderId
@@ -372,12 +377,13 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                             $i++;
                             $msg.='
                             <tr>
-                                <td>'.$i.'</td>
+                                <td class="text-right">'.$i.'</td>
                                 <td>'.$row_order["OrderId"].'</td>
                                 <td>'.$row_order["OrderDate"].'</td>
                                 <td>'.$row_order["PatientName"].'</td>
+                                <td>'.$row_order["dopolnitelno"].'</td>
                                 <td></td>
-                                <td>'.$row_order["AnalysisResult"].'</td>
+                                <td class="text-right">'.$row_order["AnalysisResult"].'</td>
                             </tr>
                             ';
                         }
@@ -387,7 +393,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         $msg.= '
             <tr>
-                <td colspan="4"><strong>Общее количество</strong></td>
+                <td colspan="5"><strong>Общее количество</strong></td>
+                <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
