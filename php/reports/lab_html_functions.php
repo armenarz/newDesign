@@ -341,7 +341,7 @@ function sumPartnerDebtsLab($link, $partner, $reportDate)
 	if( $partner == "Maple_ Leafs" || $partner == "Garant_Assinstance" || 
 		$partner == "Gyumri" || $partner == "Jermuk" ||
 		$partner == "On-Clinic" || $partner == "Maletti" ||
-		$partner == "Nairi" || $partner == "Ingo0")
+		$partner == "Nairi" || $partner == "Ingo0"  || $partner == "Cosmolab")
 	{
 		$sql_sumDebts = "SELECT 
 								SUM(orders.cost) AS sumDebts
@@ -381,7 +381,7 @@ function sumPartnerDebtsLab($link, $partner, $reportDate)
 						";
 
 	}
-	elseif($partner == "ARMMED" || $partner == "Tonoyan")
+	elseif($partner == "ARMMED" || $partner == "Tonoyan" )
 	{
 		$sql_sumDebts = "SELECT 
 								(SUM(orders.cost) * 0.7) AS sumDebts
@@ -409,7 +409,7 @@ function optionsHtmlPartnerDebtsLab($link, $partner, $reportDate)
 	$partner == "Gyumri" || $partner == "Jermuk" ||
 	$partner == "On-Clinic" || $partner == "Maletti" ||
 	$partner == "Nairi" || $partner == "Ingo0" ||
-	$partner == "Profimed" || $partner == "MIM" ||
+	$partner == "Profimed" || $partner == "MIM" || $partner == "Cosmolab" ||
 	$partner == "Manasyan")
 	{
 		$sql = "SELECT 
