@@ -24,9 +24,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $reportDateReagentRemaindersIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($reportDateReagentRemaindersIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $reportDateReagentRemaindersIndex++;
     }
 }
 $msg .= '
@@ -104,7 +113,7 @@ $msg .= '
             <label for="ReportTypeIdReagentRemainders">Тип отчета</label>
             <select id="ReportTypeIdReagentRemainders" class="form-control" name="ReportTypeIdReagentRemainders">
                 <option value="0"></option>
-                <option value="1">Суммарно</option>
+                <option value="1" selected>Суммарно</option>
                 <option value="2">Детально</option>
             </select>
         </div>

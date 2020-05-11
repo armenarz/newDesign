@@ -23,9 +23,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $startDateOrdersByUsersIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($startDateOrdersByUsersIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $startDateOrdersByUsersIndex++;
     }
 }
 $msg .= '
@@ -45,9 +54,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $endDateOrdersByUsersIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($endDateOrdersByUsersIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $endDateOrdersByUsersIndex++;
     }
 }
 $msg .= '
@@ -82,7 +100,7 @@ $msg .= '
             <label for="ReportTypeIdOrdersByUsers">Тип отчета</label>
             <select id="ReportTypeIdOrdersByUsers" class="form-control" name="ReportTypeIdOrdersByUsers">
                 <option value="0"></option>
-                <option value="1">Суммарно</option>
+                <option value="1" selected>Суммарно</option>
                 <option value="2">Детально</option>
             </select>
         </div>

@@ -23,9 +23,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $reportDateDailyIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($reportDateDailyIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $reportDateDailyIndex++;
     }
 }
 $msg .= '

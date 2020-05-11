@@ -23,9 +23,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $startDateRepaidDebtsIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($startDateRepaidDebtsIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $startDateRepaidDebtsIndex++;
     }
 }
 $msg .= '
@@ -45,9 +54,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $endDateRepaidDebtsIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($endDateRepaidDebtsIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $endDateRepaidDebtsIndex++;
     }
 }
 $msg .= '

@@ -23,9 +23,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $startDateReagentExpensesIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($startDateReagentExpensesIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $startDateReagentExpensesIndex++;
     }
 }
 $msg .= '
@@ -45,9 +54,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $endDateReagentExpensesIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($endDateReagentExpensesIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $endDateReagentExpensesIndex++;
     }
 }
 $msg .= '
@@ -132,19 +150,19 @@ $msg .= '
             <select id="SalesIdReagentExpenses" class="form-control" name="SalesIdReagentExpenses">
                 <option value="0"></option>
                 ';
-        $sql =  "SELECT 
-            salesId, 
-            salesName 
-        FROM sales 
-        ORDER BY salesId";
-        $result = mysqli_query($link,$sql);
-        if($result)
-        {
-        while($row = mysqli_fetch_array($result))
-        {
+$sql =  "SELECT 
+    salesId, 
+    salesName 
+FROM sales 
+ORDER BY salesId";
+$result = mysqli_query($link,$sql);
+if($result)
+{
+    while($row = mysqli_fetch_array($result))
+    {
         $msg .=  '<option value="'.$row["salesId"].'">'.FillNonBreak($row["salesId"],2).'&nbsp;'.$row["salesName"].'</option>';
-        }
-        }
+    }
+}
         $msg .= '
             </select>
         </div>
@@ -157,30 +175,30 @@ $msg .= '
             <select id="UserIdReagentExpenses" class="form-control" name="UserIdReagentExpenses">
                 <option value="0"></option>
                 ';
-        $receptionists = array(
-        "reception2"=>"Julianna",
-        "reception3"=>"Alisa",
-        "reception4"=>"Mariam",
-        "reception5"=>"Narine",
-        "reception6"=>"Alina",
-        "reception7"=>"Alisa Junior",
-        "reception8"=>"Anahit"
-        );
-        $reportingUserIds =   "1,2,3,4,5,7,10,12,13,22,23,27,28,33,40,49,66,68,
-                    112,113,120,128,130,137,143,150,184,198,200,202,212,
-                    260,125,374, 256, 258, 392, 394, 396, 398, 418";
-        $sql = "SELECT 
-            id,
-            log 
-        FROM us22 
-        WHERE id in(".$reportingUserIds.")
-        ORDER BY id";
-        $result = mysqli_query($link,$sql);
-        $receptionist;
-        if($result)
-        {
-        while($row = mysqli_fetch_array($result))
-        {
+$receptionists = array(
+"reception2"=>"Julianna",
+"reception3"=>"Alisa",
+"reception4"=>"Mariam",
+"reception5"=>"Narine",
+"reception6"=>"Alina",
+"reception7"=>"Alisa Junior",
+"reception8"=>"Anahit"
+);
+$reportingUserIds =   "1,2,3,4,5,7,10,12,13,22,23,27,28,33,40,49,66,68,
+            112,113,120,128,130,137,143,150,184,198,200,202,212,
+            260,125,374, 256, 258, 392, 394, 396, 398, 418";
+$sql = "SELECT 
+    id,
+    log 
+FROM us22 
+WHERE id in(".$reportingUserIds.")
+ORDER BY id";
+$result = mysqli_query($link,$sql);
+$receptionist;
+if($result)
+{
+    while($row = mysqli_fetch_array($result))
+    {
         $receptionist = "";
         foreach ( $receptionists as $key => $value ) 
         {
@@ -198,8 +216,8 @@ $msg .= '
         {
             $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["log"].'</option>';
         }
-        }
-        }
+    }
+}
         $msg .= '
             </select>
         </div>
@@ -209,7 +227,7 @@ $msg .= '
             <label for="ReportTypeIdReagentExpenses">Тип отчета</label>
             <select id="ReportTypeIdReagentExpenses" class="form-control" name="ReportTypeIdReagentExpenses">
                 <option value="0"></option>
-                <option value="1">Суммарно</option>
+                <option value="1" selected>Суммарно</option>
                 <option value="2">Детально</option>
             </select>
         </div>

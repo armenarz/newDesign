@@ -23,9 +23,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $startDateDoctorsIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($startDateDoctorsIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $startDateDoctorsIndex++;
     }
 }
 $msg .= '
@@ -45,9 +54,18 @@ $sql=  "SELECT
 $result = mysqli_query($link,$sql);
 if($result)
 {
+    $endDateDoctorsIndex = 0;
     while($row = mysqli_fetch_array($result))
     {
-        $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        if($endDateDoctorsIndex == 0)
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+        }
+        else
+        {
+            $msg .=  '<option value="'.$row["OrderDate"].'">'.$row["OrderDate"].'</option>';
+        }
+        $endDateDoctorsIndex++;
     }
 }
 $msg .= '
@@ -91,7 +109,7 @@ if($result)
         $msg .=  '<option value="'.$row["WorkPlaceId"].'">'.FillNonBreak($row["WorkPlaceId"],3).'&nbsp;'.$row["WorkPlaceDesc"].'</option>';
     }
 }
-$msg .= '
+        $msg .= '
             </select>
         </div>
     </div>      
@@ -101,19 +119,19 @@ $msg .= '
             <select id="SalesIdDoctors" class="form-control" name="SalesIdDoctors">
                 <option value="0"></option>
                 ';
-        $sql =  "SELECT 
-            salesId, 
-            salesName 
-        FROM sales 
-        ORDER BY salesId";
-        $result = mysqli_query($link,$sql);
-        if($result)
-        {
-            while($row = mysqli_fetch_array($result))
-            {
-                $msg .=  '<option value="'.$row["salesId"].'">'.FillNonBreak($row["salesId"],2).'&nbsp;'.$row["salesName"].'</option>';
-            }
-        }
+$sql =  "SELECT 
+    salesId, 
+    salesName 
+FROM sales 
+ORDER BY salesId";
+$result = mysqli_query($link,$sql);
+if($result)
+{
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .=  '<option value="'.$row["salesId"].'">'.FillNonBreak($row["salesId"],2).'&nbsp;'.$row["salesName"].'</option>';
+    }
+}
         $msg .= '
             </select>
         </div>
@@ -126,48 +144,48 @@ $msg .= '
             <select id="UserIdDoctors" class="form-control" name="UserIdDoctors">
                 <option value="0"></option>
                 ';
-        $receptionists = array(
-        "reception2"=>"Julianna",
-        "reception3"=>"Alisa",
-        "reception4"=>"Mariam",
-        "reception5"=>"Narine",
-        "reception6"=>"Alina",
-        "reception7"=>"Alisa Junior",
-        "reception8"=>"Anahit"
-        );
-        $reportingUserIds =   "1,2,3,4,5,7,10,12,13,22,23,27,28,33,40,49,66,68,112,113,120,128,130,137,143,150,184,198,200,202,212,260,125,374,256,258,392,394,396,398,418,582";
-        
-        $sql = "SELECT 
-            id,
-            log 
-        FROM us22 
-        WHERE id in(".$reportingUserIds.")
-        ORDER BY id";
-        $result = mysqli_query($link,$sql);
-        $receptionist;
-        if($result)
+$receptionists = array(
+"reception2"=>"Julianna",
+"reception3"=>"Alisa",
+"reception4"=>"Mariam",
+"reception5"=>"Narine",
+"reception6"=>"Alina",
+"reception7"=>"Alisa Junior",
+"reception8"=>"Anahit"
+);
+$reportingUserIds =   "1,2,3,4,5,7,10,12,13,22,23,27,28,33,40,49,66,68,112,113,120,128,130,137,143,150,184,198,200,202,212,260,125,374,256,258,392,394,396,398,418,582";
+
+$sql = "SELECT 
+    id,
+    log 
+FROM us22 
+WHERE id in(".$reportingUserIds.")
+ORDER BY id";
+$result = mysqli_query($link,$sql);
+$receptionist;
+if($result)
+{
+    while($row = mysqli_fetch_array($result))
+    {
+        $receptionist = "";
+        foreach ( $receptionists as $key => $value ) 
         {
-            while($row = mysqli_fetch_array($result))
+            if($row["log"] == $key)
             {
-                $receptionist = "";
-                foreach ( $receptionists as $key => $value ) 
-                {
-                    if($row["log"] == $key)
-                    {
-                        $receptionist = $value;
-                        break;
-                    }
-                }
-                if($receptionist != "")
-                {
-                    $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["log"],$receptionist).'</option>';
-                }
-                else
-                {
-                    $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["log"].'</option>';
-                }
+                $receptionist = $value;
+                break;
             }
         }
+        if($receptionist != "")
+        {
+            $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["log"],$receptionist).'</option>';
+        }
+        else
+        {
+            $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["log"].'</option>';
+        }
+    }
+}
         $msg .= '
             </select>
         </div>
@@ -177,7 +195,7 @@ $msg .= '
             <label for="ReportTypeIdDoctors">Тип отчета</label>
             <select id="ReportTypeIdDoctors" class="form-control" name="ReportTypeIdDoctors">
                 <option value="0"></option>
-                <option value="1">Суммарно</option>
+                <option value="1" selected>Суммарно</option>
                 <option value="2">Детально</option>
             </select>
         </div>

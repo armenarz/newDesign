@@ -1,3 +1,5 @@
+var sidebarItems = setSidebarItems();
+
 function setActiveItem(items, activeItem)
 {
     var i;
@@ -12,4 +14,16 @@ function setActiveItem(items, activeItem)
             $("#" + items[i]).removeClass("active");
         }
     }
+}
+
+function setSidebarItems()
+{
+    let sidebarItems = $("#sidebar").children();
+    let array_ids = [];
+    for(let i = 0; i < sidebarItems.length; i++)
+    {
+        let el = sidebarItems[i];
+        array_ids[i] = el.id;
+    }
+    return array_ids;
 }

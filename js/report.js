@@ -8,6 +8,7 @@ $(function()
 
     //console.log(reportObj);
 
+    setSidebarItems();
     setReagentExpensesMWData();
     setReagentRemaindersMWData();
     setDoctorsMWData();
@@ -16,6 +17,8 @@ $(function()
     setDailyMWData();
     setOrdersByLabsMWData();
     setOrdersByUsersMWData();
+    setDoctor13MWData();
+    setDoctorSelectedMWData();
     updateContent(reportObj);
 
     //correcting content area height
@@ -25,8 +28,6 @@ $(function()
         $("#content").height($(window).height()-242);//237
     });
 });
-
-var sidebarItems = ["reagentExpensesLink", "reagentRemaindersLink", "doctorsLink", "debtsLink", "repaidDebtsLink", "dailyLink", "ordersByLabsLink", "ordersByUsersLink"];
 
 function updateContent(reportObj)
 {
@@ -154,6 +155,38 @@ function updateContent(reportObj)
             urlString = "../reports/getOrdersByUsersDetailedReport.php";
         }
     }
+    else if(menuId == "doctor13Link")
+    {
+        var reportTypeId = reportObj.reportTypeId;
+        var startDate = reportObj.startDate;
+        var endDate = reportObj.endDate;
+
+        var urlString = "";
+        if(reportTypeId == 1)
+        {
+            urlString = "../reports/getDoctor13ConsolidatedReport.php";
+        }
+        else if(reportTypeId == 2)
+        {
+            urlString = "../reports/getDoctor13DetailedReport.php";
+        }
+    }
+    else if(menuId == "doctorSelectedLink")
+    {
+        var reportTypeId = reportObj.reportTypeId;
+        var startDate = reportObj.startDate;
+        var endDate = reportObj.endDate;
+
+        var urlString = "";
+        if(reportTypeId == 1)
+        {
+            urlString = "../reports/getDoctorSelectedConsolidatedReport.php";
+        }
+        else if(reportTypeId == 2)
+        {
+            urlString = "../reports/getDoctorSelectedDetailedReport.php";
+        }
+    }
 
     $.ajaxSetup({
         type: "POST",
@@ -174,7 +207,7 @@ function updateContent(reportObj)
     $.ajax({
         success:function(msg){
             $("#content").html(msg);
-            if((menuId == "reagentExpensesLink" || menuId == "doctorsLink") && reportTypeId == 2 || menuId == "debtsLink" || menuId == "repaidDebtsLink")
+            if((menuId == "reagentExpensesLink" || menuId == "doctorsLink") && reportTypeId == 2 || menuId == "debtsLink" || menuId == "repaidDebtsLink" || menuId == "doctor13Link" || menuId == "doctorSelectedLink")
             {
                 $("a[id^='o_']").on("click",this,function()
                 {
@@ -287,12 +320,10 @@ function updateContent(reportObj)
             }
         }
     });
-    
 }
 
 function exportToExcel(reportObj)
 {
-    //console.log("exprotToExcel");
     var form = document.tempData;
     var menuId = reportObj.menuId;
 
@@ -594,6 +625,68 @@ function exportToExcel(reportObj)
         removeHiddenElement(form, "startDate");
         removeHiddenElement(form, "endDate");
         removeHiddenElement(form, "userId");
+    }
+    else if(menuId == "doctor13Link")
+    {
+        appendHiddenElement(form, "menuId", menuId);
+
+        var reportTypeId = reportObj.reportTypeId;
+        appendHiddenElement(form, "reportTypeId", reportTypeId);
+
+        var startDate = reportObj.startDate;
+        appendHiddenElement(form, "startDate", startDate);
+        
+        var endDate = reportObj.endDate;
+        appendHiddenElement(form, "endDate", endDate);
+
+        if(reportTypeId == 1)
+        {
+            document.tempData.action = "../reports/exportDoctor13Consolidated.php";
+        }
+        else if(reportTypeId == 2)
+        {
+            document.tempData.action = "../reports/exportDoctor13Detailed.php";
+        }
+        document.tempData.target = '_blank';
+        document.tempData.method = 'POST';
+        document.tempData.submit();
+        document.tempData.action = '';
+        document.tempData.target = '';
+        removeHiddenElement(form, "menuId");
+        removeHiddenElement(form, "reportTypeId");
+        removeHiddenElement(form, "startDate");
+        removeHiddenElement(form, "endDate");
+    }
+    else if(menuId == "doctorSelectedLink")
+    {
+        appendHiddenElement(form, "menuId", menuId);
+
+        var reportTypeId = reportObj.reportTypeId;
+        appendHiddenElement(form, "reportTypeId", reportTypeId);
+
+        var startDate = reportObj.startDate;
+        appendHiddenElement(form, "startDate", startDate);
+        
+        var endDate = reportObj.endDate;
+        appendHiddenElement(form, "endDate", endDate);
+
+        if(reportTypeId == 1)
+        {
+            document.tempData.action = "../reports/exportDoctorSelectedConsolidated.php";
+        }
+        else if(reportTypeId == 2)
+        {
+            document.tempData.action = "../reports/exportDoctorSelectedDetailed.php";
+        }
+        document.tempData.target = '_blank';
+        document.tempData.method = 'POST';
+        document.tempData.submit();
+        document.tempData.action = '';
+        document.tempData.target = '';
+        removeHiddenElement(form, "menuId");
+        removeHiddenElement(form, "reportTypeId");
+        removeHiddenElement(form, "startDate");
+        removeHiddenElement(form, "endDate");
     }
 }
 
@@ -1017,6 +1110,48 @@ function funcSuccessSetOrdersByUsersMWData(result)
 {
     //console.log(result);
     $("#contentOrdersByUsersModal").html(result);
+}
+
+function setDoctor13MWData()
+{
+    /// ajax setup
+    $.ajaxSetup({
+        type: "POST",
+        url: "../reports/getDoctor13MWData.php",
+        cache: false,
+        data: dataString = $("form[name='tempData']").serialize(),
+        success: funcSuccessSetDoctor13MWData,
+        error: funcError
+    });
+    ///process
+    $.ajax();
+}
+
+function funcSuccessSetDoctor13MWData(result)
+{
+    //console.log(result);
+    $("#contentDoctor13Modal").html(result);
+}
+
+function setDoctorSelectedMWData()
+{
+    /// ajax setup
+    $.ajaxSetup({
+        type: "POST",
+        url: "../reports/getDoctorSelectedMWData.php",
+        cache: false,
+        data: dataString = $("form[name='tempData']").serialize(),
+        success: funcSuccessSetDoctorSelectedMWData,
+        error: funcError
+    });
+    ///process
+    $.ajax();
+}
+
+function funcSuccessSetDoctorSelectedMWData(result)
+{
+    //console.log(result);
+    $("#contentDoctorSelectedModal").html(result);
 }
 
 function funcError(XMLHttpRequest, textStatus, errorThrown)
@@ -2019,6 +2154,238 @@ function CreateFormOrdersByUsersObject()
         {
             frm.message = 'Выберите тип отчета.';
             frm.invalidField ='ReportTypeIdOrdersByUsers';
+            frm.isValid = false;
+            return;
+        }
+        else
+        {
+            frm.message = 'Заполните нужными значениями поля формы.';
+            frm.invalidField = null;
+            frm.isValid = true;
+            return;
+        }
+    }
+    
+    return frm;
+}
+
+// doctor13ModalWindow button OK handler
+$('#doctor13ModalWindow').on('click','#buttonOKDoctor13', function(){
+    //console.log("buttonOKDoctor13");
+    
+    var frmDoctor13 = CreateFormDoctor13Object();
+    frmDoctor13.getFormData();
+
+    frmDoctor13.validate();
+    if(!frmDoctor13.isValid)
+    {
+        $('#messageDoctor13Modal').html(frmDoctor13.message);
+        $('#' + frmDoctor13.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageDoctor13Modal').html(frmDoctor13.message);
+
+        var reportObj = {};
+        reportObj.startDate = $('#StartDateDoctor13').val();
+        reportObj.endDate = $('#EndDateDoctor13').val();
+        reportObj.reportTypeId = $('#ReportTypeIdDoctor13').val();
+        reportObj.menuId = "doctor13Link";
+        setActiveItem(sidebarItems,"doctor13Link");
+        updateContent(reportObj);
+        $('#doctor13ModalWindow').modal('hide');
+    }
+});
+
+// doctor13ModalWindow button buttonDoctor13ToExcel handler
+$('#doctor13ModalWindow').on('click','#buttonDoctor13ToExcel', function(){
+    
+    var frmDoctor13 = CreateFormDoctor13Object();
+    frmDoctor13.getFormData();
+
+    frmDoctor13.validate();
+    if(!frmDoctor13.isValid)
+    {
+        $('#messageDoctor13Modal').html(frmDoctor13.message);
+        $('#' + frmDoctor13.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageDoctor13Modal').html(frmDoctor13.message);
+
+        var reportObj = {};
+        reportObj.startDate = $('#StartDateDoctor13').val();
+        reportObj.endDate = $('#EndDateDoctor13').val();
+        reportObj.reportTypeId = $('#ReportTypeIdDoctor13').val();
+        reportObj.menuId = "doctor13Link";
+        setActiveItem(sidebarItems,"doctor13Link");
+        exportToExcel(reportObj);
+        $('#doctor13ModalWindow').modal('hide');
+    }
+});
+
+/// FormDoctor13 Object
+function CreateFormDoctor13Object()
+{
+    var frm = {};
+
+    ///general properties ======================================
+    frm.message = "Заполните нужными значениями поля формы.";
+    frm.isValid = true;
+    frm.invalidField = null;
+
+    frm.getFormData = function()
+    {
+        frm.StartDateDoctor13 = $('#StartDateDoctor13').val();
+        frm.EndDateDoctor13 = $('#EndDateDoctor13').val();
+        frm.ReportTypeIdDoctor13 = $('#ReportTypeIdDoctor13').val();
+    }
+
+    frm.validate = function()
+    {
+        frm.message = 'Заполните нужными значениями поля формы.';
+        frm.isValid = true;
+        frm.invalidField = null;
+
+        //StartDateDoctor13
+        if(frm.StartDateDoctor13 == 0)
+        {
+            frm.message = 'Выберите начальную дату отчета.';
+            frm.invalidField ='StartDateDoctor13';
+            frm.isValid = false;
+            return;       
+        }
+        //EndDateDoctor13
+        else if(frm.EndDateDoctor13 == 0)
+        {
+            frm.message = 'Выберите конечную дату отчета.';
+            frm.invalidField ='EndDateDoctor13';
+            frm.isValid = false;
+            return;       
+        }
+        //ReportTypeIdDoctor13
+        else if(frm.ReportTypeIdDoctor13 == 0)
+        {
+            frm.message = 'Выберите тип отчета.';
+            frm.invalidField ='ReportTypeIdDoctor13';
+            frm.isValid = false;
+            return;
+        }
+        else
+        {
+            frm.message = 'Заполните нужными значениями поля формы.';
+            frm.invalidField = null;
+            frm.isValid = true;
+            return;
+        }
+    }
+    
+    return frm;
+}
+
+// doctorSelectedModalWindow button OK handler
+$('#doctorSelectedModalWindow').on('click','#buttonOKDoctorSelected', function(){
+    //console.log("buttonOKDoctorSelected");
+    
+    var frmDoctorSelected = CreateFormDoctorSelectedObject();
+    frmDoctorSelected.getFormData();
+
+    frmDoctorSelected.validate();
+    if(!frmDoctorSelected.isValid)
+    {
+        $('#messageDoctorSelectedModal').html(frmDoctorSelected.message);
+        $('#' + frmDoctorSelected.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageDoctorSelectedModal').html(frmDoctorSelected.message);
+
+        var reportObj = {};
+        reportObj.startDate = $('#StartDateDoctorSelected').val();
+        reportObj.endDate = $('#EndDateDoctorSelected').val();
+        reportObj.reportTypeId = $('#ReportTypeIdDoctorSelected').val();
+        reportObj.menuId = "doctorSelectedLink";
+        setActiveItem(sidebarItems,"doctorSelectedLink");
+        updateContent(reportObj);
+        $('#doctorSelectedModalWindow').modal('hide');
+    }
+});
+
+// doctorSelectedModalWindow button buttonDoctorSelectedToExcel handler
+$('#doctorSelectedModalWindow').on('click','#buttonDoctorSelectedToExcel', function(){
+    
+    var frmDoctorSelected = CreateFormDoctorSelectedObject();
+    frmDoctorSelected.getFormData();
+
+    frmDoctorSelected.validate();
+    if(!frmDoctorSelected.isValid)
+    {
+        $('#messageDoctorSelectedModal').html(frmDoctorSelected.message);
+        $('#' + frmDoctorSelected.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageDoctorSelectedModal').html(frmDoctorSelected.message);
+
+        var reportObj = {};
+        reportObj.startDate = $('#StartDateDoctorSelected').val();
+        reportObj.endDate = $('#EndDateDoctorSelected').val();
+        reportObj.reportTypeId = $('#ReportTypeIdDoctorSelected').val();
+        reportObj.menuId = "doctorSelectedLink";
+        setActiveItem(sidebarItems,"doctorSelectedLink");
+        exportToExcel(reportObj);
+        $('#doctorSelectedModalWindow').modal('hide');
+    }
+});
+
+/// FormDoctorSelected Object
+function CreateFormDoctorSelectedObject()
+{
+    var frm = {};
+
+    ///general properties ======================================
+    frm.message = "Заполните нужными значениями поля формы.";
+    frm.isValid = true;
+    frm.invalidField = null;
+
+    frm.getFormData = function()
+    {
+        frm.StartDateDoctorSelected = $('#StartDateDoctorSelected').val();
+        frm.EndDateDoctorSelected = $('#EndDateDoctorSelected').val();
+        frm.ReportTypeIdDoctorSelected = $('#ReportTypeIdDoctorSelected').val();
+    }
+
+    frm.validate = function()
+    {
+        frm.message = 'Заполните нужными значениями поля формы.';
+        frm.isValid = true;
+        frm.invalidField = null;
+
+        //StartDateDoctorSelected
+        if(frm.StartDateDoctorSelected == 0)
+        {
+            frm.message = 'Выберите начальную дату отчета.';
+            frm.invalidField ='StartDateDoctorSelected';
+            frm.isValid = false;
+            return;       
+        }
+        //EndDateDoctorSelected
+        else if(frm.EndDateDoctorSelected == 0)
+        {
+            frm.message = 'Выберите конечную дату отчета.';
+            frm.invalidField ='EndDateDoctorSelected';
+            frm.isValid = false;
+            return;       
+        }
+        //ReportTypeIdDoctorSelected
+        else if(frm.ReportTypeIdDoctorSelected == 0)
+        {
+            frm.message = 'Выберите тип отчета.';
+            frm.invalidField ='ReportTypeIdDoctorSelected';
             frm.isValid = false;
             return;
         }
