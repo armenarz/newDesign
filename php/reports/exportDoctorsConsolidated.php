@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: application/xls");
 require_once "../connect.php";
 require_once "../authorization.php";
 
