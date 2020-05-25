@@ -116,20 +116,35 @@ if($result)
     <div class="col">
         <div class="form-group d-print-none">
             <label for="SalesIdDoctors">Sales</label>
-            <select id="SalesIdDoctors" class="form-control" name="SalesIdDoctors">
-                <option value="0"></option>
-                ';
-$sql =  "SELECT 
-    salesId, 
-    salesName 
-FROM sales 
-ORDER BY salesId";
-$result = mysqli_query($link,$sql);
-if($result)
+            <select id="SalesIdDoctors" class="form-control" name="SalesIdDoctors">';
+$userId = $_POST["uu"];
+if($userId == 412)
 {
-    while($row = mysqli_fetch_array($result))
+    $msg .= '<option value="16">16&nbsp;Сируш</option>';
+}
+elseif($userId == 484)
+{
+    $msg .= '<option value="4">4&nbsp;Лусине</option>';
+}
+elseif($userId == 486)
+{
+    $msg .= '<option value="2">2&nbsp;Армине</option>';
+}
+else
+{
+    $msg .= '<option value="0"></option>';
+    $sql =  "SELECT 
+                salesId, 
+                salesName 
+            FROM sales 
+            ORDER BY salesId";
+    $result = mysqli_query($link,$sql);
+    if($result)
     {
-        $msg .=  '<option value="'.$row["salesId"].'">'.FillNonBreak($row["salesId"],2).'&nbsp;'.$row["salesName"].'</option>';
+        while($row = mysqli_fetch_array($result))
+        {
+            $msg .=  '<option value="'.$row["salesId"].'">'.FillNonBreak($row["salesId"],2).'&nbsp;'.$row["salesName"].'</option>';
+        }
     }
 }
         $msg .= '
@@ -153,14 +168,14 @@ $receptionists = array(
 "reception7"=>"Alisa Junior",
 "reception8"=>"Anahit"
 );
-$reportingUserIds =   "1,2,3,4,5,7,10,12,13,22,23,27,28,33,40,49,66,68,112,113,120,128,130,137,143,150,184,198,200,202,212,260,125,374,256,258,392,394,396,398,418,582";
+$reportingUserIds =   "1,2,3,4,5,7,10,12,13,22,23,27,28,33,40,49,66,68,112,113,120,128,130,137,143,150,184,198,200,202,212,260,125,374,256,258,392,394,396,398,418,564,566,568,582";
 
 $sql = "SELECT 
-    id,
-    log 
-FROM us22 
-WHERE id in(".$reportingUserIds.")
-ORDER BY id";
+            id,
+            log 
+        FROM us22 
+        WHERE id in(".$reportingUserIds.")
+        ORDER BY id";
 $result = mysqli_query($link,$sql);
 $receptionist;
 if($result)
