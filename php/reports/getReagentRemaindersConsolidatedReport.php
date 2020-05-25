@@ -208,9 +208,9 @@ if($menuId == "reagentRemaindersLink" && $reportTypeId == 1)
                 <!--ReagentDescRus-->
                 <!--<th scope="col">Реагент</th>-->
                 <!--Producer-->
-                <th>Производитель</th>
+                <th>Произво-дитель</th>
                 <!--CatalogueNumber-->
-                <th>Каталожный номер</th>
+                <th>Ката-ложный номер</th>
                 <!--ExpirationDate-->
                 <th>Годен&nbsp;до&nbsp;&nbsp;&nbsp;</th>
                 <!--ReagentRemainder-->

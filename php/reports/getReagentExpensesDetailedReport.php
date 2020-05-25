@@ -249,9 +249,9 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                 <!--Row number-->
                 <th scope="col" class="text-right">#</th>
                 <!--OrderId-->
-                <th scope="col">Id заказа</th>
+                <th scope="col">Id&nbsp;заказа</th>
                 <!--OrderDate-->
-                <th scope="col">Дата заказа</th>
+                <th scope="col">Дата&nbsp;заказа</th>
                 <!--Patient-->
                 <th scope="col">Пациент</th>
                 <!--Extra-->

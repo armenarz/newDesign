@@ -504,7 +504,7 @@ if($menuId == "doctor13Link" && $reportTypeId == 2)
                 <!--3. Order Id-->
                 <th scope="col" class="text-right">Номер заказа</th>
                 <!--4. Order Date-->
-                <th scope="col">Дата заказа</th>
+                <th scope="col">Дата&nbsp;заказа</th>
                 <!--5. Customer Name -->
                 <th scope="col">Пациент</th>
                 <!--6. Price-->
