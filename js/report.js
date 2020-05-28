@@ -21,6 +21,13 @@ $(function()
     setDoctorSelectedMWData();
     updateContent(reportObj);
 
+    //printing content"
+    $("#printLink").click(function()
+    {
+        window.print();
+        //$("#editLink").click();
+    });
+
     //correcting content area height
     $("#content").height($(window).height()-242);//237
     $(window).resize(function() 
@@ -220,105 +227,129 @@ function updateContent(reportObj)
             }
             if(menuId == "dailyLink")
             {
-                $("select[name*='selectOrderRepaidDebts']").change(function(){
-                    //console.log("selectOrderRepaidDebts");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderRefunds']").change(function(){
-                    //console.log("selectOrderRefunds");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderDebts']").change(function(){
-                    //console.log("selectOrderDebts");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderCashPayments']").change(function(){
-                    //console.log("selectOrderCashPayments");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderPayments']").change(function(){
-                    //console.log("selectOrderPayments");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderTerminal']").change(function(){
-                    //console.log("selectOrderTerminal");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderSales']").change(function(){
-                    //console.log("selectOrderSales");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderInstruments']").change(function(){
-                    //console.log("selectOrderInstruments");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderHomeVisits']").change(function(){
-                    //console.log("selectOrderHomeVisits");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderUrgentCalls']").change(function(){
-                    //console.log("selectOrderUrgentCalls");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderCashHandovers']").change(function(){
-                    //console.log("selectOrderCashHandovers");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderChecks']").change(function(){
-                    //console.log("selectOrderChecks");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderCheckRefunds']").change(function(){
-                    //console.log("selectOrderCheckRefunds");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Maple_ Leafs']").change(function(){
-                    //console.log("selectOrderLab_Maple_ Leafs");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Garant_Assinstance']").change(function(){
-                    //console.log("selectOrderLab_Garant_Assinstance");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Gyumri']").change(function(){
-                    //console.log("selectOrderLab_Gyumri");
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Jermuk']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_On-Clinic']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Maletti']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Profimed']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Nairi']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Ingo0']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_MIM']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Manasyan']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Davinci']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_ARMMED']").change(function (){
-                    openSelectedOrder(this);
-                });
-                $("select[name*='selectOrderLab_Tonoyan']").change(function (){
-                    openSelectedOrder(this);
-                });
+                setSelectsChangeEvents();
+
+                setOptionsHtmlLab();
+                setOptionsHtmlLab1();
+                setOptionsHtmlLabs();
             }
         }
+    });
+}
+
+function setOptionsHtmlLab()
+{
+
+}
+
+function setOptionsHtmlLab1()
+{
+
+}
+
+function setOptionsHtmlLabs()
+{
+
+}
+
+function setSelectsChangeEvents()
+{
+    $("select[name*='selectOrderRepaidDebts']").change(function(){
+        //console.log("selectOrderRepaidDebts");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderRefunds']").change(function(){
+        //console.log("selectOrderRefunds");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderDebts']").change(function(){
+        //console.log("selectOrderDebts");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderCashPayments']").change(function(){
+        //console.log("selectOrderCashPayments");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderPayments']").change(function(){
+        //console.log("selectOrderPayments");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderTerminal']").change(function(){
+        //console.log("selectOrderTerminal");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderSales']").change(function(){
+        //console.log("selectOrderSales");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderInstruments']").change(function(){
+        //console.log("selectOrderInstruments");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderHomeVisits']").change(function(){
+        //console.log("selectOrderHomeVisits");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderUrgentCalls']").change(function(){
+        //console.log("selectOrderUrgentCalls");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderCashHandovers']").change(function(){
+        //console.log("selectOrderCashHandovers");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderChecks']").change(function(){
+        //console.log("selectOrderChecks");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderCheckRefunds']").change(function(){
+        //console.log("selectOrderCheckRefunds");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Maple_ Leafs']").change(function(){
+        //console.log("selectOrderLab_Maple_ Leafs");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Garant_Assinstance']").change(function(){
+        //console.log("selectOrderLab_Garant_Assinstance");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Gyumri']").change(function(){
+        //console.log("selectOrderLab_Gyumri");
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Jermuk']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_On-Clinic']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Maletti']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Profimed']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Nairi']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Ingo0']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_MIM']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Manasyan']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Davinci']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_ARMMED']").change(function (){
+        openSelectedOrder(this);
+    });
+    $("select[name*='selectOrderLab_Tonoyan']").change(function (){
+        openSelectedOrder(this);
     });
 }
 

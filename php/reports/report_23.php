@@ -39,12 +39,12 @@ require_once "../fillNonBreak.php";
                 <div class="row">
                     <div class="col-lg-2">
                         <nav class="nav navbar-white bg-white flex-column d-print-none" id="sidebar">
-                            <a class="nav-link border-top border-bottom" href="#" data-toggle="modal" data-target="#reagentExpensesModalWindow" id="reagentExpensesLink"><i class="far fa-file-alt"></i>&nbsp;Расход&nbsp;реагентов</a><!--active -->
+                            <a class="nav-link border-top border-bottom" href="#" id="printLink"><i class="fas fa-print"></i>&nbsp;Печать</a><!--active -->
+                            <a class="nav-link border-bottom" href="#" data-toggle="modal" data-target="#reagentExpensesModalWindow" id="reagentExpensesLink"><i class="far fa-file-alt"></i>&nbsp;Расход&nbsp;реагентов</a>
                             <a class="nav-link border-bottom" href="#" id="reagentRemaindersLink" data-toggle="modal" data-target="#reagentRemaindersModalWindow"><i class="far fa-file-alt"></i>&nbsp;Остатки&nbsp;реагентов</a>
                             <a class="nav-link border-bottom" href="#" id="doctorsLink" data-toggle="modal" data-target="#doctorsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Врачи</a>
                             <a class="nav-link border-bottom" href="#" id="debtsLink" data-toggle="modal" data-target="#debtsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Долги</a>
                             <a class="nav-link border-bottom" href="#" id="repaidDebtsLink" data-toggle="modal" data-target="#repaidDebtsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Погашенные&nbsp;долги</a>
-                            <!--<a class="nav-link border-bottom" href="#" id="dailyLink" data-toggle="modal" data-target="#dailyModalWindow"><i class="far fa-file-alt"></i>&nbsp;Дневной</a>-->
                             <a class="nav-link border-bottom" href="#" id="ordersByLabsLink" data-toggle="modal" data-target="#ordersByLabsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Заказы&nbsp;по&nbsp;лабораториям</a>
                             <a class="nav-link border-bottom" href="#" id="ordersByUsersLink" data-toggle="modal" data-target="#ordersByUsersModalWindow"><i class="far fa-file-alt"></i>&nbsp;Заказы&nbsp;по&nbsp;пользователям</a>
                         </nav>
