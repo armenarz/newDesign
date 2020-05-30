@@ -147,20 +147,35 @@ $msg .= '
     <div class="col">
         <div class="form-group d-print-none">
             <label for="SalesIdReagentExpenses">Sales</label>
-            <select id="SalesIdReagentExpenses" class="form-control" name="SalesIdReagentExpenses">
-                <option value="0"></option>
-                ';
-$sql =  "SELECT 
-    salesId, 
-    salesName 
-FROM sales 
-ORDER BY salesId";
-$result = mysqli_query($link,$sql);
-if($result)
+            <select id="SalesIdReagentExpenses" class="form-control" name="SalesIdReagentExpenses">';
+$userId = $_POST["uu"];
+if($userId == 412)
 {
-    while($row = mysqli_fetch_array($result))
+    $msg .= '<option value="16">16&nbsp;Сируш</option>';
+}
+elseif($userId == 484)
+{
+    $msg .= '<option value="4">4&nbsp;Лусине</option>';
+}
+elseif($userId == 486)
+{
+    $msg .= '<option value="2">2&nbsp;Армине</option>';
+}
+else
+{
+    $msg .= '<option value="0"></option>';
+    $sql =  "SELECT 
+                salesId, 
+                salesName 
+            FROM sales 
+            ORDER BY salesId";
+    $result = mysqli_query($link,$sql);
+    if($result)
     {
-        $msg .=  '<option value="'.$row["salesId"].'">'.FillNonBreak($row["salesId"],2).'&nbsp;'.$row["salesName"].'</option>';
+        while($row = mysqli_fetch_array($result))
+        {
+            $msg .=  '<option value="'.$row["salesId"].'">'.FillNonBreak($row["salesId"],2).'&nbsp;'.$row["salesName"].'</option>';
+        }
     }
 }
         $msg .= '
