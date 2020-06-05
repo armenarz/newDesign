@@ -245,7 +245,7 @@ function sumRepaidDebtsLab($link, $reportDate)
 	return $sum_vernuli_dolg;
 }
 
-function optionsHtmlRepaidDebtsLab($link, $reportDate)
+/* function optionsHtmlRepaidDebtsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				vernuli_dolg.orderid,
@@ -269,7 +269,7 @@ function optionsHtmlRepaidDebtsLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumTerminalRepaidDebtsLab($link, $reportDate)
 {
@@ -308,7 +308,7 @@ function sumRefundsLab($link, $reportDate)
 	return $sum_vozvrat;
 }
 
-function optionsHtmlRefundsLab($link, $reportDate)
+/* function optionsHtmlRefundsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				vozvrat.orderid,
@@ -332,7 +332,7 @@ function optionsHtmlRefundsLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumPartnerDebtsLab($link, $partner, $reportDate)
 {
@@ -341,7 +341,7 @@ function sumPartnerDebtsLab($link, $partner, $reportDate)
 	if( $partner == "Maple_ Leafs" || $partner == "Garant_Assinstance" || 
 		$partner == "Gyumri" || $partner == "Jermuk" ||
 		$partner == "On-Clinic" || $partner == "Maletti" ||
-		$partner == "Nairi" || $partner == "Ingo0"  || $partner == "Cosmolab")
+		$partner == "Nairi" || $partner == "Cosmolab")
 	{
 		$sql_sumDebts = "SELECT 
 								SUM(orders.cost) AS sumDebts
@@ -378,6 +378,16 @@ function sumPartnerDebtsLab($link, $partner, $reportDate)
 						INNER JOIN partners ON partner_users.partner_id=partners.id
 						WHERE 
 							orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
+						";
+
+	}
+	elseif($partner == "Ingo0")
+	{
+		$sql_sumDebts = "SELECT 
+								(SUM(zapl)) AS sumDebts
+						FROM zaplatili 
+						WHERE 
+							date(den)='".$reportDate."' AND uu='582'
 						";
 
 	}
@@ -515,7 +525,7 @@ function sumDebtsLab($link, $reportDate)
 	return $obshij_dolg;
 }
 
-function optionsHtmlDebtsLab($link, $reportDate)
+/* function optionsHtmlDebtsLab($link, $reportDate)
 {
 	$sql_partner_users = "	SELECT 
 								us22.log 
@@ -560,7 +570,7 @@ function optionsHtmlDebtsLab($link, $reportDate)
 	}
 
 	return $html;
-}
+} */
 
 function sumCashPaymentsLab($link, $reportDate)
 {
@@ -570,6 +580,7 @@ function sumCashPaymentsLab($link, $reportDate)
             FROM zaplatili 
             WHERE 
                 DATE(den)='$reportDate'
+				and uu != 582
 			";
 	
 	$result = mysqli_query($link, $sql);
@@ -581,7 +592,7 @@ function sumCashPaymentsLab($link, $reportDate)
 	return $cost_standart;
 }
 
-function optionsHtmlCashPaymentsLab($link, $reportDate)
+/* function optionsHtmlCashPaymentsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				zaplatili.orderid,
@@ -605,10 +616,10 @@ function optionsHtmlCashPaymentsLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 
-function optionsHtmlPaymentsLab($link, $reportDate)
+/* function optionsHtmlPaymentsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				orders.lab AS lab0,
@@ -635,39 +646,25 @@ function optionsHtmlPaymentsLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumPreviousCashPaymentsLab($link, $reportDate)
 {
-	$cost_standart_pred1 = 0;
+	$cost_standart_pred = 0;
 	$sql = "SELECT 
-				SUM(zapl) AS cost_standart_ 
-			FROM zaplatili 
-			WHERE 
-				DATE(den)='$reportDate' AND uu != '550' AND uu != '624' AND uu != '630' 
+                SUM(zapl) AS cost_standart_ 
+            FROM zaplatili 
+            WHERE 
+                DATE(den)='$reportDate'
+				and uu != 582
 			";
-
-	$result = mysqli_query($link, $sql);
-	if($result)
-	{
-		$row = mysqli_fetch_array($result); 
-		$cost_standart_pred1 = intval($row["cost_standart_"]);
-	}
 	
-	$cost_standart_pred2 = 0;
-	$sql = "SELECT 
-				(sum(zapl)/2) AS cost_standart_ 
-			FROM zaplatili 
-			WHERE
-				DATE(den)='$reportDate' AND ( uu = '550' OR uu = '624' OR uu = '630' ) 
-			";
 	$result = mysqli_query($link, $sql);
 	if($result)
 	{
 		$row = mysqli_fetch_array($result); 
-		$cost_standart_pred2 = intval($row["cost_standart_"]);
+		$cost_standart_pred = intval($row["cost_standart_"]);
 	}
-	$cost_standart_pred = $cost_standart_pred1 + $cost_standart_pred2;
 	return $cost_standart_pred;
 }
 
@@ -688,7 +685,7 @@ function sumTerminalPaymentsLab($link, $reportDate)
 	return $cost_terminal;
 }
 
-function optionsHtmlTerminalPaymentsLab($link, $reportDate)
+/* function optionsHtmlTerminalPaymentsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				zaplatili.orderid,
@@ -734,7 +731,7 @@ function optionsHtmlTerminalPaymentsLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumSalesLab($link, $reportDate)
 {//?
@@ -754,7 +751,7 @@ function sumSalesLab($link, $reportDate)
 	return $prodano_summa;
 }
 
-function optionsHtmlSalesLab($link, $reportDate)
+/* function optionsHtmlSalesLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				prochee_all.prodano_summa,
@@ -783,7 +780,7 @@ function optionsHtmlSalesLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumInstrumentsLab($link, $reportDate)
 {//?
@@ -803,7 +800,7 @@ function sumInstrumentsLab($link, $reportDate)
 	return $instrumenti;
 }
 
-function optionsHtmlInstrumentsLab($link, $reportDate)
+/* function optionsHtmlInstrumentsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				prochee_all.instrumenti,
@@ -832,29 +829,50 @@ function optionsHtmlInstrumentsLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumHomeVisitsLab($link, $reportDate)
 {
     $count_vizov_nadom = 0;
-	$sql = "SELECT 
-                COUNT(orderresult.ReagentId) AS count_vizov_nadom 
-            FROM orders 
-            INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
-            WHERE 
-                orders.OrderDate='$reportDate' AND orderresult.ReagentId=516
-            ";
-	$result = mysqli_query($link, $sql);
-	if($result)
+	$sql_count = "	SELECT 
+						COUNT(orderresult.ReagentId) AS count_vizov_nadom 
+					FROM orders 
+					INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
+					WHERE 
+						orders.OrderDate='$reportDate' AND orderresult.ReagentId=516
+					";
+	
+	$result_count = mysqli_query($link, $sql_count);
+	if($result_count)
 	{
-		$row = mysqli_fetch_array($result); 
-		$count_vizov_nadom = $row["count_vizov_nadom"];
-    }
-    $vizov_nadom = $count_vizov_nadom * 5000;
+		if(mysqli_num_rows($result_count) > 0)
+		{
+			$row_count = mysqli_fetch_array($result_count); 
+			$count_vizov_nadom = $row_count["count_vizov_nadom"];
+		}
+	}
+	
+	$price_vizov_nadom = 0;
+	$sql_price = "	SELECT 
+						AnalysisPrice 
+					FROM reagent 
+					WHERE ReagentId=516
+					";
+	$result_price = mysqli_query($link, $sql_price);
+	if($result_price)
+	{
+		if(mysqli_num_rows($result_price) > 0)
+		{
+			$row_price = mysqli_fetch_array($result_price);
+			$price_vizov_nadom = $row_price["AnalysisPrice"];
+		}
+	}
+
+    $vizov_nadom = $count_vizov_nadom * $price_vizov_nadom;
 	return $vizov_nadom;
 }
 
-function optionsHtmlHomeVisitsLab($link, $reportDate)
+/* function optionsHtmlHomeVisitsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				orders.OrderId,
@@ -876,42 +894,48 @@ function optionsHtmlHomeVisitsLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumUrgentCallsLab($link, $reportDate)
 {
     $count_sr_vizov = 0;
-	$sql = "SELECT 
-                COUNT(orderresult.ReagentId) AS count_sr_vizov 
-            FROM orders 
-            INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
-            WHERE 
-				orders.OrderDate='$reportDate' AND orderresult.ReagentId=1014
-			";
-	$result = mysqli_query($link, $sql);
-	if($result)
+	$sql_count = "	SELECT 
+						COUNT(orderresult.ReagentId) AS count_sr_vizov 
+					FROM orders 
+					INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
+					WHERE 
+						orders.OrderDate='$reportDate' AND orderresult.ReagentId=1014
+				";	
+	$result_count = mysqli_query($link, $sql_count);
+	if($result_count)
 	{
-		$row = mysqli_fetch_array($result); 
-		$count_sr_vizov = $row["count_sr_vizov"];
+		if(mysqli_num_rows($result_count) > 0)
+		{
+			$row_count = mysqli_fetch_array($result_count); 
+			$count_sr_vizov = $row_count["count_sr_vizov"];
+		}
     }
     
     $sr_vizov_price = 0;
-	$sql = "SELECT 
-                AnalysisPrice 
-            FROM reagent 
-            where ReagentId='1014'";
-	$result = mysqli_query($link, $sql);
-	if($result)
+	$sql_price = "	SELECT 
+						AnalysisPrice 
+					FROM reagent 
+					where ReagentId='1014'";
+	$result_price = mysqli_query($link, $sql_price);
+	if($result_price)
 	{
-		$row = mysqli_fetch_array($result); 
-		$sr_vizov_price = $row["AnalysisPrice"];
+		if(mysqli_num_rows($result_price) > 0)
+		{
+			$row_price = mysqli_fetch_array($result_price); 
+			$sr_vizov_price = $row_price["AnalysisPrice"];
+		}
     }
     
     $sr_vizov = $count_sr_vizov * $sr_vizov_price;
 	return $sr_vizov;
 }
 
-function optionsHtmlUrgentCallsLab($link, $reportDate)
+/* function optionsHtmlUrgentCallsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				orders.OrderId,
@@ -934,7 +958,7 @@ function optionsHtmlUrgentCallsLab($link, $reportDate)
 	   }
    }
    return $html;
-}
+} */
 
 function sumCashHandoversLab($link, $reportDate)
 {//?
@@ -953,7 +977,7 @@ function sumCashHandoversLab($link, $reportDate)
 	return $sdano;
 }
 
-function optionsHtmlCashHandoversLab($link, $reportDate)
+/* function optionsHtmlCashHandoversLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				prochee_all.sdano,
@@ -981,7 +1005,7 @@ function optionsHtmlCashHandoversLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumChecksLab($link, $reportDate)
 {
@@ -1001,7 +1025,7 @@ function sumChecksLab($link, $reportDate)
 	return $summa_checkov;
 }
 
-function optionsHtmlChecksLab($link, $reportDate)
+/* function optionsHtmlChecksLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				check_vozvrat.orderid, 
@@ -1033,7 +1057,7 @@ function optionsHtmlChecksLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 
 function sumCheckRefundsLab($link, $reportDate)
 {
@@ -1052,7 +1076,7 @@ function sumCheckRefundsLab($link, $reportDate)
 	return $vozvrat_checkov;
 }
 
-function optionsCheckRefundsLab($link, $reportDate)
+/* function optionsCheckRefundsLab($link, $reportDate)
 {
 	$sql = "SELECT 
 				check_vozvrat.orderid, 
@@ -1083,5 +1107,5 @@ function optionsCheckRefundsLab($link, $reportDate)
 		}
 	}
 	return $html;
-}
+} */
 ?>

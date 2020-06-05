@@ -565,20 +565,39 @@ function optionsHtmlInstruments($link, $lab_id, $reportDate)
 function sumHomeVisits($link, $lab, $reportDate)
 {
     $count_vizov_nadom = 0;
-	$sql = "SELECT 
-                COUNT(orderresult.ReagentId) AS count_vizov_nadom 
-            FROM orders 
-            INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
-            WHERE 
-                orders.OrderDate='$reportDate' AND orderresult.ReagentId=516 AND orders.lab='$lab'
-            ";
-	$result = mysqli_query($link, $sql);
-	if($result)
+	$sql_count = "  SELECT 
+                        COUNT(orderresult.ReagentId) AS count_vizov_nadom 
+                    FROM orders 
+                    INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
+                    WHERE 
+                        orders.OrderDate='$reportDate' AND orderresult.ReagentId=516 AND orders.lab='$lab'
+                ";
+	$result_count = mysqli_query($link, $sql_count);
+	if($result_count)
 	{
-		$row = mysqli_fetch_array($result); 
-		$count_vizov_nadom = $row["count_vizov_nadom"];
+        if(mysqli_num_rows($result_count) > 0)
+		{
+            $row_count = mysqli_fetch_array($result_count); 
+            $count_vizov_nadom = $row_count["count_vizov_nadom"];
+        }
     }
-    $vizov_nadom = $count_vizov_nadom * 5000;
+
+    $price_vizov_nadom = 0;
+    $sql_price = "	SELECT 
+						AnalysisPrice 
+					FROM reagent 
+					WHERE ReagentId=516
+                    ";
+    $result_price = mysqli_query($link, $sql_price);
+	if($result_price)
+	{
+		if(mysqli_num_rows($result_price) > 0)
+		{
+			$row_price = mysqli_fetch_array($result_price);
+			$price_vizov_nadom = $row_price["AnalysisPrice"];
+		}
+	}                
+    $vizov_nadom = $count_vizov_nadom * $price_vizov_nadom;
     return $vizov_nadom;
 }
 
@@ -610,29 +629,35 @@ function optionsHtmlHomeVisits($link, $lab, $reportDate)
 function sumUrgentCalls($link, $lab, $reportDate)
 {
     $count_sr_vizov = 0;
-	$sql = "SELECT 
-                COUNT(orderresult.ReagentId) AS count_sr_vizov 
-            FROM orders 
-            INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
-            WHERE 
-                orders.OrderDate='$reportDate' AND orderresult.ReagentId=1014 AND orders.lab='$lab'";
-	$result = mysqli_query($link, $sql);
-	if($result)
+	$sql_count = "  SELECT 
+                        COUNT(orderresult.ReagentId) AS count_sr_vizov 
+                    FROM orders 
+                    INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
+                    WHERE 
+                        orders.OrderDate='$reportDate' AND orderresult.ReagentId=1014 AND orders.lab='$lab'";
+	$result_count = mysqli_query($link, $sql_count);
+	if($result_count)
 	{
-		$row = mysqli_fetch_array($result); 
-		$count_sr_vizov = $row["count_sr_vizov"];
+        if(mysqli_num_rows($result_count) > 0)
+		{
+            $row_count = mysqli_fetch_array($result_count); 
+            $count_sr_vizov = $row_count["count_sr_vizov"];
+        }
     }
     
     $sr_vizov_price = 0;
-	$sql = "SELECT 
-                AnalysisPrice 
-            FROM reagent 
-            where ReagentId='1014'";
-	$result = mysqli_query($link, $sql);
-	if($result)
+	$sql_price = "  SELECT 
+                        AnalysisPrice 
+                    FROM reagent 
+                    where ReagentId='1014'";
+	$result_price = mysqli_query($link, $sql_price);
+	if($result_price)
 	{
-		$row = mysqli_fetch_array($result); 
-		$sr_vizov_price = $row["AnalysisPrice"];
+        if(mysqli_num_rows($result_price) > 0)
+		{
+            $row_price = mysqli_fetch_array($result_price); 
+            $sr_vizov_price = $row_price["AnalysisPrice"];
+        }
     }
     
     $sr_vizov = $count_sr_vizov * $sr_vizov_price;

@@ -228,8 +228,8 @@ function updateContent(reportObj)
             if(menuId == "dailyLink")
             {
                 setSelectsChangeEvents();
-
-                setOptionsHtmlLab();
+                
+                setOptionsHtmlLab(reportDate);
                 setOptionsHtmlLab1();
                 setOptionsHtmlLabs();
             }
@@ -237,9 +237,366 @@ function updateContent(reportObj)
     });
 }
 
-function setOptionsHtmlLab()
+function setOptionsHtmlLab(reportDate)
 {
+    //console.log(reportDate);
+    setOptionsHtmlRepaidDebtsLab(reportDate);
+    setOptionsHtmlRefundsLab(reportDate);
+    setOptionsHtmlDebtsLab(reportDate);
+    setOptionsHtmlCashPaymentsLab(reportDate);
+    setOptionsHtmlPaymentsLab(reportDate);
+    setOptionsHtmlPartnerDebtsLab(reportDate);
+    setOptionsHtmlTerminalPaymentsLab(reportDate);
+    setOptionsHtmlSalesLab(reportDate);
+    setOptionsHtmlInstrumentsLab(reportDate);
+    setOptionsHtmlHomeVisitsLab(reportDate);
+    setOptionsHtmlUrgentCallsLab(reportDate);
+    setOptionsHtmlCashHandoversLab(reportDate);
+    setOptionsHtmlChecksLab(reportDate);
+    setOptionsHtmlCheckRefundsLab(reportDate);ssssss
+}
 
+function setOptionsHtmlRepaidDebtsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlRepaidDebtsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+            cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderRepaidDebtsLab").html(msg);
+            $("#selectOrderRepaidDebtsLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlRefundsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlRefundsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+            cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderRefundsLab").html(msg);
+            $("#selectOrderRefundsLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlDebtsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlDebtsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+            cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderDebtsLab").html(msg);
+            $("#selectOrderDebtsLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlCashPaymentsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlCashPaymentsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+            cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderCashPaymentsLab").html(msg);
+            $("#selectOrderCashPaymentsLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlPaymentsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlPaymentsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+            cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderPaymentsLab").html(msg);
+            $("#selectOrderPaymentsLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlPartnerDebtsLab(reportDate)
+{
+    var partner = null;
+        
+    var urlString = "../reports/getPartner.php";
+
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+        cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val())
+    });
+    
+    $.ajax({
+        success:function(partner_result)
+        {
+            partner = Array.from(JSON.parse(partner_result));
+
+            var partner_count = partner.length;
+
+            for(var i = 0; i < partner_count; i++)
+            {
+                var currentPartner = partner[i];
+                setOptionsHtmlCurrentPartner(currentPartner);                
+            }
+
+            function setOptionsHtmlCurrentPartner(currentPartner)
+            {
+                let urlString = "../reports/getOptionsHtmlPartnerDebtsLab.php";
+
+                $.ajaxSetup({
+                    type: "POST",
+                    url: urlString,
+                    cache: false,
+                    async: true,
+                    data: dataString = ("uu=" + $("input[name='uu']").val()).
+                    concat("&").concat("num=" + $("input[name='num']").val()).
+                    concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+                    concat("&").concat("partner=" + currentPartner).
+                    concat("&").concat("reportDate=" + reportDate)
+                });
+
+                $.ajax({
+                    success:function(result)
+                    {
+                        $('[id="selectOrderLabDebts_' + currentPartner + '"]').html(result);
+                        $('[id="selectOrderLabDebts_' + currentPartner + '"]').prop("disabled", false);
+                    }
+                })
+            }
+        }
+    });
+    
+}
+
+function setOptionsHtmlTerminalPaymentsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlTerminalPaymentsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+            cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderTerminalLab").html(msg);
+            $("#selectOrderTerminalLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlSalesLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlSalesLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+            cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderSalesLab").html(msg);
+            $("#selectOrderSalesLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlInstrumentsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlInstrumentsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+        cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderInstrumensLab").html(msg);
+            $("#selectOrderInstrumensLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlHomeVisitsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlHomeVisitsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+        cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderHomeVisitsLab").html(msg);
+            $("#selectOrderHomeVisitsLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlUrgentCallsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlUrgentCallsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+        cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderUrgentCallsLab").html(msg);
+            $("#selectOrderUrgentCallsLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlCashHandoversLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlCashHandoversLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+        cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderCashHandoversLab").html(msg);
+            $("#selectOrderCashHandoversLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlChecksLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlChecksLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+        cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderChecksLab").html(msg);
+            $("#selectOrderChecksLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlCheckRefundsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlCheckRefundsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+        cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderCheckRefunds").html(msg);
+            $("#selectOrderCheckRefunds").prop("disabled", false);
+        }
+    });
 }
 
 function setOptionsHtmlLab1()
@@ -1539,7 +1896,7 @@ $('#doctorsModalWindow').on('click','#buttonOKDoctors', function(){
 
 // doctorsModalWindow button buttonDoctorsToExcel handler
 $('#doctorsModalWindow').on('click','#buttonDoctorsToExcel', function(){
-    console.log("buttonDoctorsToExcel");
+    //console.log("buttonDoctorsToExcel");
     
     var frmDoctors = CreateFormDoctorsObject();
     frmDoctors.getFormData();
