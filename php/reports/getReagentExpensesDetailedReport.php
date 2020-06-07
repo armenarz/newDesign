@@ -96,7 +96,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         else if($doctorId == 0 && $workplaceId == 0 && $salesId != 0 && $userId == 0)
         {
-            $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND doctor.sales_id='".$salesId."'";
+            if($salesId == 2 || $salesId == 4 || $salesId == 16)
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND (doctor.sales_id='".$salesId."' OR orders.DoctorId='1188' OR orders.DoctorId='1544')";
+            }
+            else
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND doctor.sales_id='".$salesId."'";
+            }
+            
             $reportDescription = "<span>(тип отчета: детально, по sales: ".$sales." [ id: ".$salesId." ])</span>";
         }
         else if($doctorId != 0 && $workplaceId == 0 && $salesId != 0 && $userId == 0)
@@ -106,7 +114,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         else if($doctorId == 0 && $workplaceId != 0 && $salesId != 0 && $userId == 0)
         {
-            $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND doctor.sales_id='".$salesId."'";
+            if($salesId == 2 || $salesId == 4 || $salesId == 16)
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND (doctor.sales_id='".$salesId."' OR orders.DoctorId='1188' OR orders.DoctorId='1544')";
+            }
+            else
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND doctor.sales_id='".$salesId."'";
+            }
+            
             $reportDescription = "<span>(тип отчета: детально, по месту работы: ".$workplace." [ id: ".$workplaceId." ], по sales: ".$sales." [ id: ".$salesId." ])</span>";
         }
         else if($doctorId != 0 && $workplaceId != 0 && $salesId != 0 && $userId == 0)
@@ -136,7 +152,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         else if($doctorId == 0 && $workplaceId == 0 && $salesId != 0 && $userId != 0)
         {
-            $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND doctor.sales_id='".$salesId."' AND orders.user_id='".$userId."'";
+            if($salesId == 2 || $salesId == 4 || $salesId == 16)
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND (doctor.sales_id='".$salesId."' OR orders.DoctorId='1188' OR orders.DoctorId='1544') AND orders.user_id='".$userId."'";
+            }
+            else
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND doctor.sales_id='".$salesId."' AND orders.user_id='".$userId."'";
+            }
+            
             $reportDescription = "<span>(тип отчета: детально, по sales: ".$sales." [ id: ".$salesId." ], по пользователю: ".$user." [ id: ".$userId." ])</span>";
         }
         else if($doctorId != 0 && $workplaceId == 0 && $salesId != 0 && $userId != 0)
@@ -146,7 +170,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         else if($doctorId == 0 && $workplaceId != 0 && $salesId != 0 && $userId != 0)
         {
-            $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND doctor.sales_id='".$salesId."' AND orders.user_id='".$userId."'";
+            if($salesId == 2 || $salesId == 4 || $salesId == 16)
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND (doctor.sales_id='".$salesId."' OR orders.DoctorId='1188' OR orders.DoctorId='1544') AND orders.user_id='".$userId."'";
+            }
+            else
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND doctor.sales_id='".$salesId."' AND orders.user_id='".$userId."'";
+            }
+            
             $reportDescription = "<span>(тип отчета: детально, по месту работы: ".$workplace." [ id: ".$workplaceId." ], по sales: ".$sales." [ id: ".$salesId." ], по пользователю: ".$user." [ id: ".$userId." ])</span>";
         }
         else if($doctorId != 0 && $workplaceId != 0 && $salesId != 0 && $userId != 0)
@@ -180,7 +212,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         else if($doctorId == 0 && $workplaceId == 0 && $salesId != 0 && $userId == 0)
         {
-            $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND doctor.sales_id='".$salesId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            if($salesId == 2 || $salesId == 4 || $salesId == 16)
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND (doctor.sales_id='".$salesId."' OR orders.DoctorId='1188' OR orders.DoctorId='1544') AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            }
+            else
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND doctor.sales_id='".$salesId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            }
+            
             $reportDescription = "<span>(тип отчета: детально, по реагентам [ id: ".$reagentIdArrText." ], по sales: ".$sales." [ id: ".$salesId." ])</span>";
         }
         else if($doctorId != 0 && $workplaceId == 0 && $salesId != 0 && $userId == 0)
@@ -190,7 +230,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         else if($doctorId == 0 && $workplaceId != 0 && $salesId != 0 && $userId == 0)
         {
-            $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND doctor.sales_id='".$salesId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            if($salesId == 2 || $salesId == 4 || $salesId == 16)
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND (doctor.sales_id='".$salesId."' OR orders.DoctorId='1188' OR orders.DoctorId='1544') AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            }
+            else
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND doctor.sales_id='".$salesId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            }
+            
             $reportDescription = "<span>(тип отчета: детально, по реагентам [ id: ".$reagentIdArrText." ], по месту работы: ".$workplace." [ id: ".$workplaceId." ], по sales: ".$sales." [ id: ".$salesId." ])</span>";
         }
         else if($doctorId != 0 && $workplaceId != 0 && $salesId != 0 && $userId == 0)
@@ -220,7 +268,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         else if($doctorId == 0 && $workplaceId == 0 && $salesId != 0 && $userId != 0)
         {
-            $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND doctor.sales_id='".$salesId."' AND orders.user_id='".$userId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            if($salesId == 2 || $salesId == 4 || $salesId == 16)
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND (doctor.sales_id='".$salesId."' OR orders.DoctorId='1188' OR orders.DoctorId='1544') AND orders.user_id='".$userId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            }
+            else
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND doctor.sales_id='".$salesId."' AND orders.user_id='".$userId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            }
+            
             $reportDescription = "<span>(тип отчета: детально, по реагентам [ id: ".$reagentIdArrText." ], по sales: ".$sales." [ id: ".$salesId." ], по пользователю: ".$user." [ id: ".$userId." ])</span>";
         }
         else if($doctorId != 0 && $workplaceId == 0 && $salesId != 0 && $userId != 0)
@@ -230,7 +286,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         else if($doctorId == 0 && $workplaceId != 0 && $salesId != 0 && $userId != 0)
         {
-            $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND doctor.sales_id='".$salesId."' AND orders.user_id='".$userId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            if($salesId == 2 || $salesId == 4 || $salesId == 16)
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND (doctor.sales_id='".$salesId."' OR orders.DoctorId='1188' OR orders.DoctorId='1544') AND orders.user_id='".$userId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            }
+            else
+            {
+                $filter = "orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND Doctor.WorkPlaceId='".$workplaceId."' AND doctor.sales_id='".$salesId."' AND orders.user_id='".$userId."' AND orderresult.ReagentId IN(".$reagentIdArrText.")";
+            }
+            
             $reportDescription = "<span>(тип отчета: детально, по реагентам [ id: ".$reagentIdArrText." ], по месту работы: ".$workplace." [ id: ".$workplaceId." ], по sales: ".$sales." [ id: ".$salesId." ], по пользователю: ".$user." [ id: ".$userId." ])</span>";
         }
         else if($doctorId != 0 && $workplaceId != 0 && $salesId != 0 && $userId != 0)
