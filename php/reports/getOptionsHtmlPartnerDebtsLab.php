@@ -23,7 +23,7 @@ $html = '';
 if( $partner == "Maple_ Leafs" || $partner == "Garant_Assinstance" ||
 $partner == "Gyumri" || $partner == "Jermuk" ||
 $partner == "On-Clinic" || $partner == "Maletti" ||
-$partner == "Nairi" || $partner == "Ingo0" ||
+$partner == "Nairi" ||
 $partner == "Profimed" || $partner == "MIM" || $partner == "Cosmolab" ||
 $partner == "Manasyan")
 {
@@ -66,6 +66,24 @@ elseif($partner == "Davinci")
         while($row = mysqli_fetch_array($result)) 
         {
             $html.= '<option value="'.$row["OrderId"].'">'.$row["OrderId"].' | '.intval($row["cen_an"]).'</option>';
+        }
+    }
+}
+elseif($partner == "Ingo0")
+{
+    $sql = "SELECT 
+            orderid, zapl
+            FROM zaplatili 
+            WHERE 
+                date(den)='".$reportDate."' AND uu='582'
+            ";
+    $result = mysqli_query($link, $sql);
+    if($result)
+    {
+        $html = '<option></option>';
+        while($row = mysqli_fetch_array($result)) 
+        {
+            $html.= '<option value="'.$row["orderid"].'">'.$row["orderid"].' | '.intval($row["zapl"]).'</option>';
         }
     }
 }

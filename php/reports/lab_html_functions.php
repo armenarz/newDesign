@@ -418,7 +418,7 @@ function optionsHtmlPartnerDebtsLab($link, $partner, $reportDate)
 	if( $partner == "Maple_ Leafs" || $partner == "Garant_Assinstance" ||
 	$partner == "Gyumri" || $partner == "Jermuk" ||
 	$partner == "On-Clinic" || $partner == "Maletti" ||
-	$partner == "Nairi" || $partner == "Ingo0" ||
+	$partner == "Nairi" ||
 	$partner == "Profimed" || $partner == "MIM" || $partner == "Cosmolab" ||
 	$partner == "Manasyan")
 	{
@@ -459,6 +459,24 @@ function optionsHtmlPartnerDebtsLab($link, $partner, $reportDate)
 			while($row = mysqli_fetch_array($result)) 
 			{
 				$html.= '<option value="'.$row["OrderId"].'">'.$row["OrderId"].' | '.intval($row["cen_an"]).'</option>';
+			}
+		}
+	}
+	elseif($partner == "Ingo0")
+	{
+		$sql = "SELECT 
+				orderid, zapl
+				FROM zaplatili 
+				WHERE 
+					date(den)='".$reportDate."' AND uu='582'
+				";
+		$result = mysqli_query($link, $sql);
+		if($result)
+		{
+			$html = '<option></option>';
+			while($row = mysqli_fetch_array($result)) 
+			{
+				$html.= '<option value="'.$row["orderid"].'">'.$row["orderid"].' | '.intval($row["zapl"]).'</option>';
 			}
 		}
 	}
@@ -899,13 +917,13 @@ function sumHomeVisitsLab($link, $reportDate)
 function sumUrgentCallsLab($link, $reportDate)
 {
     $count_sr_vizov = 0;
-	$sql_count = "	SELECT 
-						COUNT(orderresult.ReagentId) AS count_sr_vizov 
-					FROM orders 
-					INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
-					WHERE 
-						orders.OrderDate='$reportDate' AND orderresult.ReagentId=1014
-				";	
+	$sql_count = "SELECT 
+                COUNT(orderresult.ReagentId) AS count_sr_vizov 
+            FROM orders 
+            INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
+            WHERE 
+				orders.OrderDate='$reportDate' AND orderresult.ReagentId=1014
+			";
 	$result_count = mysqli_query($link, $sql_count);
 	if($result_count)
 	{
@@ -917,10 +935,10 @@ function sumUrgentCallsLab($link, $reportDate)
     }
     
     $sr_vizov_price = 0;
-	$sql_price = "	SELECT 
-						AnalysisPrice 
-					FROM reagent 
-					where ReagentId='1014'";
+	$sql_price = "SELECT 
+                AnalysisPrice 
+            FROM reagent 
+            where ReagentId='1014'";
 	$result_price = mysqli_query($link, $sql_price);
 	if($result_price)
 	{
