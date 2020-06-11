@@ -198,7 +198,7 @@ function updateContent(reportObj)
     $.ajaxSetup({
         type: "POST",
         url: urlString,
-            cache:false,
+        cache:false,
         data: dataString = $("form[name='tempData']").serialize().concat("&").concat($.param(reportObj))
     });
     
@@ -253,7 +253,7 @@ function setOptionsHtmlLab(reportDate)
     setOptionsHtmlUrgentCallsLab(reportDate);
     setOptionsHtmlCashHandoversLab(reportDate);
     setOptionsHtmlChecksLab(reportDate);
-    setOptionsHtmlCheckRefundsLab(reportDate);ssssss
+    setOptionsHtmlCheckRefundsLab(reportDate);
 }
 
 function setOptionsHtmlRepaidDebtsLab(reportDate)
@@ -750,6 +750,9 @@ function exportToExcel(reportObj)
         var salesId = reportObj.salesId;
         appendHiddenElement(form, "salesId", salesId);
 
+        var doubleCheck = reportObj.doubleCheck;
+        appendHiddenElement(form, "doubleCheck", doubleCheck);
+
         //var urlString = "";
         if(reportTypeId == 1)
         {
@@ -775,6 +778,7 @@ function exportToExcel(reportObj)
         removeHiddenElement(form, "workplaceId");
         removeHiddenElement(form, "userId");
         removeHiddenElement(form, "salesId");
+        removeHiddenElement(form, "doubleCheck");
     }
     else if(menuId == "reagentRemaindersLink")
     {
@@ -850,6 +854,9 @@ function exportToExcel(reportObj)
         var salesId = reportObj.salesId;
         appendHiddenElement(form, "salesId", salesId);
 
+        var doubleCheck = reportObj.doubleCheck;
+        appendHiddenElement(form, "doubleCheck", doubleCheck);
+
         //var urlString = "";
         if(reportTypeId == 1)
         {
@@ -875,6 +882,7 @@ function exportToExcel(reportObj)
         removeHiddenElement(form, "workplaceId");
         removeHiddenElement(form, "userId");
         removeHiddenElement(form, "salesId");
+        removeHiddenElement(form, "doubleCheck");
     }
     else if(menuId == "debtsLink")
     {
@@ -1582,6 +1590,7 @@ $('#reagentExpensesModalWindow').on('click','#buttonOKReagentExpenses', function
         reportObj.workplaceId = $('#WorkplaceIdReagentExpenses').val();
         reportObj.userId = $('#UserIdReagentExpenses').val();
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
+        reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
         reportObj.menuId = "reagentExpensesLink";
         setActiveItem(sidebarItems,"reagentExpensesLink");
         updateContent(reportObj);
@@ -1624,6 +1633,7 @@ $('#reagentExpensesModalWindow').on('click','#buttonReagentExpensesToExcel', fun
         reportObj.workplaceId = $('#WorkplaceIdReagentExpenses').val();
         reportObj.userId = $('#UserIdReagentExpenses').val();
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
+        reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
         reportObj.menuId = "reagentExpensesLink";
         setActiveItem(sidebarItems,"reagentExpensesLink");
         exportToExcel(reportObj);
@@ -1887,6 +1897,7 @@ $('#doctorsModalWindow').on('click','#buttonOKDoctors', function(){
         reportObj.workplaceId = $('#WorkplaceIdDoctors').val();
         reportObj.userId = $('#UserIdDoctors').val();
         reportObj.salesId = $('#SalesIdDoctors').val();
+        reportObj.doubleCheck = $('#DoubleCheckDoctors').is(":checked");
         reportObj.menuId = "doctorsLink";
         setActiveItem(sidebarItems,"doctorsLink");
         updateContent(reportObj);
@@ -1941,6 +1952,7 @@ $('#doctorsModalWindow').on('click','#buttonDoctorsToExcel', function(){
         reportObj.workplaceId = $('#WorkplaceIdDoctors').val();
         reportObj.userId = $('#UserIdDoctors').val();
         reportObj.salesId = $('#SalesIdDoctors').val();
+        reportObj.doubleCheck = $('#DoubleCheckDoctors').is(":checked");
         reportObj.menuId = "doctorsLink";
         setActiveItem(sidebarItems,"doctorsLink");
         exportToExcel(reportObj);
