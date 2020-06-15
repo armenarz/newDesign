@@ -752,12 +752,23 @@ function exportToExcel(reportObj)
 
         var doubleCheck = reportObj.doubleCheck;
         appendHiddenElement(form, "doubleCheck", doubleCheck);
+		
+		var SARSCheck = reportObj.SARSCheck;
+        appendHiddenElement(form, "SARSCheck", SARSCheck);
 
         //var urlString = "";
         if(reportTypeId == 1)
         {
             //urlString = "../reports/exportReagentExpensesConsolidated.php";
-            document.tempData.action = "../reports/exportReagentExpensesConsolidated.php";
+			///alert(SARSCheck); porcel notebook -ov
+			if(SARSCheck === false) {
+				console.log(1);
+				document.tempData.action = "../reports/exportReagentExpensesConsolidated.php";
+			}
+			else {
+				console.log(2);
+				document.tempData.action = "../reports/exportReagentSars.php";
+			}
         }
         else if(reportTypeId == 2)
         {
@@ -1634,6 +1645,7 @@ $('#reagentExpensesModalWindow').on('click','#buttonReagentExpensesToExcel', fun
         reportObj.userId = $('#UserIdReagentExpenses').val();
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
         reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
+		reportObj.SARSCheck = $('#SARS-CoV-2CheckReagentExpenses').is(":checked");
         reportObj.menuId = "reagentExpensesLink";
         setActiveItem(sidebarItems,"reagentExpensesLink");
         exportToExcel(reportObj);
