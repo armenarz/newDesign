@@ -144,7 +144,14 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                 <!--5. Cost-->
                 <th scope="col" class="text-right">Стоимость</th>
                 <!--6. ReceivedFromPatient-->
-                <th scope="col" class="text-right">Получено от пациента</th>
+                <th scope="col" class="text-right">Получено от пациента</th>';
+            if($userId == 582)
+            {
+                $msg.= '
+                <!--Ingo payment-->
+                <th scope="col" class="text-right">Ingo оплата</th>';
+            }
+            $msg.= '
                 <!--7. Comments-->
                 <th scope="col" class="text-right">Комментарий</th>
             </tr>
@@ -154,6 +161,8 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
         $price_grand_total = 0;
         $cost_grand_total = 0;
         $count_grand_total = 0;
+
+        $payments_grand_total = 0;
 
         $sql_workplace = "  SELECT 
                                 doctor.WorkPlaceId,
@@ -175,6 +184,9 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                 $price_workplace_total = 0;
                 $cost_workplace_total = 0;
                 $count_workplace_total = 0;
+
+                $payments_workplace_total = 0;
+
                 $msg.= '
                 <tr>
                     <!--1. Row number-->
@@ -188,7 +200,14 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                     <!--5. Cost-->
                     <!--<td></td>-->
                     <!--6. ReceivedFromPatient-->
-                    <!--<td></td>-->
+                    <!--<td></td>-->';
+                if($userId == 582)
+                {
+                    $msg.= '
+                    <!--Ingo payment-->
+                    <td></td>';
+                }
+                $msg.= '
                     <!--7. Comments-->
                     <!--<td></td>-->
                 </tr>
@@ -216,12 +235,24 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                         $price_doctor_total = 0;
                         $cost_doctor_total = 0;
                         $count_doctor_total = 0;
+
+                        $payments_doctor_total = 0;
+
                         $msg.= '
                         <tr>
                             <!--1. Row number-->
                             <td class="text-right"></td>
                             <!--2. OrderId-->
-                            <td colspan="6"><strong>'.$row_doctor["DocName"].' [ id: '.$row_doctor["DoctorId"].' ]</strong></td>
+                            <td colspan="';
+                        if($userId == 582)
+                        {
+                            $msg.= '7';
+                        }
+                        else
+                        {
+                            $msg.= '6';
+                        }
+                        $msg.= '"><strong>'.$row_doctor["DocName"].' [ id: '.$row_doctor["DoctorId"].' ]</strong></td>
                             <!--3. OrderDate-->
                             <!--<td></td>-->
                             <!--4. Patient-->
@@ -249,6 +280,7 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                         if($result_orders)
                         {
                             $count_doctor = 0;
+                            $payments_doctor = 0;
                             while($row_orders = mysqli_fetch_array($result_orders))
                             {
                                 $sql_orders_data ="	SELECT 
@@ -289,6 +321,18 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                                         $row_debt_repayment = mysqli_fetch_array($result_debt_repayment);
                                         $cost_doctor += $row_debt_repayment["RepaidDebt"];
                                     }
+
+                                    $sql_payments_Ingo01 = "    SELECT 
+                                                                    SUM(zapl) AS Payments_Ingo01 
+                                                                FROM zaplatili 
+                                                                WHERE orderid='".$row_orders["OrderId"]."' AND uu='582'";
+                                    $result_payments_Ingo01 = mysqli_query($link, $sql_payments_Ingo01);
+                                    if($result_payments_Ingo01)
+                                    {
+                                        $row_payments_Ingo01 = mysqli_fetch_array($result_payments_Ingo01);
+                                        $payments_doctor = $row_payments_Ingo01["Payments_Ingo01"];
+                                    }
+
                                     $msg.= '
                                     <tr>
                                         <!--1. Row number-->
@@ -302,13 +346,22 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                                         <!--5. Price-->
                                         <td class="text-right">'.$price_doctor.'</td>
                                         <!--6. ReceivedFromPatient-->
-                                        <td class="text-right">'.$cost_doctor.'</td>
+                                        <td class="text-right">'.$cost_doctor.'</td>';
+                                    if($userId == 582)
+                                    {
+                                        $msg.= '
+                                        <!--Ingo payment-->
+                                        <td class="text-right">'.$payments_doctor.'</td>'; 
+                                    }
+                                    $msg.= '
                                         <!--7. Comments-->
                                         <td>'.$row_orders_data["Comment"].'</td>
                                     </tr>
                                     ';
                                     $price_doctor_total += $price_doctor;
                                     $cost_doctor_total += $cost_doctor;
+
+                                    $payments_doctor_total += $payments_doctor;
                                 }
                             }
                             $count_doctor_total += $count_doctor;
@@ -316,7 +369,14 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                             <tr>
                                 <td colspan="4" class="text-right"><strong>ИТОГО ( количество заказов по врачу: '.$count_doctor.' ):</strong></td>
                                 <td class="text-right"><strong>'.$price_doctor_total.'</strong></td>
-                                <td class="text-right"><strong>'.$cost_doctor_total.'</strong></td>
+                                <td class="text-right"><strong>'.$cost_doctor_total.'</strong></td>';
+                            if($userId == 582)
+                            {
+                                $msg.= '
+                                <!--Ingo payment-->
+                                <td class="text-right"><strong>'.$payments_doctor_total.'</strong></td>'; 
+                            }
+                            $msg.= '
                                 <td class="text-right"></td>
                             </tr>
                             ';
@@ -325,14 +385,23 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                         $price_workplace_total += $price_doctor_total;
                         $cost_workplace_total += $cost_doctor_total;
                         $count_workplace_total += $count_doctor_total;
+
+                        $payments_workplace_total += $payments_doctor_total;
                     }
                     
                     $msg.= '
                     <tr>
                         <td colspan="4" class="text-right"><strong>ИТОГО ( количество заказов по учреждению: '.$count_workplace_total.' ):</strong></td>
                         <td class="text-right"><strong>'.$price_workplace_total.'</strong></td>
-                        <td class="text-right"><strong>'.$cost_workplace_total.'</strong></td>
-                        <td class="text-right"></td>
+                        <td class="text-right"><strong>'.$cost_workplace_total.'</strong></td>';
+                if($userId == 582)
+                {
+                    $msg.= '
+                        <!--Ingo payment-->
+                        <td class="text-right"><strong>'.$payments_workplace_total.'</strong></td>'; 
+                }
+                    $msg.= '
+                    <td class="text-right"></td>
                     </tr>
                     <tr>
                         <td colspan="7"></td>
@@ -342,13 +411,22 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                 $price_grand_total += $price_workplace_total;
                 $cost_grand_total += $cost_workplace_total;
                 $count_grand_total += $count_workplace_total;
+
+                $payments_grand_total += $payments_workplace_total;
             }
         }
         $msg.= '
         <tr>
             <td colspan="4" class="text-right"><strong>ОБЩИЙ ИТОГ ( количество заказов: '.$count_grand_total.' ):</strong></td>
             <td class="text-right"><strong>'.$price_grand_total.'</strong></td>
-            <td class="text-right"><strong>'.$cost_grand_total.'</strong></td>
+            <td class="text-right"><strong>'.$cost_grand_total.'</strong></td>';
+    if($userId == 582)
+    {
+        $msg.= '
+            <!--Ingo payment-->
+            <td class="text-right"><strong>'.$payments_grand_total.'</strong></td>'; 
+    }
+        $msg.= ' 
             <td class="text-right"></td>
         </tr>
         ';
