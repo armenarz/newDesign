@@ -220,8 +220,8 @@ if($result)
     <div class="col"></div>
     <div class="col">
         <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="DoubleCheckDoctors" checked>
-            <label class="form-check-label" for="DoubleCheckDoctors">Double Check</label>
+            <input type="checkbox" class="form-check-input" id="DoubleCheckDoctors">
+            <label class="form-check-label" for="DoubleCheckDoctors">только Double Check</label>
         </div>
     </div>
 </div>
