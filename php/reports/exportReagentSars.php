@@ -1,12 +1,8 @@
 <?php
-header("Content-Type: application/xls");
-
 require_once "../connect.php";
 require_once "../authorization.php";
-
-$utf8_bom = chr(239).chr(187).chr(191);
-
-$msg = $utf8_bom;
+require_once "../../../PHPExcel-1.8/Classes/PHPExcel.php";
+require_once "../../../PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php";
 
 if(!isset($_POST["startDate"]) || !isset($_POST["endDate"]))
 {
@@ -19,80 +15,141 @@ $endDate = $_POST["endDate"];
 
 $arr = array('Դրական/ positive/ положительный' => 'Դրական', 'Բացասական/ negative/ отрицательный' => 'Բացասական');
 
-$msg.= '
-<table class="table" border="1" id="reagentExpensesData">
-	<thead>
-		<tr>
-			<th scope="col" class="text-left">Անուն</th>
-			<th scope="col">Ազգանուն</th>
-			<th scope="col" class="text-left">Ծննդյան ամսաթիվ</th>
-			<th scope="col" class="text-left">ՀԾՀ</th>
-			<th scope="col" class="text-left">Բարկոդ</th>
-			<th scope="col" class="text-left">Ամսաթիվ</th>
-			<th scope="col" class="text-left">Առաջադրանքի պատասխանի ամսաթիվ</th>
-			<th scope="col" class="text-left">Թեստավորման պատասխան</th>
-			<th scope="col" class="text-left">Թեստավորման ամսաթիվ</th>
-			<th scope="col" class="text-left">Նմուշառման ամսաթիվ</th>
-			<th scope="col" class="text-left">Կրկնակի թեստավորման տարբերություն</th>
-			<th scope="col" class="text-left">Կրկնակի թեստավորում</th>
-			<th scope="col" class="text-left">Ուղեգրող հաստատություն</th>
-			<th scope="col" class="text-left">Գրանցման հասցե</th>
-			<th scope="col" class="text-left">Բնակության հասցե</th>
-			<!--Row number-->
-			<th scope="col" class="text-left">Համար</th>
-		</tr>
-	</thead>
-	<tbody>
-	';
-	
-		$msg.= '';
-		$sql = "SELECT 
-					pacients.FirstName,
-					pacients.LastName,
-					pacients.birthday,
-					pacients.dopolnitelno,
-					orderresult.OrderId,
-					orderresult.AnalysisResult
-					FROM orderresult
-					INNER JOIN orders ON orders.OrderId=orderresult.OrderId
-					INNER JOIN pacients ON pacients.id=orders.pac_id
-					WHERE orders.OrderDate >= '$startDate' and orders.OrderDate <= '$endDate'
-						  AND orderresult.ReagentId = '1142' and orderresult.double_check = '1'						
-					ORDER BY orderresult.OrderId";
-		$res = mysqli_query($link,$sql);
-		if($res)
-		{
-			while($row = mysqli_fetch_array($res))
-			{
-				$i++;
-				$msg.= '
-				<tr>
-					<td class="text-left">'.$row["FirstName"].'</td>
-					<td class="text-left">'.$row["LastName"].'</td>
-					<td class="text-left">'.$row["birthday"].'</td>
-					<td class="text-left">'.$row["dopolnitelno"].'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.$arr[$row["AnalysisResult"]].'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.'ՊՐՈՄ-ՏԷՍՏ ՍՊԸ'.'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.' '.'</td>
-					<td class="text-left">'.$i.'</td>
-				</tr>
-				';
-			}
-		}
-	
-$msg.= '
-	</tbody>
-</table>
-';
+$xls = new PHPExcel();
 
-header("Content-Disposition: attachement; filename=ReagentExportReagentSars.xls");
-echo $msg;
+$xls->setActiveSheetIndex(0);
+$sheet = $xls->getActiveSheet();
+$sheet->setTitle("Sars");
+
+///Параметры печати
+// Формат
+$sheet->getPageSetup()->SetPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+ 
+// Ориентация
+// ORIENTATION_PORTRAIT — книжная
+// ORIENTATION_LANDSCAPE — альбомная
+$sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_PORTRAIT);
+ 
+// Поля
+$sheet->getPageMargins()->setTop(1);
+$sheet->getPageMargins()->setRight(0.75);
+$sheet->getPageMargins()->setLeft(0.75);
+$sheet->getPageMargins()->setBottom(1);
+ 
+// Верхний колонтитул
+$sheet->getHeaderFooter()->setOddHeader("Название листа");
+ 
+// Нижний колонтитул
+$sheet->getHeaderFooter()->setOddFooter('&L&B Название листа &R Страница &P из &N');
+
+
+//title
+$sheet->setCellValueExplicit("A1", 'Անուն', PHPExcel_Cell_DataType::TYPE_STRING);
+
+$sheet->setCellValueExplicit("B1", 'Ազգանուն', PHPExcel_Cell_DataType::TYPE_STRING);
+
+$sheet->setCellValueExplicit("C1", 'Ծննդյան ամսաթիվ', PHPExcel_Cell_DataType::TYPE_STRING);
+
+$sheet->setCellValueExplicit("D1", 'ՀԾՀ', PHPExcel_Cell_DataType::TYPE_STRING);
+
+$sheet->setCellValueExplicit("E1", 'Բարկոդ', PHPExcel_Cell_DataType::TYPE_STRING);
+
+$sheet->setCellValueExplicit("F1", 'Ամսաթիվ', PHPExcel_Cell_DataType::TYPE_STRING);
+
+$sheet->setCellValueExplicit("G1", 'Առաջադրանքի պատասխանի ամսաթիվ', PHPExcel_Cell_DataType::TYPE_STRING);
+			
+$sheet->setCellValueExplicit("H1", 'Թեստավորման պատասխան', PHPExcel_Cell_DataType::TYPE_STRING);	
+		
+$sheet->setCellValueExplicit("I1", 'Թեստավորման ամսաթիվ', PHPExcel_Cell_DataType::TYPE_STRING);
+				
+$sheet->setCellValueExplicit("J1", 'Նմուշառման ամսաթիվ', PHPExcel_Cell_DataType::TYPE_STRING);
+			
+$sheet->setCellValueExplicit("K1", 'Կրկնակի թեստավորման տարբերություն', PHPExcel_Cell_DataType::TYPE_STRING);	
+				
+$sheet->setCellValueExplicit("L1", 'Կրկնակի թեստավորում', PHPExcel_Cell_DataType::TYPE_STRING);
+
+$sheet->setCellValueExplicit("M1", 'Ուղեգրող հաստատություն', PHPExcel_Cell_DataType::TYPE_STRING);
+					
+$sheet->setCellValueExplicit("N1", 'Գրանցման հասցե', PHPExcel_Cell_DataType::TYPE_STRING);
+			
+$sheet->setCellValueExplicit("O1", 'Բնակության հասցե', PHPExcel_Cell_DataType::TYPE_STRING);	
+	
+$sheet->setCellValueExplicit("P1", 'OrderId', PHPExcel_Cell_DataType::TYPE_STRING);
+			
+$sheet->setCellValueExplicit("Q1", 'Համար', PHPExcel_Cell_DataType::TYPE_STRING);			
+			
+//data		
+$sql = "SELECT 
+			pacients.FirstName,
+			pacients.LastName,
+			pacients.birthday,
+			pacients.dopolnitelno,
+			orderresult.OrderId,
+			orderresult.AnalysisResult
+			FROM orderresult
+			INNER JOIN orders ON orders.OrderId=orderresult.OrderId
+			INNER JOIN pacients ON pacients.id=orders.pac_id
+			WHERE orders.OrderDate >= '$startDate' and orders.OrderDate <= '$endDate'
+				  AND orderresult.ReagentId = '1142' and orderresult.double_check = '1'						
+			ORDER BY orderresult.OrderId";
+$res = mysqli_query($link,$sql);
+if($res)
+{
+	$i = 1;
+	while($row = mysqli_fetch_array($res))
+	{
+		$i++;
+		
+		$d1 = $row["birthday"];
+		$date = new DateTime("$d1");
+		
+		$date_format = $date->format('Y-m-d');
+		
+		$sheet->setCellValueExplicit("A".$i, $row["FirstName"], PHPExcel_Cell_DataType::TYPE_STRING);
+		
+		$sheet->setCellValueExplicit("B".$i, $row["LastName"], PHPExcel_Cell_DataType::TYPE_STRING);
+
+		$sheet->setCellValueExplicit("C".$i, $row["birthday"], PHPExcel_Cell_DataType::TYPE_STRING);
+
+		$sheet->setCellValueExplicit("D".$i, $row["dopolnitelno"], PHPExcel_Cell_DataType::TYPE_STRING);
+
+		$sheet->setCellValueExplicit("E".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+
+		$sheet->setCellValueExplicit("F".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+
+		$sheet->setCellValueExplicit("G".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+					
+		$sheet->setCellValueExplicit("H".$i, $arr[$row["AnalysisResult"]], PHPExcel_Cell_DataType::TYPE_STRING);	
+				
+		$sheet->setCellValueExplicit("I".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+						
+		$sheet->setCellValueExplicit("J".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+					
+		$sheet->setCellValueExplicit("K".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);	
+				
+		$sheet->setCellValueExplicit("L".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+						
+		$sheet->setCellValueExplicit("M".$i, "ՊՐՈՄ-ՏԷՍՏ ՍՊԸ", PHPExcel_Cell_DataType::TYPE_STRING);
+
+		$sheet->setCellValueExplicit("N".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+							
+		$sheet->setCellValueExplicit("O".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+					
+		$sheet->setCellValueExplicit("P".$i, $row["OrderId"], PHPExcel_Cell_DataType::TYPE_STRING);
+					
+		$sheet->setCellValueExplicit("Q".$i, ($i-1), PHPExcel_Cell_DataType::TYPE_STRING);				
+		
+	}
+}
+
+header("Expires: Mon, 1 Apr 1974 05:00:00 GMT");
+header("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
+header("Content-type: application/vnd.ms-excel");
+header("Content-Disposition: attachment; filename=sars.xls");
+	
+$objWriter = new PHPExcel_Writer_Excel5($xls);
+$objWriter->save('php://output'); 	
+
 ?>
