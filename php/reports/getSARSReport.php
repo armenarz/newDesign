@@ -171,11 +171,14 @@ if($menuId == "SARSLink")
                     <td scope="col"></td>
                     <!-- 8. Response of Test-->
                     <td scope="col">';
-                    if($row["AnalysisResult"]=="Դրական/ positive/ положительный")
+                    if( $row["AnalysisResult"]=="Դրական/ positive/ положительный" ||
+                        $row["AnalysisResult"]=="Դրական/positive/положительный")
                     {
                         $msg .= "Դրական";
                     }
-                    elseif($row["AnalysisResult"]=="Բացասական/ negative/ отрицательный")
+                    elseif( $row["AnalysisResult"]=="Բացասական/ negative/ отрицательный" || 
+                            $row["AnalysisResult"]=="Բացասական/ Отрицательный/ Negative" || 
+                            $row["AnalysisResult"]=="Բացասական/negative/отрицательный")
                     {
                         $msg .= "Բացասական";
                     }
