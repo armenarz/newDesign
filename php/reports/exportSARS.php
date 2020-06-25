@@ -38,11 +38,11 @@ $filter = "";
 $doctorId = $_POST["doctorId"];
 if($doctorId > 0)
 {
-    $filter = "orders.DoctorId='".$doctorId."'";
+    $filter = " and orders.DoctorId='".$doctorId."' ";
 }
 else
 {
-    $filter = 1;
+    $filter = ' ';
 }
 
 if($menuId == "SARSLink")
@@ -131,7 +131,7 @@ if($menuId == "SARSLink")
                 WHERE orders.OrderDate >= '$startDate' and orders.OrderDate <= '$endDate'
                     AND orderresult.ReagentId = '1142' and orderresult.double_check = '1'						
                 ORDER BY orderresult.OrderId"; */
-    
+    /*
     $sql = "SELECT 
                 pacients.FirstName,
                 pacients.LastName,
@@ -168,57 +168,126 @@ if($menuId == "SARSLink")
             INNER JOIN pacients ON orders.pac_id=pacients.id
             WHERE $filter
             ORDER BY t.orderid
-            ";                
-                
-    $res = mysqli_query($link,$sql);
-    if($res)
-    {
-        $i = 1;
-        while($row = mysqli_fetch_array($res))
-        {
-            $i++;
-            
-            $d1 = $row["birthday"];
-            $date = new DateTime("$d1");
-            
-            $date_format = $date->format('Y-m-d');
-            
-            $sheet->setCellValueExplicit("A".$i, $row["FirstName"], PHPExcel_Cell_DataType::TYPE_STRING);
-            
-            $sheet->setCellValueExplicit("B".$i, $row["LastName"], PHPExcel_Cell_DataType::TYPE_STRING);
+            "; */               
+    
+	$sql0 = "select quality_vvod_d.orderid 
+			from orders
+			INNER JOIN quality_vvod_d ON orders.OrderId = quality_vvod_d.orderid
+	        WHERE 
+				quality_vvod_d.check_date >= '".$startDate." ".$startTime."' AND 
+				quality_vvod_d.check_date <= '".$endDate." ".$endTime."' AND 
+				quality_vvod_d.check_method='1142'
+				and quality_vvod_d.chkk = 1
+				$filter
+				GROUP BY quality_vvod_d.orderid
+	";
+	
+	$res0 = mysqli_query($link,$sql0);
+	
+	$arr22 = array();
+	
+	while($row0 = mysqli_fetch_array($res0))
+	{
+		array_push($arr22, $row0["orderid"]);
+	}
+	
+	$cnt = count($arr22);
+	
+	$arr33 = array();
+	
+	for($i=0; $i<$cnt; $i++)
+	{
+		$orderid = $arr22[$i];
+		
+		$sql0 = "SELECT chkk 
+				FROM quality_vvod_d 
+				WHERE orderid = '$orderid'
+				AND check_method='1142'
+				ORDER BY check_date DESC
+				LIMIT 0,1
+		";
+		
+		$res0 = mysqli_query($link,$sql0);
+		
+		$row0 = mysqli_fetch_array($res0);
+		
+		if($row0["chkk"] == 1)
+		{
+			array_push($arr33, $orderid);
+		}		
+	}
+	
+	$cnt = count($arr33);
+	$i = 1;
+	
+	for($k=0; $k<$cnt; $k++)
+	{
+		$orderid = $arr33[$k];
+		
+		$sql = "SELECT 					
+					pacients.FirstName,
+					pacients.LastName,
+					pacients.birthday,
+					pacients.dopolnitelno,
+					orderresult.AnalysisResult
+				FROM orders				
+				INNER JOIN pacients ON orders.pac_id=pacients.id
+				INNER JOIN orderresult ON orders.OrderId=orderresult.OrderId
+				WHERE orderresult.OrderId = '$orderid'
+					AND orderresult.ReagentId = '1142'
+			
+		";
+	
+		$res = mysqli_query($link,$sql);
+		if($res)
+		{
+			
+			$row = mysqli_fetch_array($res);
+			
+			$i++;
+			
+			$d1 = $row["birthday"];
+			$date = new DateTime("$d1");
+			
+			$date_format = $date->format('Y-m-d');
+			
+			$sheet->setCellValueExplicit("A".$i, $row["FirstName"], PHPExcel_Cell_DataType::TYPE_STRING);
+			
+			$sheet->setCellValueExplicit("B".$i, $row["LastName"], PHPExcel_Cell_DataType::TYPE_STRING);
 
-            $sheet->setCellValueExplicit("C".$i, $row["birthday"], PHPExcel_Cell_DataType::TYPE_STRING);
+			$sheet->setCellValueExplicit("C".$i, $row["birthday"], PHPExcel_Cell_DataType::TYPE_STRING);
 
-            $sheet->setCellValueExplicit("D".$i, $row["dopolnitelno"], PHPExcel_Cell_DataType::TYPE_STRING);
+			$sheet->setCellValueExplicit("D".$i, $row["dopolnitelno"], PHPExcel_Cell_DataType::TYPE_STRING);
 
-            $sheet->setCellValueExplicit("E".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+			$sheet->setCellValueExplicit("E".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
 
-            $sheet->setCellValueExplicit("F".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+			$sheet->setCellValueExplicit("F".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
 
-            $sheet->setCellValueExplicit("G".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
-                        
-            $sheet->setCellValueExplicit("H".$i, $arr[$row["AnalysisResult"]], PHPExcel_Cell_DataType::TYPE_STRING);	
-                    
-            $sheet->setCellValueExplicit("I".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
-                            
-            $sheet->setCellValueExplicit("J".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
-                        
-            $sheet->setCellValueExplicit("K".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);	
-                    
-            $sheet->setCellValueExplicit("L".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
-                            
-            $sheet->setCellValueExplicit("M".$i, "ՊՐՈՄ-ՏԷՍՏ ՍՊԸ", PHPExcel_Cell_DataType::TYPE_STRING);
+			$sheet->setCellValueExplicit("G".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+						
+			$sheet->setCellValueExplicit("H".$i, $arr[$row["AnalysisResult"]], PHPExcel_Cell_DataType::TYPE_STRING);	
+					
+			$sheet->setCellValueExplicit("I".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+							
+			$sheet->setCellValueExplicit("J".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+						
+			$sheet->setCellValueExplicit("K".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);	
+					
+			$sheet->setCellValueExplicit("L".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+							
+			$sheet->setCellValueExplicit("M".$i, "ՊՐՈՄ-ՏԷՍՏ ՍՊԸ", PHPExcel_Cell_DataType::TYPE_STRING);
 
-            $sheet->setCellValueExplicit("N".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
-                                
-            $sheet->setCellValueExplicit("O".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
-                        
-            $sheet->setCellValueExplicit("P".$i, $row["OrderId"], PHPExcel_Cell_DataType::TYPE_STRING);
-                        
-            $sheet->setCellValueExplicit("Q".$i, ($i-1), PHPExcel_Cell_DataType::TYPE_STRING);				
-            
-        }
-    }
+			$sheet->setCellValueExplicit("N".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+								
+			$sheet->setCellValueExplicit("O".$i, "", PHPExcel_Cell_DataType::TYPE_STRING);
+						
+			$sheet->setCellValueExplicit("P".$i, $orderid, PHPExcel_Cell_DataType::TYPE_STRING);
+						
+			$sheet->setCellValueExplicit("Q".$i, ($i-1), PHPExcel_Cell_DataType::TYPE_STRING);				
+				
+			
+		}
+	}
 }
 
 header("Expires: Mon, 1 Apr 1974 05:00:00 GMT");
