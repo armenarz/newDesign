@@ -249,7 +249,7 @@ if($result)
     </div>
 </div>
 <div class="row">
-    <div class="col">
+    <div class="col" id="div_sars">
 		<div class="form-check">
             <input type="checkbox" class="form-check-input" id="SARS-CoV-2CheckReagentExpenses" >
             <label class="form-check-label" for="SARS-CoV-2ReagentExpenses">SARS-CoV-2</label>
