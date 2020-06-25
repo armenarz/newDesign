@@ -46,6 +46,7 @@ require_once "../fillNonBreak.php";
                             <a class="nav-link border-bottom" href="#" id="debtsLink" data-toggle="modal" data-target="#debtsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Долги</a>
                             <a class="nav-link border-bottom" href="#" id="repaidDebtsLink" data-toggle="modal" data-target="#repaidDebtsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Погашенные&nbsp;долги</a>
                             <a class="nav-link border-bottom" href="#" id="dailyLink" data-toggle="modal" data-target="#dailyModalWindow"><i class="far fa-file-alt"></i>&nbsp;Дневной</a>
+                            <a class="nav-link border-bottom" href="#" id="SARSLink" data-toggle="modal" data-target="#SARSModalWindow"><i class="far fa-file-alt"></i>&nbsp;SARS-CoV-2</a>
                         </nav>
                     </div>
                     <div class="col-lg-10">
@@ -310,6 +311,38 @@ require_once "../fillNonBreak.php";
                         <button type="button" class="btn btn-success" id="buttonOrdersByUsersToExcel">Экспорт в Excel</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
                         <button type="button" class="btn btn-primary" id="buttonOKOrdersByUsers">Создать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Orders SARS Modal Window -->
+        <div class="modal fade" id="SARSModalWindow" tabindex="-1" role="dialog" aria-labelledby="SARSModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="SARSModalLongTitle">SARS-CoV-2 (по хронологии Double Check)</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <!-- Modal Form for SARS Data -->
+                            <form name="formSARS" id="formSARS" method="post">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="alert alert-primary d-print-none" role="alert" id="messageSARSModal">Заполните нужными значениями поля формы.</div>
+                                    </div>
+                                </div>
+                                <div id="contentSARSModal">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="buttonSARSToExcel">Экспорт в Excel</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <button type="button" class="btn btn-primary" id="buttonOKSARS">Создать</button>
                     </div>
                 </div>
             </div>

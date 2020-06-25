@@ -8,7 +8,7 @@ $(function()
 
     //console.log(reportObj);
 
-    setSidebarItems();
+    setSidebarItems();		
     setReagentExpensesMWData();
     setReagentRemaindersMWData();
     setDoctorsMWData();
@@ -19,6 +19,7 @@ $(function()
     setOrdersByUsersMWData();
     setDoctor13MWData();
     setDoctorSelectedMWData();
+    setSARSMWData();
     updateContent(reportObj);
 
     //printing content"
@@ -193,6 +194,10 @@ function updateContent(reportObj)
         {
             urlString = "../reports/getDoctorSelectedDetailedReport.php";
         }
+    }
+    else if(menuId == "SARSLink")
+    {
+        urlString = "../reports/getSARSReport.php";
     }
 
     $.ajaxSetup({
@@ -1095,6 +1100,39 @@ function exportToExcel(reportObj)
         removeHiddenElement(form, "startDate");
         removeHiddenElement(form, "endDate");
     }
+    else if(menuId == "SARSLink")
+    {
+        appendHiddenElement(form, "menuId", menuId);
+
+        let startDate = reportObj.startDate;
+        appendHiddenElement(form, "startDate", startDate);
+
+        let startTime = reportObj.startTime;
+        appendHiddenElement(form, "startTime", startTime);
+
+        let endDate = reportObj.endDate;
+        appendHiddenElement(form, "endDate", endDate);
+
+        let endTime = reportObj.endTime;
+        appendHiddenElement(form, "endTime", endTime);
+
+        let doctorId = reportObj.doctorId;
+        appendHiddenElement(form, "doctorId", doctorId);
+
+        document.tempData.action = "../reports/exportSARS.php";
+        document.tempData.target = '_blank';
+        document.tempData.method = 'POST';
+        document.tempData.submit();
+        document.tempData.action = '';
+        document.tempData.target = '';
+        
+        removeHiddenElement(form, "menuId", menuId);
+        removeHiddenElement(form, "startDate", startDate);
+        removeHiddenElement(form, "startTime", startTime);
+        removeHiddenElement(form, "endDate", endDate);
+        removeHiddenElement(form, "endTime", endTime);
+        removeHiddenElement(form, "doctorId", doctorId);
+    }
 }
 
 function appendHiddenElement(form, elementName, elementValue)
@@ -1176,14 +1214,14 @@ function setReagentExpensesMWData()
         cache: false,
         data: dataString = $("form[name='tempData']").serialize(),
         success: funcSuccessSetReagentExpensesMWData,
-        error: funcError
+        error: funcError		
     });
     ///process
     $.ajax();
 }
 
 function funcSuccessSetReagentExpensesMWData(result)
-{
+{	
     $("#contentReagentExpensesModal").html(result);
     setSearchDoctorData();
     
@@ -1227,6 +1265,17 @@ function funcSuccessSetReagentExpensesMWData(result)
             });
         }
     });
+	
+	let uu = document.tempData.user_id.value;
+	
+	console.log(uu);	
+	let sars_el = document.getElementById("div_sars");
+	
+	if(sars_el) {
+		if(uu != '12' && uu != '13') {
+			sars_el.style.visibility = "hidden";
+		}
+	}
 }
 
 function setSearchDoctorData() 
@@ -1288,7 +1337,7 @@ function setSearchDoctorData()
     ///process
     $.ajax();
 
-    $("#DoctorIdReagentExpenses, #DoctorIdDoctors").catcomplete({
+    $("#DoctorIdReagentExpenses, #DoctorIdDoctors, #DoctorIdSARS").catcomplete({
         delay: 0,
         source: data
     });
@@ -1559,6 +1608,36 @@ function funcSuccessSetDoctorSelectedMWData(result)
 {
     //console.log(result);
     $("#contentDoctorSelectedModal").html(result);
+}
+
+function setSARSMWData()
+{
+        /// ajax setup
+        $.ajaxSetup({
+            type: "POST",
+            url: "../reports/getSARSMWData.php",
+            cache: false,
+            data: dataString = $("form[name='tempData']").serialize(),
+            success: funcSuccessSetSARSMWData,
+            error: funcError
+        });
+        ///process
+        $.ajax();
+}
+
+function funcSuccessSetSARSMWData(result)
+{
+    //console.log(result);
+    $("#contentSARSModal").html(result);
+    setSearchDoctorData();
+    $("#DoctorIdSARS").focus(function() 
+    {
+        $(this).select();
+        //console.log("focus");
+    });
+    $("#DoctorIdSARS").prop("disabled",false);
+    $("#StartDateSARS").datepicker({ dateFormat: "yy-mm-dd" });
+    $("#EndDateSARS").datepicker({ dateFormat: "yy-mm-dd" });
 }
 
 function funcError(XMLHttpRequest, textStatus, errorThrown)
@@ -2800,6 +2879,265 @@ function CreateFormDoctorSelectedObject()
             frm.invalidField ='ReportTypeIdDoctorSelected';
             frm.isValid = false;
             return;
+        }
+        else
+        {
+            frm.message = 'Заполните нужными значениями поля формы.';
+            frm.invalidField = null;
+            frm.isValid = true;
+            return;
+        }
+    }
+    
+    return frm;
+}
+
+// SARSModalWindow button OK handler
+$('#SARSModalWindow').on('click','#buttonOKSARS', function(){
+    //console.log("buttonOKSARS");
+    
+    var frmSARS = CreateFormSARSObject();
+    frmSARS.getFormData();
+
+    frmSARS.validate();
+    if(!frmSARS.isValid)
+    {
+        $('#messageSARSModal').html(frmSARS.message);
+        $('#' + frmSARS.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageSARSModal').html(frmSARS.message);
+
+        var reportObj = {};
+        reportObj.startDate = $('#StartDateSARS').val();
+
+        let startHoure = $('#StartHourSARS').val();
+        if(startHoure < 10)
+        {
+            startHoure = "0" + startHoure.toString();
+        }
+        else
+        {
+            startHoure = startHoure.toString();
+        }
+        
+        let startMinute = $('#StartMinuteSARS').val();
+        if(startMinute < 10)
+        {
+            startMinute = "0" + startMinute.toString();
+        }
+        else
+        {
+            startMinute = startMinute.toString();
+        }
+
+        let startSecond = $('#StartSecondSARS').val();
+        if(startSecond < 10)
+        {
+            startSecond = "0" + startSecond.toString();
+        }
+        else
+        {
+            startSecond = startSecond.toString();
+        }
+        
+        reportObj.startTime = startHoure + ":" + startMinute + ":" + startSecond;
+
+        reportObj.endDate = $('#EndDateSARS').val();
+
+        let endHoure = $('#EndHourSARS').val();
+        if(endHoure < 10)
+        {
+            endHoure = "0" + endHoure.toString();
+        }
+        else
+        {
+            endHoure = endHoure.toString();
+        }
+
+        let endMinute = $('#EndMinuteSARS').val();
+        if(endMinute < 10)
+        {
+            endMinute = "0" + endMinute.toString();
+        }
+        else
+        {
+            endMinute = endMinute.toString();
+        }
+
+        let endSecond = $('#EndSecondSARS').val();
+        if(endSecond < 10)
+        {
+            endSecond = "0" + endSecond.toString();
+        }
+        else
+        {
+            endSecond = endSecond.toString();
+        }
+
+        reportObj.endTime = endHoure + ":" + endMinute + ":" + endSecond;
+        
+        var tempDoctorId = $('#DoctorIdSARS').val();
+        if(tempDoctorId.length == 0 || tempDoctorId == null)
+        {
+            tempDoctorId = 0;
+        }
+        else
+        {
+            tempDoctorId = parseInt(tempDoctorId);
+        }
+        reportObj.doctorId = tempDoctorId;
+        reportObj.menuId = "SARSLink";
+
+        setActiveItem(sidebarItems,"SARSLink");
+        updateContent(reportObj);
+        $('#SARSModalWindow').modal('hide');
+    }
+});
+
+// SARSModalWindow button buttonSARSToExcel handler
+$('#SARSModalWindow').on('click','#buttonSARSToExcel', function(){
+    
+    var frmSARS = CreateFormSARSObject();
+    frmSARS.getFormData();
+
+    frmSARS.validate();
+    if(!frmSARS.isValid)
+    {
+        $('#messageSARSModal').html(frmSARS.message);
+        $('#' + frmSARS.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageSARSModal').html(frmSARS.message);
+
+        var reportObj = {};
+        reportObj.startDate = $('#StartDateSARS').val();
+
+        let startHoure = $('#StartHourSARS').val();
+        if(startHoure < 10)
+        {
+            startHoure = "0" + startHoure.toString();
+        }
+        else
+        {
+            startHoure = startHoure.toString();
+        }
+        
+        let startMinute = $('#StartMinuteSARS').val();
+        if(startMinute < 10)
+        {
+            startMinute = "0" + startMinute.toString();
+        }
+        else
+        {
+            startMinute = startMinute.toString();
+        }
+
+        let startSecond = $('#StartSecondSARS').val();
+        if(startSecond < 10)
+        {
+            startSecond = "0" + startSecond.toString();
+        }
+        else
+        {
+            startSecond = startSecond.toString();
+        }
+        
+        reportObj.startTime = startHoure + ":" + startMinute + ":" + startSecond;
+
+        reportObj.endDate = $('#EndDateSARS').val();
+
+        let endHoure = $('#EndHourSARS').val();
+        if(endHoure < 10)
+        {
+            endHoure = "0" + endHoure.toString();
+        }
+        else
+        {
+            endHoure = endHoure.toString();
+        }
+
+        let endMinute = $('#EndMinuteSARS').val();
+        if(endMinute < 10)
+        {
+            endMinute = "0" + endMinute.toString();
+        }
+        else
+        {
+            endMinute = endMinute.toString();
+        }
+
+        let endSecond = $('#EndSecondSARS').val();
+        if(endSecond < 10)
+        {
+            endSecond = "0" + endSecond.toString();
+        }
+        else
+        {
+            endSecond = endSecond.toString();
+        }
+
+        reportObj.endTime = endHoure + ":" + endMinute + ":" + endSecond;
+        
+        var tempDoctorId = $('#DoctorIdSARS').val();
+        if(tempDoctorId.length == 0 || tempDoctorId == null)
+        {
+            tempDoctorId = 0;
+        }
+        else
+        {
+            tempDoctorId = parseInt(tempDoctorId);
+        }
+        reportObj.doctorId = tempDoctorId;
+        reportObj.menuId = "SARSLink";
+
+        setActiveItem(sidebarItems,"SARSLink");
+        exportToExcel(reportObj);
+        $('#SARSModalWindow').modal('hide');
+    }
+});
+
+/// FormSARS Object
+function CreateFormSARSObject()
+{
+    var frm = {};
+
+    ///general properties ======================================
+    frm.message = "Заполните нужными значениями поля формы.";
+    frm.isValid = true;
+    frm.invalidField = null;
+
+    frm.getFormData = function()
+    {
+        frm.StartDateSARS = $('#StartDateSARS').val();
+        frm.EndDateSARS = $('#EndDateSARS').val();
+    }
+
+    frm.validate = function()
+    {
+        frm.message = 'Заполните нужными значениями поля формы.';
+        frm.isValid = true;
+        frm.invalidField = null;
+
+        //StartDateSARS
+        if(frm.StartDateSARS == 0)
+        {
+            frm.message = 'Выберите начальную дату отчета.';
+            frm.invalidField ='StartDateSARS';
+            frm.isValid = false;
+            return;       
+        }
+        //EndDateSARS
+        else if(frm.EndDateSARS == 0)
+        {
+            frm.message = 'Выберите конечную дату отчета.';
+            frm.invalidField ='EndDateSARS';
+            frm.isValid = false;
+            return;       
         }
         else
         {
