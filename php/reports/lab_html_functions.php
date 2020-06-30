@@ -338,23 +338,8 @@ function sumPartnerDebtsLab($link, $partner, $reportDate)
 {
 	//var_dump($partner);
 	$sumDebts = NULL;
-	if( $partner == "Maple_ Leafs" || $partner == "Garant_Assinstance" || 
-		$partner == "Gyumri" || $partner == "Jermuk" ||
-		$partner == "On-Clinic" || $partner == "Maletti" ||
-		$partner == "Nairi" || $partner == "Cosmolab")
-	{
-		$sql_sumDebts = "SELECT 
-								SUM(orders.cost) AS sumDebts
-						FROM orders 
-						INNER JOIN us22 ON orders.usr=us22.log
-						INNER JOIN partner_users ON us22.id=partner_users.user_id
-						INNER JOIN partners ON partner_users.partner_id=partners.id
-						WHERE 
-							orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
-						";
-		//var_dump($sql_sumDebts);
-	}
-	elseif( $partner == "Profimed" || $partner == "MIM" ||
+	
+	if( $partner == "Profimed" || $partner == "MIM" ||
 			$partner == "Manasyan")
 	{
 		$sql_sumDebts = "SELECT 
