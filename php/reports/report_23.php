@@ -351,6 +351,6 @@ require_once "../fillNonBreak.php";
         <?php echo file_get_contents('../../js/commonJS.html',true); ?>
 
         <!-- Custom JavaScript-->
-        <script src="../../js/report.js"></script>
+        <script type="module" src="../../js/report.js"></script>
     </body>
 </html>
