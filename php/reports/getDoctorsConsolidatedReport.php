@@ -2,6 +2,8 @@
 require_once "../connect.php";
 require_once "../authorization.php";
 
+set_time_limit(0);
+
 $msg = "";
 
 if(!isset($_POST["startDate"]) || !isset($_POST["endDate"]))
@@ -274,7 +276,7 @@ if($menuId == "doctorsLink" && $reportTypeId == 1)
                                     if($result_debt_repayment)
                                     {
                                         $row_debt_repayment = mysqli_fetch_array($result_debt_repayment);
-                                        $cost_doctor_total += $row_debt_repayment["RepaidDebt"];
+                                        $cost_doctor_total += intval($row_debt_repayment["RepaidDebt"]);
                                     }
 
                                     $sql_payments_Ingo01 = "    SELECT 
@@ -285,7 +287,7 @@ if($menuId == "doctorsLink" && $reportTypeId == 1)
                                     if($result_payments_Ingo01)
                                     {
                                         $row_payments_Ingo01 = mysqli_fetch_array($result_payments_Ingo01);
-                                        $payments_doctor_total += $row_payments_Ingo01["Payments_Ingo01"];
+                                        $payments_doctor_total += intval($row_payments_Ingo01["Payments_Ingo01"]);
                                     }
                                 }
                             }
