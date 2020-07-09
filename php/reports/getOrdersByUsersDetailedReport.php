@@ -157,7 +157,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                         $msg .= '   <tr>
                                         <!--1. Row number -->
                                         <td scope="col" class="text-right">'.$i.'</td>
-                                        <td scope="col" class="text-right">'.$row_orders["OrderId"].'</td>
+                                        <td scope="col" class="text-right"><a href="#" id=o_'.$row_orders["OrderId"].'>'.$row_orders["OrderId"].'</a></td>
                                         <td scope="col">'.$row_orders["OrderDate"].'</td>
                                         <td scope="col" class="text-right">'.$row_orders["cena_analizov"].'</td>
                                     </tr>

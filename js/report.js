@@ -2,10 +2,9 @@ import { updateContent } from "./report_modules/update_content.js";
 import { exportToExcel } from "./report_modules/export_to_excel.js";
 import 
 { 
-    funcError, 
     setReagentExpensesMWData, 
-    setSearchDoctorData,
-    setSearchReagentData,
+/*     setSearchDoctorData,
+    setSearchReagentData, */
     setReagentRemaindersMWData,
     setDoctorsMWData,
     setDebtsMWData,

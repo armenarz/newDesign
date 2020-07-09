@@ -180,7 +180,7 @@ export function updateContent(reportObj)
     $.ajax({
         success:function(msg){
             $("#content").html(msg);
-            if((menuId == "reagentExpensesLink" || menuId == "doctorsLink") && reportTypeId == 2 || menuId == "debtsLink" || menuId == "repaidDebtsLink" || menuId == "doctor13Link" || menuId == "doctorSelectedLink")
+            if((menuId == "reagentExpensesLink" || menuId == "doctorsLink" || menuId == "ordersByLabsLink" || menuId == "ordersByUsersLink") && reportTypeId == 2 || menuId == "debtsLink" || menuId == "repaidDebtsLink" || menuId == "doctor13Link" || menuId == "doctorSelectedLink")
             {
                 $("a[id^='o_']").on("click",this,function()
                 {
@@ -697,8 +697,9 @@ function openOrder(orderId)
         cache: false,
         data: dataString = $("form[name='tempData']").serialize(),
         success: function(result){
-            phpFilePath = result;
+            let phpFilePath = result;
             $("input[name=num]").val(orderId);
+            //console.log(`orderId=${orderId}`);
             //console.log($("input[name=num]").val());
             document.tempData.action='../../' + phpFilePath;
             document.tempData.submit();
@@ -707,4 +708,9 @@ function openOrder(orderId)
     });
     ///process
     $.ajax();
+}
+
+function funcError(XMLHttpRequest, textStatus, errorThrown)
+{
+    $("#content").html("Status: " + textStatus + ", " + "Error: " + errorThrown);
 }
