@@ -106,9 +106,11 @@ $('#reagentExpensesModalWindow').on('click','#buttonOKReagentExpenses', function
         reportObj.workplaceId = $('#WorkplaceIdReagentExpenses').val();
         reportObj.userId = $('#UserIdReagentExpenses').val();
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
+        reportObj.labId = $('#LabIdReagentExpenses').val();
         reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
         reportObj.menuId = "reagentExpensesLink";
         setActiveItem(sidebarItems,"reagentExpensesLink");
+        console.log("reportObj.labId=" + reportObj.labId);
         updateContent(reportObj);
         $('#reagentExpensesModalWindow').modal('hide');
     }
@@ -149,6 +151,7 @@ $('#reagentExpensesModalWindow').on('click','#buttonReagentExpensesToExcel', fun
         reportObj.workplaceId = $('#WorkplaceIdReagentExpenses').val();
         reportObj.userId = $('#UserIdReagentExpenses').val();
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
+        reportObj.labId = $('#LabIdReagentExpenses').val();
         reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
 		reportObj.SARSCheck = $('#SARS-CoV-2CheckReagentExpenses').is(":checked");
         reportObj.menuId = "reagentExpensesLink";

@@ -18,6 +18,7 @@ export function CreateFormReagentExpensesObject()
         frm.UserIdReagentExpenses = $('#UserIdReagentExpenses').val();
         frm.SalesIdReagentExpenses = $('#SalesIdReagentExpenses').val();
         frm.ReportTypeIdReagentExpenses = $('#ReportTypeIdReagentExpenses').val();
+        frm.LabIdReagentExpenses = $('#LabIdReagentExpenses').val();
     }
 
     frm.validate = function()

@@ -249,6 +249,33 @@ if($result)
     </div>
 </div>
 <div class="row">
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="LabIdReagentExpenses">Лаборатория</label>
+            <select id="LabIdReagentExpenses" class="form-control" name="LabIdReagentExpenses">
+                <option value="0"></option>';
+$sql = "SELECT 
+            id,
+            lab 
+        FROM labs
+        ORDER BY sorting
+        ";
+$result = mysqli_query($link,$sql);
+if($result)
+{
+    while($row = mysqli_fetch_array($result))
+    {
+        $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["lab"].'</option>';
+    }
+}
+$msg .= '
+            </select>
+        </div>
+	</div>
+    <div class="col">
+    </div>
+</div>
+<div class="row">
     <div class="col" id="div_sars">
 		<div class="form-check">
             <input type="checkbox" class="form-check-input" id="SARS-CoV-2CheckReagentExpenses" >

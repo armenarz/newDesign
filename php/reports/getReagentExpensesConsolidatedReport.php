@@ -66,6 +66,16 @@ if($result_user)
     $user = $row_user["log"];
 }
 
+$labId = $_POST["labId"];
+$sql_lab = "SELECT lab FROM labs WHERE id='".$labId."'";
+$result_lab = mysqli_query($link, $sql_lab);
+if($result_lab)
+{
+    $row_lab = mysqli_fetch_array($result_lab);
+    $lab = $row_lab["lab"];
+}
+
+
 if(!isset($_POST["doubleCheck"]))
 {
     $msg .= "The doubleCheck is not defined. doubleCheck=".$_POST["doubleCheck"];
@@ -120,7 +130,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 1)
                     INNER JOIN doctor ON doctor.DoctorId=orders.DoctorId
                     INNER JOIN cworkplace ON cworkplace.WorkPlaceId=Doctor.WorkPlaceId
                     INNER JOIN sales ON sales.salesId=doctor.sales_id
-                    INNER JOIN us22 ON us22.id=orders.user_id
+                    INNER JOIN us22 ON us22.id=orders.user_id 
+                    INNER JOIN labs ON labs.lab=orders.lab 
                     WHERE $filter
                     GROUP BY reagent.GroupId
                     ORDER BY reagent.GroupId";
@@ -154,7 +165,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 1)
                             INNER JOIN doctor ON doctor.DoctorId=orders.DoctorId
                             INNER JOIN cworkplace ON cworkplace.WorkPlaceId=Doctor.WorkPlaceId
                             INNER JOIN sales ON sales.salesId=doctor.sales_id
-                            INNER JOIN us22 ON us22.id=orders.user_id
+                            INNER JOIN us22 ON us22.id=orders.user_id 
+                            INNER JOIN labs ON labs.lab=orders.lab 
                             WHERE $filter
                             GROUP BY reagent.GroupId, orderresult.ReagentId
                             HAVING reagent.GroupId='".$row_group["GroupId"]."'

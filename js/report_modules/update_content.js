@@ -21,6 +21,7 @@ export function updateContent(reportObj)
         var workplaceId = reportObj.workplaceId;
         var userId = reportObj.userId;
         var salesId = reportObj.salesId;
+        var lab = reportObj.lab;
 
         var urlString = "";
         if(reportTypeId == 1)
