@@ -3,6 +3,7 @@ require_once "../connect.php";
 require_once "../authorization.php";
 require_once "../fillNonBreak.php";
 require_once "../concatWithBrackets.php";
+require_once "../user_to_name.php";
 
 $msg = "";
 
@@ -60,6 +61,7 @@ if($result)
         if($endDateReagentExpensesIndex == 0)
         {
             $msg .=  '<option value="'.$row["OrderDate"].'" selected>'.$row["OrderDate"].'</option>';
+            $name_date = $row["OrderDate"];
         }
         else
         {
@@ -148,16 +150,15 @@ $msg .= '
         <div class="form-group d-print-none">
             <label for="SalesIdReagentExpenses">Sales</label>
             <select id="SalesIdReagentExpenses" class="form-control" name="SalesIdReagentExpenses">';
-$userId = $_POST["uu"];
-if($userId == 412)
+if($uu == 412)
 {
     $msg .= '<option value="16">16&nbsp;Сируш</option>';
 }
-elseif($userId == 484)
+elseif($uu == 484)
 {
     $msg .= '<option value="4">4&nbsp;Лусине</option>';
 }
-elseif($userId == 486)
+elseif($uu == 486)
 {
     $msg .= '<option value="2">2&nbsp;Армине</option>';
 }
@@ -190,46 +191,43 @@ else
             <select id="UserIdReagentExpenses" class="form-control" name="UserIdReagentExpenses">
                 <option value="0"></option>
                 ';
-$receptionists = array(
-"reception2"=>"Julianna",
-"reception3"=>"Alisa",
-"reception4"=>"Mariam",
-"reception5"=>"Narine",
-"reception6"=>"Alina",
-"reception7"=>"Alisa Junior",
-"reception8"=>"Anahit"
-);
-$reportingUserIds =   "1,2,3,4,5,7,10,12,13,22,23,27,28,33,40,49,66,68,
-            112,113,120,128,130,137,143,150,184,198,200,202,212,
-            260,125,374, 256, 258, 392, 394, 396, 398, 418";
+$reportingUserIds = "   1,      2,      3,      4,      5,      7,      10,     12,     13,     16,
+                        17,     22,     23,     27,     28,     32,     33,     35,     40,     47,     
+                        49,     65,     66,     68,     69,     112,    113,    120,    121,    122,    
+                        125,    128,    130,    132,    137,    142,    143,    146,    150,    153,
+                        154,    155,    156,    157,    162,    182,    184,    198,    200,    202,
+                        210,    212,    220,    222,    256,    258,    260,    264,    270,    356,
+                        374,    392,    394,    396,    398,    410,    412,    418,    448,    450,
+                        452,    454,    456,    458,    460,    484,    486,    488,    550,    564,
+                        566,    568,    570,    572,    574,    576,    582,    624,    630,    644,
+                        650,    660,    688,    690,    692,    694";
 $sql = "SELECT 
-    id,
-    log 
-FROM us22 
-WHERE id in(".$reportingUserIds.")
-ORDER BY id";
+            id,
+            log 
+        FROM us22 
+        WHERE id in(".$reportingUserIds.")
+        ORDER BY log";
 $result = mysqli_query($link,$sql);
-$receptionist;
 if($result)
 {
     while($row = mysqli_fetch_array($result))
     {
-        $receptionist = "";
-        foreach ( $receptionists as $key => $value ) 
+        //Checking if user id exists in altered_user_names table
+        $sql_altered_user_names = " SELECT 
+                                        user_name 
+                                    FROM altered_user_names 
+                                    WHERE user_id='".$row["id"]."'";
+        $result_altered_user_names = mysqli_query($link,$sql_altered_user_names);
+        if($result_altered_user_names)
         {
-            if($row["log"] == $key)
+            if(mysqli_num_rows($result_altered_user_names) > 0)
             {
-                $receptionist = $value;
-                break;
+                $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],3).'&nbsp;'.ConcatWithBrackets($row["log"], usr_to_name($link,$row["id"], $name_date)).'</option>';
             }
-        }
-        if($receptionist != "")
-        {
-            $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.ConcatWithBrackets($row["log"],$receptionist).'</option>';
-        }
-        else
-        {
-            $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["log"].'</option>';
+            else
+            {
+                $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],3).'&nbsp;'.$row["log"].'</option>';
+            }
         }
     }
 }
@@ -252,23 +250,28 @@ if($result)
     <div class="col">
         <div class="form-group d-print-none">
             <label for="LabIdReagentExpenses">Лаборатория</label>
-            <select id="LabIdReagentExpenses" class="form-control" name="LabIdReagentExpenses">
+            <select id="LabIdReagentExpenses" class="form-control" name="LabIdReagentExpenses" ';
+            if($uu != 12 && $uu != 13 && $uu != 23)
+            {
+                $msg .= 'disabled ';
+            }            
+    $msg .='>
                 <option value="0"></option>';
-$sql = "SELECT 
-            id,
-            lab 
-        FROM labs
-        ORDER BY sorting
-        ";
-$result = mysqli_query($link,$sql);
-if($result)
-{
-    while($row = mysqli_fetch_array($result))
+    $sql = "SELECT 
+                id,
+                lab 
+            FROM labs
+            ORDER BY sorting
+            ";
+    $result = mysqli_query($link,$sql);
+    if($result)
     {
-        $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["lab"].'</option>';
+        while($row = mysqli_fetch_array($result))
+        {
+            $msg .= '<option value="'.$row["id"].'">'.FillNonBreak($row["id"],2).'&nbsp;'.$row["lab"].'</option>';
+        }
     }
-}
-$msg .= '
+    $msg .= '
             </select>
         </div>
 	</div>
