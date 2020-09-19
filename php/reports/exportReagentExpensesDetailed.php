@@ -152,7 +152,6 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                     INNER JOIN cworkplace ON cworkplace.WorkPlaceId=Doctor.WorkPlaceId
                     INNER JOIN sales ON sales.salesId=doctor.sales_id
                     INNER JOIN us22 ON us22.id=orders.user_id 
-                    INNER JOIN labs ON labs.lab=orders.lab 
                     WHERE $filter
                     GROUP BY reagent.GroupId
                     ORDER BY reagent.GroupId";
@@ -190,7 +189,6 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                             INNER JOIN cworkplace ON cworkplace.WorkPlaceId=Doctor.WorkPlaceId
                             INNER JOIN sales ON sales.salesId=doctor.sales_id
                             INNER JOIN us22 ON us22.id=orders.user_id 
-                            INNER JOIN labs ON labs.lab=orders.lab 
                             WHERE $filter
                             GROUP BY reagent.GroupId, orderresult.ReagentId
                             HAVING reagent.GroupId='".$row_group["GroupId"]."'
@@ -227,7 +225,6 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                                     INNER JOIN cworkplace ON cworkplace.WorkPlaceId=Doctor.WorkPlaceId
                                     INNER JOIN sales ON sales.salesId=doctor.sales_id
                                     INNER JOIN us22 ON us22.id=orders.user_id 
-                                    INNER JOIN labs ON labs.lab=orders.lab 
                                     WHERE reagent.ReagentId =".$row_reagent["ReagentId"]." AND $filter
                                     ORDER BY orderresult.OrderId";
 
