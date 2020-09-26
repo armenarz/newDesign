@@ -1,6 +1,4 @@
 #LabIdReagentExpenses,
-[name='selectOrderRepaidDebts'], [name='selectOrderRefunds'], [name='selectOrderDebts'], [name='selectOrderCashPayments'], [name='selectOrderPayments'], [name='selectOrderTerminal'], [name='selectOrderSales'], [name='selectOrderInstruments'], [name='selectOrderHomeVisits'], [name='selectOrderUrgentCalls'], [name='selectOrderCashHandovers'], [name='selectOrderChecks'], [name='selectOrderCheckRefunds'],
-[id^='selectOrderLabDebts_'], [id^='selectOrderLab1Debts_'], 
 #ReportTypeIdDoctorSelected, #EndDateDoctorSelected, #StartDateDoctorSelected,  
 #ReportTypeIdDoctor13, #EndDateDoctor13, #StartDateDoctor13, 
 #ReportTypeIdOrdersByUsers, #UserIdOrdersByUsers, #EndDateOrdersByUsers, #StartDateOrdersByUsers,
@@ -13,11 +11,6 @@
 {
 	font-family: 'Courier New', Courier, monospace;
 }
-
-/* [id^='selectOrderLabDebts_'], [id^='selectOrderLab1Debts_'] 
-{
-	font-family: 'Courier New', Courier, monospace;
-} */
 
 h2 
 {
