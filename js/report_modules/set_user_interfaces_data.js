@@ -58,7 +58,42 @@ function funcSuccessSetReagentExpensesMWData(result)
             });
         }
     });
-	
+    
+    //
+    $("#SelectReagentGroupSARSReagentExpenses").click(function(){
+        var dataGroupSelected = JSON.parse($(this).attr("data-group-selected"));
+        
+        $(this).attr("data-group-selected",!dataGroupSelected);
+        dataGroupSelected = JSON.parse($(this).attr("data-group-selected"));
+
+        if(dataGroupSelected)
+        {//true
+            $(this).html("Очистить");
+
+            //deselecting selected values
+            var selectedReagents = $("#ReagentIdReagentExpenses").val();
+            $.each(selectedReagents, function(i,e){
+                $("#ReagentIdReagentExpenses option[value='" + e + "']").prop("selected", false);
+            });
+            //selecting reagent group
+            var reagentGroup = [1142,1166];
+            $.each(reagentGroup, function(i,e){
+                $("#ReagentIdReagentExpenses option[value='" + e + "']").prop("selected", true);
+            //console.log("e="+e);
+            });
+        }
+        else
+        {//false
+            $(this).html("Выбрать");
+            
+            //deselecting selected values
+            var selectedReagents = $("#ReagentIdReagentExpenses").val();
+            $.each(selectedReagents, function(i,e){
+                $("#ReagentIdReagentExpenses option[value='" + e + "']").prop("selected", false);
+            });
+        }
+    });
+    
 	let uu = document.tempData.user_id.value;
 	
 	console.log(uu);	

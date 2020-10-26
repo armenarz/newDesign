@@ -115,6 +115,18 @@ $msg .= '
 </div>
 <div class="row">
     <div class="col">
+        <div class="form-group d-print-none">
+            <div class="input-group">
+                <input type="text" class="form-control" id="LabelReagentGroupSARSReagentExpenses" placeholder="Группа реагентов SARS: 1142 и 1166" disabled>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" data-group-selected="false" id="SelectReagentGroupSARSReagentExpenses">Выбрать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
         <div class="form-group d-print-none ui-front">
             <label for="DoctorIdReagentExpenses">Врач</label>
             <input type="text" id="DoctorIdReagentExpenses" name="DoctorIdReagentExpenses" class="form-control" placeholder="Для поиска введите Id или имя врача" autocomplete="off" disabled>
