@@ -107,6 +107,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 1)
             <tr>
                 <!--Row number-->
                 <th scope="col" class="text-right">#</th>
+                <!--Number in group-->
+                <th scope="col" class="text-right"># в группе</th>
                 <!--ReagentId-->
                 <th scope="col" class="text-right">Id</th>
                 <!--ReagentDescRus-->
@@ -145,7 +147,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 1)
             $total += $row_group["ReagentCount"];
             $msg.= '
             <tr>
-                <td colspan="3"><strong>Группа '.$row_group["GroupDescRus"].'</strong></td>
+                <td colspan="4"><strong>Группа '.$row_group["GroupDescRus"].'</strong></td>
+                <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
                 <td class="text-right"><strong>'.$row_group["ReagentCount"].'</strong></td>
@@ -173,12 +176,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 1)
             $result_reagent = mysqli_query($link,$sql_reagent);
             if($result_reagent)
             {
+                $j = 0;
                 while($row_reagent = mysqli_fetch_array($result_reagent))
                 {
                     $i++;
+                    $j++;
                     $msg.= '
                     <tr>
                         <td class="text-right">'.$i.'</td>
+                        <td class="text-right">'.$j.'</td>
                         <td class="text-right">'.$row_reagent["ReagentId"].'</td>
                         <td>'.$row_reagent["ReagentDescRus"].'</td>
                         <td class="text-right">'.$row_reagent["ReagentCount"].'</td>
@@ -189,7 +195,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 1)
         }
         $msg.= '
             <tr>
-                <td colspan="3"><strong>Общее количество</strong></td>
+                <td colspan="4"><strong>Общее количество</strong></td>
+                <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
                 <td class="text-right"><strong>'.$total.'</strong></td>

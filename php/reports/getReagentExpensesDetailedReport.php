@@ -106,6 +106,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
             <tr>
                 <!--Row number-->
                 <th scope="col" class="text-right">#</th>
+                <!--Number in reagent-->
+                <th scope="col" class="text-right"># в реагенте</th>
                 <!--OrderId-->
                 <th scope="col">Id&nbsp;заказа</th>
                 <!--OrderDate-->
@@ -139,7 +141,7 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                     WHERE $filter
                     GROUP BY reagent.GroupId
                     ORDER BY reagent.GroupId";
-    echo $sql;
+
     $result_group = mysqli_query($link,$sql_group);
     if($result_group)
     {
@@ -150,7 +152,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
             $total += $row_group["ReagentCount"];
             $msg.= '
             <tr>
-                <td colspan="5"><strong>Группа: '.$row_group["GroupDescRus"].'</strong></td>
+                <td colspan="6"><strong>Группа: '.$row_group["GroupDescRus"].'</strong></td>
+                <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
@@ -182,11 +185,11 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
             {
                 while($row_reagent = mysqli_fetch_array($result_reagent))
                 {
-                    //$i++;
                     $msg.= '
                     <tr>
                         <td class="text-right"></td>
-                        <td colspan="4"><strong>Реагент: '.$row_reagent["ReagentDescRus"].' [ id: '.$row_reagent["ReagentId"].' ]</strong></td>
+                        <td colspan="5"><strong>Реагент: '.$row_reagent["ReagentDescRus"].' [ id: '.$row_reagent["ReagentId"].' ]</strong></td>
+                        <!--<td></td>-->
                         <!--<td></td>-->
                         <!--<td></td>-->
                         <!--<td></td>-->
@@ -215,12 +218,15 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                     $result_order = mysqli_query($link,$sql_order);
                     if($result_order)
                     {
+                        $j = 0;
                         while($row_order = mysqli_fetch_array($result_order))
                         {
                             $i++;
+                            $j++;
                             $msg.='
                             <tr>
                                 <td class="text-right">'.$i.'</td>
+                                <td class="text-right">'.$j.'</td>
                                 <td><a href="#" id=o_'.$row_order["OrderId"].'>'.$row_order["OrderId"].'</a></td>
                                 <td>'.$row_order["OrderDate"].'</td>
                                 <td>'.$row_order["PatientName"].'</td>
@@ -236,7 +242,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
         }
         $msg.= '
             <tr>
-                <td colspan="5"><strong>Общее количество</strong></td>
+                <td colspan="6"><strong>Общее количество</strong></td>
+                <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
                 <!--<td></td>-->
