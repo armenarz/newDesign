@@ -3,6 +3,7 @@ require_once "../connect.php";
 require_once "../authorization.php";
 require_once "../fillNonBreak.php";
 require_once "../concatWithBrackets.php";
+require_once "../constants.php";
 
 $msg = "";
 
@@ -17,7 +18,7 @@ $msg = '
 $sql=  "SELECT 
             OrderDate 
         FROM orders 
-        where OrderDate >= '2017-10-01' 
+        where OrderDate >= ".START_DATE_REPORT." 
         GROUP BY OrderDate 
         ORDER BY OrderDate DESC";
 $result = mysqli_query($link,$sql);
