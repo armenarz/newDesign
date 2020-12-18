@@ -1,0 +1,47 @@
+#generalSelectionId, #preorderId, #preorderEndDate, #preorderStartDate {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h2 {
+	text-align: center;
+	color: #3B3A3C;
+}
+
+a.disabled 
+{
+	/* Disable the pointer events */
+	pointer-events: none;
+}
+
+#content {
+	overflow: auto;
+	min-height: 300px;
+}
+
+.table.table-bordered.table-hover.table-responsive
+{
+	display: table;
+	width: 100%;
+}
+.ui-autocomplete 
+{
+	max-height: 400px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	/* add padding to account for vertical scrollbar */
+	padding-right: 20px;
+	white-space:nowrap;
+}
+.ui-autocomplete-category 
+{
+	font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+}
+.ui-menu-item-wrapper
+{
+	font-family: 'Courier New', Courier, monospace;
+}
