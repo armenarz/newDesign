@@ -1,4 +1,4 @@
-#generalSelectionId, #preorderId, #preorderEndDate, #preorderStartDate {
+#PreorderStatusChangeStatus, #generalSelectionId, #searchPreorderId, #preorderEndDate, #preorderStartDate {
     font-family: 'Courier New', Courier, monospace;
 }
 

@@ -51,9 +51,9 @@ require_once "../fillNonBreak.php";
                     <div class="col-lg-3">
                         <fieldset class="form-group border rounded mt-4 pb-4 px-4 d-print-none">
                             <legend class="form-control px-2 w-auto"><strong>Выборка предзаказа</strong></legend>
-                            <label for="preorderId">Поиск по Id предзаказа или ФИО предзаказчика</label>
+                            <label for="searchPreorderId">Поиск предзаказа по Id или ФИО</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="preorderId" id="preorderId" disabled>
+                                <input type="text" class="form-control ui-widget" name="searchPreorderId" id="searchPreorderId" disabled>
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="button" id="searchButton"><i class="fas fa-search"></i></button>
                                 </div>
@@ -66,7 +66,7 @@ require_once "../fillNonBreak.php";
                             <label for="generalSelectionId">Показать</label>
                             <select class="form-control" name="generalSelectionId" id="generalSelectionId">
                                 <option value="0"></option>
-                                <option value="1" selected>Необработанные</option>
+                                <option value="1">Необработанные</option>
                                 <option value="2">Подтвержденные</option>
                                 <option value="3">Отклоненные</option>
                                 <option value="4">Все предзаказы</option>
