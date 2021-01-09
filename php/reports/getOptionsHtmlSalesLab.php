@@ -21,7 +21,7 @@ $sql = "SELECT
         INNER JOIN labs ON prochee_all.lab_id = labs.id
         WHERE 
             prochee_all.strip_date='$reportDate'
-        ";
+        ORDER BY prochee_all.strip_time";
 $result = mysqli_query($link, $sql);
 $html = '';
 if($result)

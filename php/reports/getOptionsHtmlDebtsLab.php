@@ -32,13 +32,13 @@ $partner_users = implode("','",$partner_users_array);
 $partner_users = "'".$partner_users."'";
 
 $sql = "SELECT 
-            OrderId,
-            cena_analizov,
-            dolg 
+            orders.OrderId,
+            orders.cena_analizov,
+            orders.dolg 
         FROM orders 
         WHERE 
-            dolg!=0 AND OrderDate='$reportDate' AND usr NOT IN ( $partner_users )
-            ";
+           orders.dolg!=0 AND orders.OrderDate='$reportDate' AND orders.usr NOT IN ( $partner_users )
+        ORDER BY orders.OrderTime  ";
 
 $result = mysqli_query($link, $sql);
 $html = '';

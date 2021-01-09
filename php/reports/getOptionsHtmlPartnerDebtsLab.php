@@ -24,15 +24,15 @@ $html = '';
 if($partner == "Davinci")
 {
     $sql = "SELECT 
-                OrderId,
-                (cena_analizov / 2) AS cen_an
+                orders.OrderId,
+                (orders.cena_analizov / 2) AS cen_an
             FROM orders 
             INNER JOIN us22 ON orders.usr=us22.log
             INNER JOIN partner_users ON us22.id=partner_users.user_id
             INNER JOIN partners ON partner_users.partner_id=partners.id
             WHERE 
                 orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
-            ";
+            ORDER BY orders.OrderTime";
     $result = mysqli_query($link, $sql);
     if($result)
     {
@@ -50,7 +50,7 @@ elseif($partner == "Ingo0")
             FROM zaplatili 
             WHERE 
                 date(den)='".$reportDate."' AND uu='582'
-            ";
+            ORDER BY den";
     $result = mysqli_query($link, $sql);
     if($result)
     {
@@ -64,15 +64,15 @@ elseif($partner == "Ingo0")
 elseif($partner == "ARMMED" || $partner == "Tonoyan")
 {
     $sql = "SELECT 
-                OrderId,
-                (cena_analizov * 0.7) AS cen_an
+                orders.OrderId,
+                (orders.cena_analizov * 0.7) AS cen_an
             FROM orders 
             INNER JOIN us22 ON orders.usr=us22.log
             INNER JOIN partner_users ON us22.id=partner_users.user_id
             INNER JOIN partners ON partner_users.partner_id=partners.id
             WHERE 
                 orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
-            ";
+            ORDER BY orders.OrderTime";
     $result = mysqli_query($link, $sql);
     if($result)
     {
@@ -86,15 +86,15 @@ elseif($partner == "ARMMED" || $partner == "Tonoyan")
 else
 {
     $sql = "SELECT 
-                OrderId,
-                cena_analizov
+                orders.OrderId,
+                orders.cena_analizov
             FROM orders 
             INNER JOIN us22 ON orders.usr=us22.log
             INNER JOIN partner_users ON us22.id=partner_users.user_id
             INNER JOIN partners ON partner_users.partner_id=partners.id
             WHERE 
                 orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
-            ";
+            ORDER BY orders.OrderTime";
     $result = mysqli_query($link, $sql);
     if($result)
     {

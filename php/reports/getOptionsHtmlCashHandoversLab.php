@@ -20,7 +20,8 @@ $sql = "SELECT
         INNER JOIN us22 ON prochee_all.uu=us22.id
         INNER JOIN labs ON prochee_all.lab_id=labs.id
         WHERE 
-            prochee_all.strip_date='$reportDate'";
+            prochee_all.strip_date='$reportDate'
+		ORDER BY prochee_all.strip_time";
 $result = mysqli_query($link, $sql);
 $html = '';
 if($result)

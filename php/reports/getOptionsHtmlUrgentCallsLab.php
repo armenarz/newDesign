@@ -18,7 +18,7 @@ $sql = "SELECT
         INNER JOIN orderresult ON orders.OrderId=orderresult.OrderId
         WHERE 
             orderresult.ReagentId=1014 AND orders.OrderDate='$reportDate'
-        ";
+        ORDER BY orders.OrderTime";
 $result = mysqli_query($link, $sql);
 $html = '';
 if($result)

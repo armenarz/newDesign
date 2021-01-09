@@ -19,7 +19,9 @@ $sql = "SELECT
         FROM vozvrat
         INNER JOIN us22 ON vozvrat.uu=us22.id 
         WHERE 
-        DATE(vozvrat.vozvrat_date)='$reportDate'";
+        DATE(vozvrat.vozvrat_date)='$reportDate'
+		ORDER BY vozvrat.vozvrat_date"
+		;
         $result = mysqli_query($link,$sql);
         $html = '';
         if($result)

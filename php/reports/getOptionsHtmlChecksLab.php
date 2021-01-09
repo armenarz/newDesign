@@ -27,7 +27,7 @@ $sql = "SELECT
             check_vozvrat.usrid='198' OR check_vozvrat.usrid='200' OR check_vozvrat.usrid='392' OR 
             check_vozvrat.usrid='394' OR check_vozvrat.usrid='396' OR check_vozvrat.usrid='398'	OR 
             check_vozvrat.usrid='564' OR check_vozvrat.usrid='566' OR check_vozvrat.usrid='568')
-            ";
+        ORDER BY check_vozvrat.check_date  ";
 $result = mysqli_query($link, $sql);
 $html = '';
 if($result)

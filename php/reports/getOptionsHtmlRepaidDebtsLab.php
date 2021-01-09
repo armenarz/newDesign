@@ -19,7 +19,8 @@ $sql = "SELECT
         FROM vernuli_dolg
         INNER JOIN us22 ON vernuli_dolg.uu=us22.id 
         WHERE 
-            DATE(vernuli_dolg.vernuli_date)='$reportDate'";
+            DATE(vernuli_dolg.vernuli_date)='$reportDate'
+		ORDER BY vernuli_dolg.vernuli_date";
 $result = mysqli_query($link,$sql);
 $html = 0;
 if($result)

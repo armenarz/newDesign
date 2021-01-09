@@ -19,7 +19,8 @@ $sql = "SELECT
         FROM zaplatili 
         INNER JOIN us22 ON zaplatili.uu=us22.id
         WHERE 
-        DATE(zaplatili.den)='$reportDate' AND zaplatili.zapl!=0";
+        DATE(zaplatili.den)='$reportDate' AND zaplatili.zapl!=0
+		ORDER BY zaplatili.den";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
