@@ -215,7 +215,7 @@ $reportingUserIds = "   1,      2,      3,      4,      5,      7,      10,     
                         452,    454,    456,    458,    460,    484,    486,    488,    550,    564,
                         566,    568,    570,    572,    574,    576,    582,    624,    630,    644,
                         650,    660,    688,    690,    692,    694,    708,    710,    712,    714,
-                        716,    718,    720,    722";
+                        716,    718,    720,    722,    736";
 $sql = "SELECT 
             id,
             log 
@@ -306,6 +306,14 @@ if($result)
             <label class="form-check-label" for="DoubleCheckReagentExpenses">только Double Check</label>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="col" id="div_bez_sars">
+		<div class="form-check">
+            <input type="checkbox" class="form-check-input" id="SARS-CoV-2BezCheckReagentExpenses" >
+            <label class="form-check-label" for="SARS-CoV-2BezCheckReagentExpenses">Без COVID-19</label>
+        </div>
+	</div>
 </div>
 ';
 //<!-- END Tabs HTML Markup -->

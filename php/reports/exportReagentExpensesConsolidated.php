@@ -118,6 +118,15 @@ elseif($_POST["doubleCheck"]=="false")
     $doubleCheck = 0;
 }
 
+if($_POST["BezSARSCheck"]=="true")
+{
+    $BezSARSCheck = 1;
+}
+elseif($_POST["BezSARSCheck"]=="false")
+{
+    $BezSARSCheck = 0;
+}
+
 $filter = "";
 $reportDescription = "";
 
@@ -125,6 +134,8 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 1)
 {
 
     require_once "reagentExpensesFilter.php";
+	
+	$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
 
     $msg.= '
     <table class="table" border="1" id="reagentExpensesData">
