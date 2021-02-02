@@ -46,6 +46,9 @@ export function exportToExcel(reportObj)
 		
 		var SARSCheck = reportObj.SARSCheck;
         appendHiddenElement(form, "SARSCheck", SARSCheck);
+		
+		let BezSARSCheck = reportObj.BezSARSCheck;
+        appendHiddenElement(form, "BezSARSCheck", BezSARSCheck);
 
         //var urlString = "";
         if(reportTypeId == 1)
@@ -405,6 +408,9 @@ export function exportToExcel(reportObj)
 
         let doctorId = reportObj.doctorId;
         appendHiddenElement(form, "doctorId", doctorId);
+		
+		let BezSARSCheck = reportObj.BezSARSCheck;
+        appendHiddenElement(form, "BezSARSCheck", BezSARSCheck);
 
         document.tempData.action = "../reports/exportSARS.php";
         document.tempData.target = '_blank';
@@ -419,6 +425,7 @@ export function exportToExcel(reportObj)
         removeHiddenElement(form, "endDate", endDate);
         removeHiddenElement(form, "endTime", endTime);
         removeHiddenElement(form, "doctorId", doctorId);
+		removeHiddenElement(form, "BezSARSCheck", BezSARSCheck);
     }
 }
 

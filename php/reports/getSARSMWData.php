@@ -58,6 +58,14 @@ $msg = '
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col" id="bez_covid" >
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="SARS-CoV-2bezcheck" >
+            <label class="form-check-label" for="SARS-CoV-2bezcheck">Без COVID-19</label>
+        </div>
+    </div>
+</div>
 ';
 //<!-- END Tabs HTML Markup -->
 

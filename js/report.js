@@ -29,7 +29,7 @@ import
     CreateFormOrdersByUsersObject,
     CreateFormDoctor13Object,
     CreateFormDoctorSelectedObject,
-    CreateFormSARSObject 
+    CreateFormSARSObject
 } from "./report_modules/form_objects.js";
 
 //startup code
@@ -108,6 +108,7 @@ $('#reagentExpensesModalWindow').on('click','#buttonOKReagentExpenses', function
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
         reportObj.labId = $('#LabIdReagentExpenses').val();
         reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
+		reportObj.BezSARSCheck = $('#SARS-CoV-2BezCheckReagentExpenses').is(":checked");
         reportObj.menuId = "reagentExpensesLink";
         setActiveItem(sidebarItems,"reagentExpensesLink");
         console.log("reportObj.labId=" + reportObj.labId);
@@ -153,6 +154,7 @@ $('#reagentExpensesModalWindow').on('click','#buttonReagentExpensesToExcel', fun
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
         reportObj.labId = $('#LabIdReagentExpenses').val();
         reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
+		reportObj.BezSARSCheck = $('#SARS-CoV-2BezCheckReagentExpenses').is(":checked");
 		reportObj.SARSCheck = $('#SARS-CoV-2CheckReagentExpenses').is(":checked");
         reportObj.menuId = "reagentExpensesLink";
         setActiveItem(sidebarItems,"reagentExpensesLink");
@@ -853,6 +855,7 @@ $('#SARSModalWindow').on('click','#buttonOKSARS', function(){
         }
         reportObj.doctorId = tempDoctorId;
         reportObj.menuId = "SARSLink";
+		reportObj.BezSARSCheck = $('#SARS-CoV-2bezcheck').is(":checked");
 
         setActiveItem(sidebarItems,"SARSLink");
         updateContent(reportObj);
@@ -957,6 +960,7 @@ $('#SARSModalWindow').on('click','#buttonSARSToExcel', function(){
         }
         reportObj.doctorId = tempDoctorId;
         reportObj.menuId = "SARSLink";
+		reportObj.BezSARSCheck = $('#SARS-CoV-2bezcheck').is(":checked");
 
         setActiveItem(sidebarItems,"SARSLink");
         exportToExcel(reportObj);

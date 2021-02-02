@@ -45,6 +45,17 @@ else
     $filter = ' ';
 }
 
+if($_POST["BezSARSCheck"]=="true")
+{
+    $BezSARSCheck = 1;
+}
+elseif($_POST["BezSARSCheck"]=="false")
+{
+    $BezSARSCheck = 0;
+}
+
+$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+
 if($menuId == "SARSLink")
 {
     $arr = array(   'Դրական/ positive/ положительный' => 'Դրական', 
@@ -176,7 +187,7 @@ if($menuId == "SARSLink")
 	        WHERE 
 				quality_vvod_d.check_date >= '".$startDate." ".$startTime."' AND 
 				quality_vvod_d.check_date <= '".$endDate." ".$endTime."' AND 
-				quality_vvod_d.check_method='1142'
+				(quality_vvod_d.check_method='1142' or quality_vvod_d.check_method='1166')
 				and quality_vvod_d.chkk = 1
 				$filter
 				GROUP BY quality_vvod_d.orderid
@@ -202,7 +213,7 @@ if($menuId == "SARSLink")
 		$sql0 = "SELECT chkk 
 				FROM quality_vvod_d 
 				WHERE orderid = '$orderid'
-				AND check_method='1142'
+				AND (check_method='1142' or check_method='1166' )
 				ORDER BY check_date DESC
 				LIMIT 0,1
 		";
@@ -234,7 +245,7 @@ if($menuId == "SARSLink")
 				INNER JOIN pacients ON orders.pac_id=pacients.id
 				INNER JOIN orderresult ON orders.OrderId=orderresult.OrderId
 				WHERE orderresult.OrderId = '$orderid'
-					AND orderresult.ReagentId = '1142'
+					AND (orderresult.ReagentId = '1142' or orderresult.ReagentId = '1166' )
 			
 		";
 	

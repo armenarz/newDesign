@@ -31,6 +31,16 @@ if(!isset($_POST["menuId"]))
     echo $msg;
     return;
 }
+
+if($_POST["BezSARSCheck"]=="true")
+{
+    $BezSARSCheck = 1;
+}
+elseif($_POST["BezSARSCheck"]=="false")
+{
+    $BezSARSCheck = 0;
+}
+
 $menuId = $_POST["menuId"];
 
 $reportDescription = $startDate." ".$startTime."-ից ".$endDate." ".$endTime." ժամանակաշրջանի համար";
@@ -59,6 +69,14 @@ if($doctorId > 0)
 else
 {
     $filter = 1;
+}
+
+
+if($filter != "1") {
+	$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+}
+else {
+	$filter = " orders.is_bez_kov = '$BezSARSCheck'";
 }
 
 if($menuId == "SARSLink")
@@ -132,7 +150,7 @@ if($menuId == "SARSLink")
                         check_date <= '".$endDate." ".$endTime."' AND 
                         chkk=1 AND 
                         block_or_dbl='dbl' AND
-                        check_method='1142'
+                        (check_method='1142' or check_method='1166')
                     ORDER BY orderid, check_method, check_date DESC
                 ) AS r
                 GROUP BY r.orderid, r.reagent_id
@@ -171,14 +189,11 @@ if($menuId == "SARSLink")
                     <td scope="col"></td>
                     <!-- 8. Response of Test-->
                     <td scope="col">';
-                    if( $row["AnalysisResult"]=="Դրական/ positive/ положительный" ||
-                        $row["AnalysisResult"]=="Դրական/positive/положительный")
+                    if($row["AnalysisResult"]=="Դրական/ positive/ положительный")
                     {
                         $msg .= "Դրական";
                     }
-                    elseif( $row["AnalysisResult"]=="Բացասական/ negative/ отрицательный" || 
-                            $row["AnalysisResult"]=="Բացասական/ Отрицательный/ Negative" || 
-                            $row["AnalysisResult"]=="Բացասական/negative/отрицательный")
+                    elseif($row["AnalysisResult"]=="Բացասական/ negative/ отрицательный")
                     {
                         $msg .= "Բացասական";
                     }
