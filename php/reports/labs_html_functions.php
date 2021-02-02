@@ -227,7 +227,8 @@ function optionsHtmlRepaidDebts($link, $lab, $reportDate)
         FROM vernuli_dolg
         INNER JOIN us22 ON vernuli_dolg.uu=us22.id 
         WHERE 
-            DATE(vernuli_dolg.vernuli_date)='$reportDate' AND vernuli_dolg.lab='$lab'";
+            DATE(vernuli_dolg.vernuli_date)='$reportDate' AND vernuli_dolg.lab='$lab'
+		ORDER BY vernuli_dolg.vernuli_date";
 
     $result = mysqli_query($link, $sql);
     $html = '';
@@ -273,7 +274,7 @@ function optionsHtmlRefunds($link, $lab, $reportDate)
             INNER JOIN us22 ON vozvrat.uu=us22.id 
             WHERE 
                 DATE(vozvrat.vozvrat_date)='$reportDate' AND vozvrat.lab='$lab'
-            ";
+            ORDER BY vozvrat.vozvrat_date";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -315,7 +316,7 @@ function optionsHtmlDebts($link, $lab, $reportDate)
                 dolg 
             FROM orders 
             WHERE dolg!=0 AND OrderDate='$reportDate' AND lab='$lab'
-            ";
+            ORDER BY OrderTime";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -360,7 +361,7 @@ function optionsHtmlCashPayments($link, $lab, $reportDate)
             INNER JOIN us22 ON zaplatili.uu=us22.id
             WHERE 
                 DATE(zaplatili.den)='$reportDate' AND zaplatili.zapl!=0 AND zaplatili.lab='$lab'
-            ";
+            ORDER BY zaplatili.den";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -389,7 +390,7 @@ function optionsHtmlPayments($link, $lab, $reportDate)
             INNER JOIN us22 ON zaplatili.uu=us22.id
             WHERE 
                 DATE(zaplatili.den)='$reportDate' AND zaplatili.zapl!=0 AND zaplatili.lab='$lab' AND orders.lab!='$lab'
-            ";
+            ORDER BY zaplatili.den";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -433,7 +434,7 @@ function optionsHtmlTerminalPayments($link, $lab, $reportDate)
             INNER JOIN us22 ON zaplatili.uu=us22.id
             WHERE 
                 DATE(zaplatili.den)='$reportDate' AND zaplatili.zapl!=0 AND zaplatili.lab='$lab' AND zaplatili.tip_oplati='terminal'
-            ";
+            ORDER BY zaplatili.den";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -497,7 +498,8 @@ function optionsHtmlSales($link, $lab_id, $reportDate)
             FROM prochee_all 
             INNER JOIN us22 ON prochee_all.uu=us22.id
             WHERE 
-                prochee_all.strip_date='$reportDate' AND prochee_all.lab_id='$lab_id'";
+                prochee_all.strip_date='$reportDate' AND prochee_all.lab_id='$lab_id'
+			ORDER BY prochee_all.strip_time";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -543,7 +545,8 @@ function optionsHtmlInstruments($link, $lab_id, $reportDate)
             FROM prochee_all 
             INNER JOIN us22 ON prochee_all.uu=us22.id
             WHERE 
-                prochee_all.strip_date='$reportDate' AND prochee_all.lab_id='$lab_id'";
+                prochee_all.strip_date='$reportDate' AND prochee_all.lab_id='$lab_id'
+			ORDER BY prochee_all.strip_time";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -565,13 +568,13 @@ function optionsHtmlInstruments($link, $lab_id, $reportDate)
 function sumHomeVisits($link, $lab, $reportDate)
 {
     $count_vizov_nadom = 0;
-	$sql_count = "  SELECT 
-                        COUNT(orderresult.ReagentId) AS count_vizov_nadom 
-                    FROM orders 
-                    INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
-                    WHERE 
-                        orders.OrderDate='$reportDate' AND orderresult.ReagentId=516 AND orders.lab='$lab'
-                ";
+	$sql_count = "SELECT 
+                COUNT(orderresult.ReagentId) AS count_vizov_nadom 
+            FROM orders 
+            INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
+            WHERE 
+                orders.OrderDate='$reportDate' AND orderresult.ReagentId=516 AND orders.lab='$lab'
+            ";
 	$result_count = mysqli_query($link, $sql_count);
 	if($result_count)
 	{
@@ -610,7 +613,7 @@ function optionsHtmlHomeVisits($link, $lab, $reportDate)
             INNER JOIN orderresult ON orders.OrderId=orderresult.OrderId
             WHERE 
                 orderresult.ReagentId=516 AND orders.OrderDate='$reportDate' AND orders.lab='$lab'
-            ";
+            ORDER BY orders.OrderTime";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -629,12 +632,12 @@ function optionsHtmlHomeVisits($link, $lab, $reportDate)
 function sumUrgentCalls($link, $lab, $reportDate)
 {
     $count_sr_vizov = 0;
-	$sql_count = "  SELECT 
-                        COUNT(orderresult.ReagentId) AS count_sr_vizov 
-                    FROM orders 
-                    INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
-                    WHERE 
-                        orders.OrderDate='$reportDate' AND orderresult.ReagentId=1014 AND orders.lab='$lab'";
+	$sql_count = "SELECT 
+                COUNT(orderresult.ReagentId) AS count_sr_vizov 
+            FROM orders 
+            INNER JOIN orderresult ON orderresult.OrderId=orders.OrderId 
+            WHERE 
+                orders.OrderDate='$reportDate' AND orderresult.ReagentId=1014 AND orders.lab='$lab'";
 	$result_count = mysqli_query($link, $sql_count);
 	if($result_count)
 	{
@@ -646,10 +649,10 @@ function sumUrgentCalls($link, $lab, $reportDate)
     }
     
     $sr_vizov_price = 0;
-	$sql_price = "  SELECT 
-                        AnalysisPrice 
-                    FROM reagent 
-                    where ReagentId='1014'";
+	$sql_price = "SELECT 
+                AnalysisPrice 
+            FROM reagent 
+            where ReagentId='1014'";
 	$result_price = mysqli_query($link, $sql_price);
 	if($result_price)
 	{
@@ -672,7 +675,8 @@ function optionsHtmlUrgentCalls($link, $lab, $reportDate)
             FROM orders 
             INNER JOIN orderresult ON orders.OrderId=orderresult.OrderId
             WHERE 
-                orderresult.ReagentId=1014 AND orders.OrderDate='$reportDate' and orders.lab='$lab'";
+                orderresult.ReagentId=1014 AND orders.OrderDate='$reportDate' and orders.lab='$lab'
+			ORDER BY orders.OrderTime";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -712,7 +716,8 @@ function optionsHtmlCashHandovers($link, $lab_id, $reportDate)
                 prochee_all.strip_time 
             FROM prochee_all 
             INNER JOIN us22 ON prochee_all.uu=us22.id
-            WHERE prochee_all.strip_date='$reportDate' AND prochee_all.lab_id='$lab_id'";
+            WHERE prochee_all.strip_date='$reportDate' AND prochee_all.lab_id='$lab_id'
+			ORDER BY prochee_all.strip_time";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -767,7 +772,7 @@ function optionsHtmlChecks($link, $lab, $reportDate)
                 check_vozvrat.usrid='198' OR check_vozvrat.usrid='200' OR check_vozvrat.usrid='392' OR 
                 check_vozvrat.usrid='394' OR check_vozvrat.usrid='396' OR check_vozvrat.usrid='398'	OR 
                 check_vozvrat.usrid='564' OR check_vozvrat.usrid='566' OR check_vozvrat.usrid='568')
-            ";
+            ORDER BY check_vozvrat.check_date";
     $result = mysqli_query($link, $sql);
     $html = '';
     if($result)
@@ -816,7 +821,8 @@ function optionsCheckRefunds($link, $lab, $reportDate)
                 check_vozvrat.usrid='10' OR check_vozvrat.usrid='66' OR check_vozvrat.usrid='258' OR 
                 check_vozvrat.usrid='198' OR check_vozvrat.usrid='200' OR check_vozvrat.usrid='392' OR 
                 check_vozvrat.usrid='394' OR check_vozvrat.usrid='396' OR check_vozvrat.usrid='398' OR 
-                check_vozvrat.usrid='564' OR check_vozvrat.usrid='566' OR check_vozvrat.usrid='568')";
+                check_vozvrat.usrid='564' OR check_vozvrat.usrid='566' OR check_vozvrat.usrid='568')
+			ORDER BY check_vozvrat.check_date";
     $result = mysqli_query($link, $sql);
     if($result)
     {
@@ -826,6 +832,32 @@ function optionsCheckRefunds($link, $lab, $reportDate)
             while($row = mysqli_fetch_array($result))
             {
                 $html.= '<option value="'.$row["orderid"].'">'.$row["orderid"].' '.(-$row["summa"]).' '.usr_to_name($link, $row["id"], $reportDate).' '.$row["check_date1"].'</option>';
+            }
+        }
+    }
+    return $html;
+}
+
+function optionsProvekaKassi($link, $lab_id, $reportDate)
+{
+    $sql = "SELECT 
+                usr_id,
+                vvod_kassi, 
+                real_kassa,
+				dtime,
+				lab_id
+            FROM proverka_kassi 
+            WHERE date(dtime)='$reportDate' AND lab_id='$lab_id'
+			ORDER BY dtime";
+    $result = mysqli_query($link, $sql);
+    $html = '';
+    if($result)
+    {
+        if(mysqli_num_rows($result) > 0)
+        {
+            while($row = mysqli_fetch_array($result)) 
+            {               
+				$html.= '<option>'.$row["vvod_kassi"].' | '.$row["real_kassa"].' | '.usr_to_name($link, $row['usr_id'], $reportDate).' | '.$row["dtime"].'</option>';               
             }
         }
     }
