@@ -71,12 +71,13 @@ else
     $filter = 1;
 }
 
-
-if($filter != "1") {
-	$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
-}
-else {
-	$filter = " orders.is_bez_kov = '$BezSARSCheck'";
+if($BezSARSCheck == 1) {
+	if($filter != "1") {
+		$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+	}
+	else {
+		$filter = " orders.is_bez_kov = '$BezSARSCheck'";
+	}
 }
 
 if($menuId == "SARSLink")
@@ -161,6 +162,7 @@ if($menuId == "SARSLink")
             INNER JOIN doctor ON orders.DoctorId=doctor.DoctorId
             INNER JOIN pacients ON orders.pac_id=pacients.id
             WHERE $filter
+			GROUP BY t.orderid
             ORDER BY t.orderid
             ";
     //var_dump($sql);

@@ -108,7 +108,9 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 1)
 {
     require_once "reagentExpensesFilter.php";
 	
-	$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+	if($BezSARSCheck == 1) {
+		$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+	}
 	
     $msg.= '
     <h3>Расход реагентов с '.$startDate.' по '.$endDate.'</h3>

@@ -54,7 +54,9 @@ elseif($_POST["BezSARSCheck"]=="false")
     $BezSARSCheck = 0;
 }
 
-$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+if($BezSARSCheck == 1) {
+	$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+}
 
 if($menuId == "SARSLink")
 {

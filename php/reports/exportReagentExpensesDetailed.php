@@ -120,7 +120,9 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
 {
     require_once "reagentExpensesFilter.php";
 	
-	$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+	if($BezSARSCheck == 1) {
+		$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+	}
 
     $msg.= '
     <table class="table" border="1" id="reagentExpensesData">
