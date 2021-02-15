@@ -202,6 +202,8 @@ $msg.= '
 	</caption>
 	<thead>
 		<th scope="col">#</th>
+		<!--MashinId-->
+		<th scope="col">Код анализатора</th>
 		<!--ReagentId-->
 		<th scope="col">Код реагента</th>
 		<!--Loinc-->
@@ -306,6 +308,7 @@ if($result)
 		$msg.= 	'
 		<tr>
 			<th scope="row">'.$i.'</th>
+			<td>'.$row["Mashinid"].'</td>
 			<td>'.$row["ReagentId"].'</td>
 			<td>'.$row["Loinc"].'</td>
 			<td>'.$row["ReagentDesc"].'</td>
