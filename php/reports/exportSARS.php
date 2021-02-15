@@ -3,6 +3,7 @@ require_once "../connect.php";
 require_once "../authorization.php";
 require_once "../../../PHPExcel-1.8/Classes/PHPExcel.php";
 require_once "../../../PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php";
+require_once "extractArmenianName.php";
 
 if(!isset($_POST["startDate"]) || !isset($_POST["endDate"]))
 {
@@ -273,10 +274,8 @@ if($menuId == "SARSLink")
 
             if($onlyArmenian == 1)
             {
-                $tempFirtsName = explode(" ",$firstName);
-                $firstName = $tempFirtsName[0];
-                $tempLastName = explode(" ",$lastName);
-                $lastName = $tempLastName[0];
+                $firstName = extarctArmenianName($firstName);
+                $lastName = extarctArmenianName($lastName);
             }
 
 			$d1 = $row["birthday"];

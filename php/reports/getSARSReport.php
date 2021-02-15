@@ -1,6 +1,7 @@
 <?php
 require_once "../connect.php";
 require_once "../authorization.php";
+require_once "extractArmenianName.php";
 
 $msg = "";
 
@@ -187,10 +188,8 @@ if($menuId == "SARSLink")
 
             if($onlyArmenian == 1)
             {
-                $tempFirtsName = explode(" ",$firstName);
-                $firstName = $tempFirtsName[0];
-                $tempLastName = explode(" ",$lastName);
-                $lastName = $tempLastName[0];
+                $firstName = extarctArmenianName($firstName);
+                $lastName = extarctArmenianName($lastName);
             }
             
             $msg.= '
