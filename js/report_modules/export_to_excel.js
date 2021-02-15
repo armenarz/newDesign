@@ -412,6 +412,9 @@ export function exportToExcel(reportObj)
 		let BezSARSCheck = reportObj.BezSARSCheck;
         appendHiddenElement(form, "BezSARSCheck", BezSARSCheck);
 
+        let onlyArmenian = reportObj.onlyArmenian;
+        appendHiddenElement(form, "onlyArmenian", onlyArmenian);
+        console.log("onlyArmenian="+onlyArmenian);
         document.tempData.action = "../reports/exportSARS.php";
         document.tempData.target = '_blank';
         document.tempData.method = 'POST';
@@ -426,6 +429,7 @@ export function exportToExcel(reportObj)
         removeHiddenElement(form, "endTime", endTime);
         removeHiddenElement(form, "doctorId", doctorId);
 		removeHiddenElement(form, "BezSARSCheck", BezSARSCheck);
+        removeHiddenElement(form, "onlyArmenian", onlyArmenian);
     }
 }
 

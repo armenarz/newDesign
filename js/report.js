@@ -855,7 +855,8 @@ $('#SARSModalWindow').on('click','#buttonOKSARS', function(){
         }
         reportObj.doctorId = tempDoctorId;
         reportObj.menuId = "SARSLink";
-		reportObj.BezSARSCheck = $('#SARS-CoV-2bezcheck').is(":checked");
+        reportObj.BezSARSCheck = $('#SARS-CoV-2bezcheck').is(":checked");
+        reportObj.onlyArmenian = $('#onlyArmenian').is(":checked");
 
         setActiveItem(sidebarItems,"SARSLink");
         updateContent(reportObj);
@@ -960,7 +961,8 @@ $('#SARSModalWindow').on('click','#buttonSARSToExcel', function(){
         }
         reportObj.doctorId = tempDoctorId;
         reportObj.menuId = "SARSLink";
-		reportObj.BezSARSCheck = $('#SARS-CoV-2bezcheck').is(":checked");
+        reportObj.BezSARSCheck = $('#SARS-CoV-2bezcheck').is(":checked");
+        reportObj.onlyArmenian = $('#onlyArmenian').is(":checked");
 
         setActiveItem(sidebarItems,"SARSLink");
         exportToExcel(reportObj);

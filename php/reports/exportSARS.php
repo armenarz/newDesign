@@ -54,6 +54,15 @@ elseif($_POST["BezSARSCheck"]=="false")
     $BezSARSCheck = 0;
 }
 
+if($_POST["onlyArmenian"]=="true")
+{
+    $onlyArmenian = 1;
+}
+elseif($_POST["onlyArmenian"]=="false")
+{
+    $onlyArmenian = 0;
+}
+
 if($BezSARSCheck == 1) {
 	$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
 }
@@ -259,14 +268,25 @@ if($menuId == "SARSLink")
 			
 			$i++;
 			
+            $firstName = $row["FirstName"];
+            $lastName = $row["LastName"];
+
+            if($onlyArmenian == 1)
+            {
+                $tempFirtsName = explode(" ",$firstName);
+                $firstName = $tempFirtsName[0];
+                $tempLastName = explode(" ",$lastName);
+                $lastName = $tempLastName[0];
+            }
+
 			$d1 = $row["birthday"];
 			$date = new DateTime("$d1");
 			
 			$date_format = $date->format('Y-m-d');
 			
-			$sheet->setCellValueExplicit("A".$i, $row["FirstName"], PHPExcel_Cell_DataType::TYPE_STRING);
+			$sheet->setCellValueExplicit("A".$i, $firstName, PHPExcel_Cell_DataType::TYPE_STRING);
 			
-			$sheet->setCellValueExplicit("B".$i, $row["LastName"], PHPExcel_Cell_DataType::TYPE_STRING);
+			$sheet->setCellValueExplicit("B".$i, $lastName, PHPExcel_Cell_DataType::TYPE_STRING);
 
 			$sheet->setCellValueExplicit("C".$i, $row["birthday"], PHPExcel_Cell_DataType::TYPE_STRING);
 

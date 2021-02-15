@@ -65,6 +65,12 @@ $msg = '
             <label class="form-check-label" for="SARS-CoV-2bezcheck">Без COVID-19</label>
         </div>
     </div>
+    <div class="col">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="onlyArmenian" >
+            <label class="form-check-label" for="onlyArmenian">միայն Հայերեն</label>
+        </div>
+    </div>
 </div>
 ';
 //<!-- END Tabs HTML Markup -->

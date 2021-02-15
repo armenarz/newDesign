@@ -41,6 +41,15 @@ elseif($_POST["BezSARSCheck"]=="false")
     $BezSARSCheck = 0;
 }
 
+if($_POST["onlyArmenian"]=="true")
+{
+    $onlyArmenian = 1;
+}
+elseif($_POST["onlyArmenian"]=="false")
+{
+    $onlyArmenian = 0;
+}
+
 $menuId = $_POST["menuId"];
 
 $reportDescription = $startDate." ".$startTime."-ից ".$endDate." ".$endTime." ժամանակաշրջանի համար";
@@ -173,12 +182,23 @@ if($menuId == "SARSLink")
         while($row = mysqli_fetch_array($result))
         {
             $i++;
+            $firstName = $row["FirstName"];
+            $lastName = $row["LastName"];
+
+            if($onlyArmenian == 1)
+            {
+                $tempFirtsName = explode(" ",$firstName);
+                $firstName = $tempFirtsName[0];
+                $tempLastName = explode(" ",$lastName);
+                $lastName = $tempLastName[0];
+            }
+            
             $msg.= '
                 <tr>
                     <!-- 1. Patients First Name-->
-                    <td scope="col">'.$row["FirstName"].'</td>
+                    <td scope="col">'.$firstName.'</td>
                     <!-- 2. Patients Last Name-->
-                    <td scope="col">'.$row["LastName"].'</td>
+                    <td scope="col">'.$lastName.'</td>
                     <!-- 3. Patients Birtddate-->
                     <td scope="col">'.$row["birthday"].'</td>
                     <!-- 4. Social Security Number-->
