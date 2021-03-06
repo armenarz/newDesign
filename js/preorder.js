@@ -10,6 +10,7 @@ $(function()
     setPreorderStartDateData();
     setPreorderEndDateData();
     setSearchPreorderIdData();
+    
     updateContent(filterObj);
 
     //getting selected value of select tag with id "preorderStartDate";
@@ -407,6 +408,8 @@ $("#changeStatusModalWindow").on('click','#buttonOKChangeStatus', function(){
         data: dataString = $("form[name='tempData']").serialize().concat('&').concat($("form[name='formChangeStatus']").serialize()),
         success: function(res)
         {
+            setRawPreordersCount();
+            
             // when the value of searchPreorderId is greater than zero
             let searchPreorderId = parseInt($("#searchPreorderId").val());
             if(!isNaN(searchPreorderId))
