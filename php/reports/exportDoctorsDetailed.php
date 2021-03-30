@@ -4,6 +4,8 @@ header("Content-Type: application/xls");
 require_once "../connect.php";
 require_once "../authorization.php";
 
+set_time_limit(0);
+
 $utf8_bom = chr(239).chr(187).chr(191);
 
 $msg = $utf8_bom;
@@ -124,12 +126,29 @@ elseif($_POST["doubleCheck"]=="false")
     $doubleCheck = 0;
 }
 
+if($_POST["filial"]) {
+	$filial = $_POST["filial"];
+}
+else {
+	$filial = 0;
+}
+
 $filter = "";
 $reportDescription = "";
 
 if($menuId == "doctorsLink" && $reportTypeId == 2)
 {
     require_once "doctorsFilter.php";
+	
+	if($filial == 2) {
+		$filter .= " AND orders.user_id = '762'";
+	}
+	elseif($filial == 3) {
+		$filter .= " AND orders.user_id = '762'";
+	}
+	else {
+		;
+	}
 
     $msg.= '
     <table class="table" border="1" id="reagentExpensesData">
@@ -339,6 +358,11 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                                         $row_payments_Ingo01 = mysqli_fetch_array($result_payments_Ingo01);
                                         $payments_doctor = $row_payments_Ingo01["Payments_Ingo01"];
                                     }
+									
+									if($uu== 764)
+									{
+										$cost_doctor = ($cost_doctor / 15000) * 10000;
+									}
 
                                     $msg.= '
                                     <tr>

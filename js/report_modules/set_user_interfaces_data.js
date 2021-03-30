@@ -104,6 +104,65 @@ function funcSuccessSetReagentExpensesMWData(result)
 			sars_el.style.visibility = "hidden";
 		}
 	}
+	
+	if(document.getElementById("SelectReagentGroupReagentExpenses")) {
+		if( document.tempData.user_id.value =="764" ){
+			$("#SelectReagentGroupReagentExpenses").prop("disabled",true);
+			
+		}
+	}
+	
+	if(document.getElementById("SelectReagentGroupSARSReagentExpenses")) {
+		if( document.tempData.user_id.value =="764" ){
+			$("#SelectReagentGroupSARSReagentExpenses").prop("disabled",true);
+			
+		}
+	}
+	
+	if(document.getElementById("DoctorIdReagentExpenses")) {
+		if( document.tempData.user_id.value =="764" ){
+			$("#DoctorIdReagentExpenses").prop("disabled",true);
+			
+		}
+	}
+	
+	if(document.getElementById("WorkplaceIdReagentExpenses")) {
+		if( document.tempData.user_id.value =="764" ){
+			$("#WorkplaceIdReagentExpenses").prop("disabled",true);
+			
+		}
+	}
+	
+	if(document.getElementById("SalesIdReagentExpenses")) {
+		if( document.tempData.user_id.value =="764" ){
+			$("#SalesIdReagentExpenses").prop("disabled",true);
+			
+		}
+	}
+	
+	if(document.getElementById("UserIdReagentExpenses")) {
+		if( document.tempData.user_id.value =="764" ){
+			$("#UserIdReagentExpenses").prop("disabled",true);
+			
+		}
+	}
+	
+	if(document.getElementById("SARS-CoV-2BezCheckReagentExpenses")) {
+		if( document.tempData.user_id.value =="764" ){
+			$("#SARS-CoV-2BezCheckReagentExpenses").prop("disabled",true);
+			
+		}
+	}
+	
+	if( document.tempData.user_id.value =="764" ) { 
+		if(document.getElementById("ReagentIdReagentExpenses")) {
+			//document.getElementById("ReagentIdReagentExpenses").focus();
+			$("#ReagentIdReagentExpenses").val('1142');
+			$('#ReagentIdReagentExpenses option[value!="1142"]').remove();			
+			
+			$("#ReagentIdReagentExpenses").prop("disabled",true);
+		}
+	}
 }
 
 export function setSearchDoctorData() 

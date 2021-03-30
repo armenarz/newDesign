@@ -100,6 +100,13 @@ elseif($_POST["BezSARSCheck"]=="false")
     $BezSARSCheck = 0;
 }
 
+if($_POST["filial"]) {
+	$filial = $_POST["filial"];
+}
+else {
+	$filial = 0;
+}
+
 $filter = "";
 $reportDescription = "";
 
@@ -109,6 +116,16 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
 	
 	if($BezSARSCheck == 1) {
 		$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+	}
+	
+	if($filial == 2) {
+		$filter .= " AND orders.user_id = '762'";
+	}
+	elseif($filial == 3) {
+		$filter .= " AND orders.user_id = '762'";
+	}
+	else {
+		;
 	}
 
     $msg.= '

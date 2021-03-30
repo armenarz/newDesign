@@ -57,9 +57,19 @@ $reportDescription = $startDate." ".$startTime."-ից ".$endDate." ".$endTime." 
 $filter = "";
 
 $doctorId = $_POST["doctorId"];
+
+if($uu == 764) {
+	$doctorId = 6306;
+}
+
 if($doctorId > 0)
 {
     $doctorId = $_POST["doctorId"];
+	
+	if($uu == 764) {
+		$doctorId = 6306;
+	}
+	
     $sql_doctor = " SELECT 
                         FirstName,
                         LastName,
@@ -83,12 +93,18 @@ else
 
 if($BezSARSCheck == 1) {
 	if($filter != "1") {
-		$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
+		$filter .= " AND orders.is_bez_kov = '$BezSARSCheck' ";
 	}
 	else {
-		$filter = " orders.is_bez_kov = '$BezSARSCheck'";
+		$filter = " orders.is_bez_kov = '$BezSARSCheck' ";
 	}
 }
+
+if($uu == 764) {
+	$filter .= " AND orders.user_id='762' ";
+}
+
+//echo $filter;
 
 if($menuId == "SARSLink")
 {

@@ -3,6 +3,8 @@ header("Content-Type: application/xls");
 require_once "../connect.php";
 require_once "../authorization.php";
 
+set_time_limit(0);
+
 $utf8_bom = chr(239).chr(187).chr(191);
 
 $msg = $utf8_bom;
@@ -123,12 +125,29 @@ elseif($_POST["doubleCheck"]=="false")
     $doubleCheck = 0;
 }
 
+if($_POST["filial"]) {
+	$filial = $_POST["filial"];
+}
+else {
+	$filial = 0;
+}
+
 $filter = "";
 $reportDescription = "";
 
 if($menuId == "doctorsLink" && $reportTypeId == 1)
 {
     require_once "doctorsFilter.php";
+
+	if($filial == 2) {
+		$filter .= " AND orders.user_id = '762'";
+	}
+	elseif($filial == 3) {
+		$filter .= " AND orders.user_id = '762'";
+	}
+	else {
+		;
+	}
 
     $msg.= '
     <table class="table" border="1" id="reagentExpensesData">
@@ -296,6 +315,12 @@ if($menuId == "doctorsLink" && $reportTypeId == 1)
                                 }
                             }
                         }
+						
+						if($uu == 764)
+                        {
+							$cost_doctor_total = ($cost_doctor_total / 15000) * 10000;
+						}
+						
                         $msg.= '
                         <tr>
                             <!--Row number-->

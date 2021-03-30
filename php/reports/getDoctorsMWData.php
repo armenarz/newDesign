@@ -47,6 +47,7 @@ $msg .= '
         <select id="EndDateDoctors" class="form-control" name="EndDateDoctors">
             <option value="0"></option>
             ';
+						
 $sql=  "SELECT 
             OrderDate 
         FROM orders 
@@ -219,7 +220,25 @@ if($result)
     </div>
 </div>
 <div class="row">
-    <div class="col"></div>
+    <div class="col">
+        <div class="form-group d-print-none">
+            <label for="Filiald">Филиал</label>
+            <select id="Filiald" class="form-control" name="Filiald" ';
+            if($uu != 12 && $uu != 13 && $uu != 23)
+            {
+                $msg .= 'disabled ';
+            }            
+    $msg .='>
+                <option value="0"></option>
+				<option value="1" selected>Главный</option>
+				<option value="2">Kapan</option>
+				<option value="3">Все филиалы</option>';
+    
+    
+    $msg .= '
+            </select>
+        </div>
+	</div>
     <div class="col">
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="DoubleCheckDoctors">
@@ -229,7 +248,6 @@ if($result)
 </div>
 ';
 //<!-- END Tabs HTML Markup -->
-
 
 echo $msg;
 ?>

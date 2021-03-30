@@ -2,6 +2,8 @@
 require_once "../connect.php";
 require_once "../authorization.php";
 
+set_time_limit(0);
+
 $msg = "";
 
 if(!isset($_POST["startDate"]) || !isset($_POST["endDate"]))
@@ -38,6 +40,7 @@ if($reagentId > 0)
 }
 
 $doctorId = $_POST["doctorId"];
+
 if($doctorId > 0)
 {
     $sql_doctor = " SELECT 
@@ -120,12 +123,29 @@ elseif($_POST["doubleCheck"]=="false")
     $doubleCheck = 0;
 }
 
+if($_POST["filial"]) {
+	$filial = $_POST["filial"];
+}
+else {
+	$filial = 0;
+}
+
 $filter = "";
 $reportDescription = "";
 
 if($menuId == "doctorsLink" && $reportTypeId == 2)
 {
     require_once "doctorsFilter.php";
+	
+	if($filial == 2) {
+		$filter .= " AND orders.user_id = '762'";
+	}
+	elseif($filial == 3) {
+		$filter .= " AND orders.user_id = '762'";
+	}
+	else {
+		;
+	}
 
     $msg.= '
     <h3>Врачи с '.$startDate.' по '.$endDate.'</h3>
@@ -298,7 +318,14 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                                 {
                                     $row_orders_data = mysqli_fetch_array($result_orders_data);
                                     $price_doctor = $row_orders_data["cena_analizov"];
+									
                                     $cost_doctor = $row_orders_data["cost"];
+									
+									if($uu== 764)
+									{
+										$cost_doctor = ($cost_doctor / 15000) * 10000;
+									}
+									
                                     $count_doctor++;
 
                                     $sql_patient = "SELECT

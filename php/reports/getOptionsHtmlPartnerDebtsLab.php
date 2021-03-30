@@ -83,6 +83,28 @@ elseif($partner == "ARMMED" || $partner == "Tonoyan")
         }
     }                    
 }
+elseif($partner == "Kapan")
+{
+    $sql = "SELECT 
+                orders.OrderId,
+                (orders.cena_analizov * 10000/15000) AS cen_an
+            FROM orders 
+            INNER JOIN us22 ON orders.usr=us22.log
+            INNER JOIN partner_users ON us22.id=partner_users.user_id
+            INNER JOIN partners ON partner_users.partner_id=partners.id
+            WHERE 
+                orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
+            ORDER BY orders.OrderTime";
+    $result = mysqli_query($link, $sql);
+    if($result)
+    {
+        $html = '<option></option>';
+        while($row = mysqli_fetch_array($result)) 
+        {
+            $html.= '<option value="'.$row["OrderId"].'">'.$row["OrderId"].' | '.intval($row["cen_an"]).'</option>';
+        }
+    }                    
+}
 else
 {
     $sql = "SELECT 

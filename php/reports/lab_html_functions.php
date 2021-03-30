@@ -388,6 +388,18 @@ function sumPartnerDebtsLab($link, $partner, $reportDate)
 							orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
 						";
 	}
+	elseif($partner == "Kapan" )
+	{
+		$sql_sumDebts = "SELECT 
+								(SUM(orders.cost) * 10000/15000) AS sumDebts
+						FROM orders 
+						INNER JOIN us22 ON orders.usr=us22.log
+						INNER JOIN partner_users ON us22.id=partner_users.user_id
+						INNER JOIN partners ON partner_users.partner_id=partners.id
+						WHERE 
+							orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
+						";
+	}
 	else
 	{
 		$sql_sumDebts = "SELECT 
@@ -458,6 +470,27 @@ function optionsHtmlPartnerDebtsLab($link, $partner, $reportDate)
 		$sql = "SELECT 
 					OrderId,
 					(cena_analizov * 0.7) AS cen_an
+				FROM orders 
+				INNER JOIN us22 ON orders.usr=us22.log
+				INNER JOIN partner_users ON us22.id=partner_users.user_id
+				INNER JOIN partners ON partner_users.partner_id=partners.id
+				WHERE 
+					orders.OrderDate='".$reportDate."' AND partners.partner='".$partner."'
+				";
+		$result = mysqli_query($link, $sql);
+		if($result)
+		{
+			while($row = mysqli_fetch_array($result)) 
+			{
+				$html.= '<option value="'.$row["OrderId"].'">'.$row["OrderId"].' | '.intval($row["cen_an"]).'</option>';
+			}
+		}                    
+	}
+	elseif($partner == "Kapan")
+	{
+		$sql = "SELECT 
+					OrderId,
+					(cena_analizov * 10000/15000) AS cen_an
 				FROM orders 
 				INNER JOIN us22 ON orders.usr=us22.log
 				INNER JOIN partner_users ON us22.id=partner_users.user_id

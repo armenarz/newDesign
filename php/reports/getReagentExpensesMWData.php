@@ -290,8 +290,27 @@ if($result)
             </select>
         </div>
 	</div>
-    <div class="col">
-    </div>
+    
+	<div class="col">
+        <div class="form-group d-print-none">
+            <label for="Filial">Филиал</label>
+            <select id="Filial" class="form-control" name="Filial" ';
+            if($uu != 12 && $uu != 13 && $uu != 23)
+            {
+                $msg .= 'disabled ';
+            }            
+    $msg .='>
+                <option value="0"></option>
+				<option value="1" selected>Главный</option>
+				<option value="2">Kapan</option>
+				<option value="3">Все филиалы</option>';
+    
+    
+    $msg .= '
+            </select>
+        </div>
+	</div>
+    
 </div>
 <div class="row">
     <div class="col" id="div_sars">

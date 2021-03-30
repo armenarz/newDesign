@@ -73,7 +73,7 @@ $(function()
 
 // reagentExpensesModalWindow button OK handler
 $('#reagentExpensesModalWindow').on('click','#buttonOKReagentExpenses', function(){
-    //console.log("buttonOKReagentExpenses");
+    console.log($('#ReagentIdReagentExpenses').val());
     var frmReagentExpenses = CreateFormReagentExpensesObject();
     frmReagentExpenses.getFormData();
 
@@ -107,6 +107,7 @@ $('#reagentExpensesModalWindow').on('click','#buttonOKReagentExpenses', function
         reportObj.userId = $('#UserIdReagentExpenses').val();
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
         reportObj.labId = $('#LabIdReagentExpenses').val();
+		reportObj.filial = $('#Filial').val();
         reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
 		reportObj.BezSARSCheck = $('#SARS-CoV-2BezCheckReagentExpenses').is(":checked");
         reportObj.menuId = "reagentExpensesLink";
@@ -153,6 +154,7 @@ $('#reagentExpensesModalWindow').on('click','#buttonReagentExpensesToExcel', fun
         reportObj.userId = $('#UserIdReagentExpenses').val();
         reportObj.salesId = $('#SalesIdReagentExpenses').val();
         reportObj.labId = $('#LabIdReagentExpenses').val();
+		reportObj.filial = $('#Filial').val();
         reportObj.doubleCheck = $('#DoubleCheckReagentExpenses').is(":checked");
 		reportObj.BezSARSCheck = $('#SARS-CoV-2BezCheckReagentExpenses').is(":checked");
 		reportObj.SARSCheck = $('#SARS-CoV-2CheckReagentExpenses').is(":checked");
@@ -294,6 +296,7 @@ $('#doctorsModalWindow').on('click','#buttonOKDoctors', function(){
         reportObj.workplaceId = $('#WorkplaceIdDoctors').val();
         reportObj.userId = $('#UserIdDoctors').val();
         reportObj.salesId = $('#SalesIdDoctors').val();
+		reportObj.filial = $('#Filiald').val();
         reportObj.doubleCheck = $('#DoubleCheckDoctors').is(":checked");
         reportObj.menuId = "doctorsLink";
         setActiveItem(sidebarItems,"doctorsLink");
@@ -349,6 +352,7 @@ $('#doctorsModalWindow').on('click','#buttonDoctorsToExcel', function(){
         reportObj.workplaceId = $('#WorkplaceIdDoctors').val();
         reportObj.userId = $('#UserIdDoctors').val();
         reportObj.salesId = $('#SalesIdDoctors').val();
+		reportObj.filial = $('#Filiald').val();
         reportObj.doubleCheck = $('#DoubleCheckDoctors').is(":checked");
         reportObj.menuId = "doctorsLink";
         setActiveItem(sidebarItems,"doctorsLink");
@@ -969,3 +973,18 @@ $('#SARSModalWindow').on('click','#buttonSARSToExcel', function(){
         $('#SARSModalWindow').modal('hide');
     }
 });
+
+$('#doctorsModalWindow').on('show.bs.modal', function (e) {
+	if(document.getElementById("DoctorIdDoctors")) {
+		if( (document.tempData.user_id.value) =="760" ){
+			$('#DoctorIdDoctors').val("6300 Ли Ди Ли Ди Ли Ди");
+			$("#DoctorIdDoctors").prop("disabled",true);
+			
+		}
+		else if( (document.tempData.user_id.value) =="764" ){
+			$('#DoctorIdDoctors').val("6306 Капан Капан Капан");
+			$("#DoctorIdDoctors").prop("disabled",true);
+			
+		}
+	}
+})
