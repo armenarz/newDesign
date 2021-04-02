@@ -301,9 +301,9 @@ if($result)
             }            
     $msg .='>
                 <option value="0"></option>
-				<option value="1" selected>Главный</option>
-				<option value="2">Kapan</option>
-				<option value="3">Все филиалы</option>';
+				<option value="3" selected>Все филиалы</option>
+				<option value="1">Главный</option>
+				<option value="2">Kapan</option>';
     
     
     $msg .= '

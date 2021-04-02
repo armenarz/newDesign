@@ -137,10 +137,10 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
 {
     require_once "doctorsFilter.php";
 	
-	if($filial == 2) {
-		$filter .= " AND orders.user_id = '762'";
+	if($filial == 1) {
+		$filter .= " AND orders.user_id != '762'";
 	}
-	elseif($filial == 3) {
+	elseif($filial == 2) {
 		$filter .= " AND orders.user_id = '762'";
 	}
 	else {
