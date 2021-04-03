@@ -974,7 +974,7 @@ $('#SARSModalWindow').on('click','#buttonSARSToExcel', function(){
     }
 });
 
-$('#doctorsModalWindow').on('show.bs.modal', function (e) {
+$('#doctorsModalWindow').on('shown.bs.modal', function (e) {
 	if(document.getElementById("DoctorIdDoctors")) {
 		if( (document.tempData.user_id.value) =="760" ){
 			$('#DoctorIdDoctors').val("6300 Ли Ди Ли Ди Ли Ди");
@@ -982,9 +982,27 @@ $('#doctorsModalWindow').on('show.bs.modal', function (e) {
 			
 		}
 		else if( (document.tempData.user_id.value) =="764" ){
+			$('#Filiald').prop("disabled",false);
+			$('#Filiald').val("2");
+			$('#Filiald').prop("disabled",true);
+			
 			$('#DoctorIdDoctors').val("6306 Капан Капан Капан");
 			$("#DoctorIdDoctors").prop("disabled",true);
 			
+		}
+	}
+})
+
+$('#reagentExpensesModalWindow').on('shown.bs.modal', function (e) {
+	if(document.getElementById("DoctorIdReagentExpenses")) {
+		if( (document.tempData.user_id.value) =="764" ) {
+			
+			$('#Filial').prop("disabled",false);
+			$('#Filial').val("2");
+			$('#Filial').prop("disabled",true);
+			
+			$('#DoctorIdReagentExpenses').val("6306 Капан Капан Капан");
+			$("#DoctorIdReagentExpenses").prop("disabled",true);
 		}
 	}
 })
