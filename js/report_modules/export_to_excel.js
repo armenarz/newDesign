@@ -41,6 +41,9 @@ export function exportToExcel(reportObj)
         var labId = reportObj.labId;
         appendHiddenElement(form, "labId", labId);
 
+        var filial = reportObj.filial;
+        appendHiddenElement(form, "filial", filial);
+
         var doubleCheck = reportObj.doubleCheck;
         appendHiddenElement(form, "doubleCheck", doubleCheck);
 		
@@ -84,6 +87,7 @@ export function exportToExcel(reportObj)
         removeHiddenElement(form, "userId");
         removeHiddenElement(form, "salesId");
         removeHiddenElement(form, "labId");
+        removeHiddenElement(form, "filial");
         removeHiddenElement(form, "doubleCheck");
     }
     else if(menuId == "reagentRemaindersLink")

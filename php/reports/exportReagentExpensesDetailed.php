@@ -26,6 +26,8 @@ if(!isset($_POST["menuId"]))
 $menuId = $_POST["menuId"];
 $reportTypeId = $_POST["reportTypeId"];
 $reagentIdArr = json_decode($_POST["reagentIdArr"]);
+/* var_dump($reagentIdArr);
+return; */
 $doctorId = $_POST["doctorId"];
 if($doctorId > 0)
 {
@@ -113,10 +115,12 @@ elseif($_POST["BezSARSCheck"]=="false")
     $BezSARSCheck = 0;
 }
 
-if($_POST["filial"]) {
+if(isset($_POST["filial"])) 
+{
 	$filial = $_POST["filial"];
 }
-else {
+else 
+{
 	$filial = 0;
 }
 
@@ -127,18 +131,18 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
 {
     require_once "reagentExpensesFilter.php";
 	
-	if($BezSARSCheck == 1) {
+	if($BezSARSCheck == 1) 
+    {
 		$filter .= " AND orders.is_bez_kov = '$BezSARSCheck'";
 	}
 	
-	if($filial == 1) {
-		$filter .= " AND orders.user_id != '762'";
+	if($filial == 1) 
+    {
+		$filter .= " AND orders.user_id <> '762'";
 	}
-	elseif($filial == 2) {
+	elseif($filial == 2) 
+    {
 		$filter .= " AND orders.user_id = '762'";
-	}
-	else {
-		;
 	}
 
     $msg.= '
@@ -165,8 +169,13 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                 <!--count_reag-->
                 <th scope="col" class="text-right">Количество</th>
                 <!--AnalysisResult-->
-                <th scope="col">Результат</th>
-            </tr>
+                <th scope="col">Результат</th>';
+            if(in_array("1142", $reagentIdArr) && in_array("1166", $reagentIdArr))
+            {
+                $msg .='<!--Aim-->
+                <th scope="col" class="text-center">Цель</th>';
+            }
+    $msg .='</tr>
         </thead>
         <tbody>
         ';
@@ -187,7 +196,7 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                     WHERE $filter
                     GROUP BY reagent.GroupId
                     ORDER BY reagent.GroupId";
-    
+
     $result_group = mysqli_query($link,$sql_group);
     if($result_group)
     {
@@ -205,9 +214,12 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                 <!--<td></td>-->
                 <!--<td></td>-->
                 <td class="text-right"><strong>'.$row_group["ReagentCount"].'</strong></td>
-                <td></td>
-            </tr>
-            ';
+                <td></td>';
+            if(in_array("1142", $reagentIdArr) && in_array("1166", $reagentIdArr))
+            {
+                $msg.='<td></td>';
+            }
+     $msg .='</tr>';
             $sql_reagent = "SELECT 
                                 reagent.GroupId,
                                 orderresult.ReagentId,
@@ -226,6 +238,7 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                             GROUP BY reagent.GroupId, orderresult.ReagentId
                             HAVING reagent.GroupId='".$row_group["GroupId"]."'
                             ORDER BY reagent.GroupId, orderresult.ReagentId";
+            
             $result_reagent = mysqli_query($link,$sql_reagent);
             if($result_reagent)
             {
@@ -240,12 +253,20 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                         <!--<td></td>-->
                         <!--<td></td>-->
                         <td class="text-right"><strong>'.$row_reagent["ReagentCount"].'</strong></td>
-                        <td></td>
-                    </tr>
-                    ';
+                        <td></td>';
+                        if(in_array("1142", $reagentIdArr) && in_array("1166", $reagentIdArr))
+                        {
+                            $msg.='<td></td>';
+                        }
+                        
+             $msg .='</tr>';
                     $sql_order = "  SELECT 
                                         orderresult.OrderId,
                                         orders.OrderDate,
+                                        orders.is_spravka,
+                                        orders.is_spravka2,
+                                        orders.is_bez_kov,
+                                        orders.lab,
                                         CONCAT(pacients.LastName,' ', pacients.FirstName,' ', pacients.MidName ) AS PatientName,
                                         pacients.dopolnitelno,
                                         orderresult.AnalysisResult
@@ -278,9 +299,41 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                                 <td>'.$row_order["PatientName"].'</td>
                                 <td>'.$row_order["dopolnitelno"].'</td>
                                 <td></td>
-                                <td class="text-right">'.$row_order["AnalysisResult"].'</td>
-                            </tr>
-                            ';
+                                <td class="text-right">'.$row_order["AnalysisResult"].'</td>';
+                                
+                                $lab_order = $row_order["lab"];
+                                $is_spravka = $row_order["is_spravka"];
+                                $is_spravka2 = $row_order["is_spravka2"];
+                                $is_bez_kov = $row_order["is_bez_kov"];
+                                $aim = "";
+                                if($lab_order=="Zvartnots1" || $lab_order=="Zvartnots2" || $lab_order=="Shirak Airport")
+                                {
+                                    if($is_spravka == 0 && $is_bez_kov == 0 && $is_spravka2 == 0)
+                                    {
+                                        $aim = "Прилет";
+                                    }
+                                    elseif($is_spravka == 1 || $is_bez_kov == 1 || $is_spravka2 == 1)
+                                    {
+                                        $aim = "Вылет";
+                                    }
+                                }
+                                else
+                                {
+                                    if($is_spravka == 0 && $is_bez_kov == 0 && $is_spravka2 == 0)
+                                    {
+                                        $aim = "Другое";
+                                    }
+                                    elseif($is_spravka == 1 || $is_bez_kov == 1 || $is_spravka2 == 1)
+                                    {
+                                        $aim = "Вылет";
+                                    }
+                                }
+                        if(in_array("1142", $reagentIdArr) && in_array("1166", $reagentIdArr))
+                        {
+                            $msg.= '<td class="text-center">'.$aim.'</td>';
+                        }
+                        
+                    $msg .='</tr>';
                         }
                     }
                 }
@@ -295,9 +348,12 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                 <!--<td></td>-->
                 <!--<td></td>-->
                 <td class="text-right"><strong>'.$total.'</strong></td>
-                <td></td>
-            </tr>
-        ';
+                <td></td>';
+        if(in_array("1142", $reagentIdArr) && in_array("1166", $reagentIdArr))
+        {
+            $msg.='<td></td>';
+        }
+    $msg .='</tr>';
     }
     
     $msg.= '
