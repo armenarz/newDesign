@@ -6,6 +6,8 @@ require_once "labs_html.php";
 require_once "lab_html.php";
 require_once "lab1_html.php";
 
+$start0 = microtime(true);
+
 $msg = "";
 
 if(!isset($_POST["menuId"]))
@@ -27,14 +29,14 @@ $reportDate = $_POST["reportDate"];
 if($menuId == "dailyLink")
 {
     $msg.= '
-    <h2>Дневной на '.$reportDate.'</h2>
     <table class="table table-bordered table-responsive table-fixed">
         <thead>
         ';
     $sql = "SELECT 
                 id, 
                 lab 
-            FROM labs 
+            FROM labs
+			WHERE id != 1
             ORDER BY sorting
             ";
     $result = mysqli_query($link, $sql);
@@ -94,6 +96,14 @@ if($menuId == "dailyLink")
     </table>
     ';
 }
+
+/*
+$f = fopen("log_dnevnoj.txt", 'a');
+$str ="\r\n" . $reportDate . " getDailyReport.php " . round(microtime(true) - $start0, 4) . ' sec.' . "\r\n";
+fwrite($f, $str); 
+fclose($f);
+*/
+//echo "\r\n" . $reportDate . " getDailyReport.php " . round(microtime(true) - $start0, 4) . ' sec.' . "\r\n";
 
 echo $msg;
 ?>

@@ -41,7 +41,8 @@ if($menuId == "dailyLink")
     $sql = "SELECT 
                 id, 
                 lab 
-            FROM labs 
+            FROM labs
+			WHERE id != 1
             ORDER BY sorting
             ";
     $result = mysqli_query($link, $sql);
