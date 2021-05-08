@@ -46,7 +46,9 @@ require_once "../fillNonBreak.php";
                             <a class="nav-link border-bottom" href="#" id="debtsLink" data-toggle="modal" data-target="#debtsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Долги</a>
                             <a class="nav-link border-bottom" href="#" id="repaidDebtsLink" data-toggle="modal" data-target="#repaidDebtsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Погашенные&nbsp;долги</a>
                             <a class="nav-link border-bottom" href="#" id="dailyLink" data-toggle="modal" data-target="#dailyModalWindow"><i class="far fa-file-alt"></i>&nbsp;Дневной</a>
-                            <a class="nav-link border-bottom" href="#" id="SARSLink" data-toggle="modal" data-target="#SARSModalWindow"><i class="far fa-file-alt"></i>&nbsp;SARS-CoV-2</a>
+                            <a class="nav-link border-bottom" href="#" id="ordersByLabsLink" data-toggle="modal" data-target="#ordersByLabsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Заказы&nbsp;по&nbsp;лабораториям</a>
+                            <a class="nav-link border-bottom" href="#" id="ordersByUsersLink" data-toggle="modal" data-target="#ordersByUsersModalWindow"><i class="far fa-file-alt"></i>&nbsp;Заказы&nbsp;по&nbsp;пользователям</a>
+							<a class="nav-link border-bottom" href="#" id="SARSLink" data-toggle="modal" data-target="#SARSModalWindow"><i class="far fa-file-alt"></i>&nbsp;SARS-CoV-2</a>
                         </nav>
                     </div>
                     <div class="col-lg-10">
