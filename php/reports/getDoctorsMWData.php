@@ -233,7 +233,8 @@ if($result)
                 <option value="0"></option>
 				<option value="3">Все филиалы</option>
 				<option value="1" selected>Главный</option>
-				<option value="2">Kapan</option>';
+				<option value="2">Kapan</option>
+				<option value="4">Vanadzor</option>';
     
     
     $msg .= '

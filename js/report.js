@@ -981,6 +981,7 @@ $('#doctorsModalWindow').on('shown.bs.modal', function (e) {
 			$("#DoctorIdDoctors").prop("disabled",true);
 			
 		}
+		
 		else if( (document.tempData.user_id.value) =="764" ){
 			$('#Filiald').prop("disabled",false);
 			$('#Filiald').val("2");
@@ -990,11 +991,40 @@ $('#doctorsModalWindow').on('shown.bs.modal', function (e) {
 			$("#DoctorIdDoctors").prop("disabled",true);
 			
 		}
+		
+		else if( document.tempData.user_id.value =="770" || document.tempData.user_id.value =="784" || document.tempData.user_id.value =="786" ){
+			$('#Filiald').prop("disabled",false);
+			$('#Filiald').val("4");
+			$('#Filiald').prop("disabled",true);
+			
+			//$('#DoctorIdDoctors').val("6306 Капан Капан Капан");
+			//$("#DoctorIdDoctors").prop("disabled",true);
+			
+		}
+		
+		else if( (document.tempData.user_id.value) =="744" ) {
+			
+			$('#DoctorIdDoctors').val("6282 Медикус Медикус Медикус");
+			$("#DoctorIdDoctors").prop("disabled",true);
+			$("#WorkplaceIdDoctors").prop("disabled",true);
+			$("#SalesIdDoctors").prop("disabled",true);
+			$("#UserIdDoctors").prop("disabled",true);
+		}
+		
+		else if( (document.tempData.user_id.value) =="776" ) {
+			
+			$('#DoctorIdDoctors').val("6313 Микаелян Микаелян Микаелян");
+			$("#DoctorIdDoctors").prop("disabled",true);
+			$("#WorkplaceIdDoctors").prop("disabled",true);
+			$("#SalesIdDoctors").prop("disabled",true);
+			$("#UserIdDoctors").prop("disabled",true);
+		}
 	}
 })
 
 $('#reagentExpensesModalWindow').on('shown.bs.modal', function (e) {
 	if(document.getElementById("DoctorIdReagentExpenses")) {
+		
 		if( (document.tempData.user_id.value) =="764" ) {
 			
 			$('#Filial').prop("disabled",false);
@@ -1003,6 +1033,16 @@ $('#reagentExpensesModalWindow').on('shown.bs.modal', function (e) {
 			
 			$('#DoctorIdReagentExpenses').val("6306 Капан Капан Капан");
 			$("#DoctorIdReagentExpenses").prop("disabled",true);
+		}
+		
+		else if( document.tempData.user_id.value =="770" || document.tempData.user_id.value =="784" || document.tempData.user_id.value =="786" ) {
+			
+			$('#Filial').prop("disabled",false);
+			$('#Filial').val("4");
+			$('#Filial').prop("disabled",true);
+			
+			//$('#DoctorIdReagentExpenses').val("6306 Капан Капан Капан");
+			//$("#DoctorIdReagentExpenses").prop("disabled",true);
 		}
 	}
 })

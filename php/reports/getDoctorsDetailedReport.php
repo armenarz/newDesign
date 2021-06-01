@@ -138,10 +138,13 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
     require_once "doctorsFilter.php";
 	
 	if($filial == 1) {
-		$filter .= " AND orders.user_id != '762'";
+		$filter .= " and orders.user_id != '762' and orders.user_id != '768' and orders.user_id != '794' and orders.user_id != '796' ";
 	}
 	elseif($filial == 2) {
 		$filter .= " AND orders.user_id = '762'";
+	}
+	elseif($filial == "4") {
+		$filter .= " and ( orders.user_id = '768' or orders.user_id = '794' or orders.user_id = '796' ) ";
 	}
 	else {
 		;
