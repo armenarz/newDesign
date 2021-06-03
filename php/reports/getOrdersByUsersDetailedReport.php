@@ -84,7 +84,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                 <!--3. Order Count-->
                 <th scope="col">Дата заказа</th>
                 <!--4. Order Sum-->
-                <th scope="col" class="text-right">Сумма заказа</th>
+                <th scope="col" id="th_sum_ord" class="text-right">Сумма заказа</th>
             </tr>
         </thead>
         <tbody>
@@ -126,18 +126,19 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                     else $user_sum = $row_count_sum["sum"];
                 }
 
-                $msg .= '   <tr>
-                                <!--1. Row number-->
-                                <td scope="col" colspan="3"><strong>Пользователь: '.$row_user["log"].'</strong></td>
-                                <!--2. User-->
-                                <!--<td scope="col"></td>-->
-                                <!--3. Order Count-->
-                                <!--<td scope="col" class="text-right"></td>-->
-                                <!--4. Order Sum-->
-                                <td scope="col" class="text-right"><strong>'.$user_sum.'</strong></td>
-                            </tr>
-                        ';
-                        
+				if($user_sum > 0) {
+					$msg .= '   <tr>
+									<!--1. Row number-->
+									<td scope="col" colspan="3"><strong>Пользователь: '.$row_user["log"].'</strong></td>
+									<!--2. User-->
+									<!--<td scope="col"></td>-->
+									<!--3. Order Count-->
+									<!--<td scope="col" class="text-right"></td>-->
+									<!--4. Order Sum-->
+									<td scope="col" class="text-right td_sum_ord"><strong>'.$user_sum.'</strong></td>
+								</tr>
+							';
+                }
                 $total_sum += $user_sum;
 
                 $sql_orders = " SELECT 
@@ -159,7 +160,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                                         <td scope="col" class="text-right">'.$i.'</td>
                                         <td scope="col" class="text-right"><a href="#" id=o_'.$row_orders["OrderId"].'>'.$row_orders["OrderId"].'</a></td>
                                         <td scope="col">'.$row_orders["OrderDate"].'</td>
-                                        <td scope="col" class="text-right">'.$row_orders["cena_analizov"].'</td>
+                                        <td scope="col" class="text-right td_sum_ord">'.$row_orders["cena_analizov"].'</td>
                                     </tr>
                                 ';
                     }
@@ -167,7 +168,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
             }
         }
 
-        $msg .= '   <tr>
+        $msg .= '   <tr id="tr_vsevo">
                         <td scope="col" colspan="3" class="text-right"><strong>ВСЕГО</strong></td>
                         <td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>
                     </tr>

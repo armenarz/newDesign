@@ -76,13 +76,17 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
             <tr>
                 <!--1. Row number-->
                 <th scope="col" class="text-right">#</th>
+				
                 <!--2. Lab-->
                 <th scope="col">Номер заказа</th>
                 <!--3. Order Count-->
                 <th scope="col" class="text-right">Дата заказа</th>
                 <!--4. Order Sum-->
-                <th scope="col" class="text-right">Сумма заказа</th>
-            </tr>
+				';
+				if($uu != 800) {
+					$msg.= '<th scope="col" class="text-right">Сумма заказа</th>';
+				}
+            $msg.= '</tr>
         </thead>
         <tbody>
         ';
@@ -129,14 +133,18 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
 
                 $msg .= '   <tr>
                                 <!--1. Row number-->
-                                <td scope="col" colspan="3"><strong>Лаборатория: '.$row_lab["lab"].'</strong></td>
+								<td scope="col" colspan="3"><strong>Лаборатория: '.$row_lab["lab"].'</strong></td>
+								
                                 <!--2. Lab-->
                                 <!--<td scope="col"></td>-->
                                 <!--3. Order Count-->
                                 <!--<td scope="col" class="text-right"></td>-->
                                 <!--4. Order Sum-->
-                                <td scope="col" class="text-right"><strong>'.$lab_sum.'</strong></td>
-                            </tr>
+								';
+								if($uu != 800) {
+									$msg .= '<td scope="col" class="text-right"><strong>'.$lab_sum.'</strong></td>';
+								}
+                            $msg .= '</tr>
                         ';
                 $total_count += $lab_count;
                 $total_sum += $lab_sum;
@@ -157,11 +165,13 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
                         $i++;
                         $msg .= '   <tr>
                                         <!--1. Row number -->
-                                        <td scope="col" class="text-right">'.$i.'</td>
+										<td scope="col" class="text-right">'.$i.'</td>
                                         <td scope="col" class="text-right"><a href="#" id=o_'.$row_orders["OrderId"].'>'.$row_orders["OrderId"].'</a></td>
-                                        <td scope="col">'.$row_orders["OrderDate"].'</td>
-                                        <td scope="col" class="text-right">'.$row_orders["cena_analizov"].'</td>
-                                    </tr>
+                                        <td scope="col">'.$row_orders["OrderDate"].'</td>';
+										if($uu != 800) {
+											$msg .= '<td scope="col" class="text-right">'.$row_orders["cena_analizov"].'</td>';
+										}
+                                    $msg .= '</tr>
                                 ';
                     }
                 }
@@ -170,9 +180,11 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
 
         $msg .= '   <tr>
                         <td scope="col" colspan="2" class="text-right"><strong>ВСЕГО</strong></td>
-                        <td scope="col" class="text-right"><strong>'.$total_count.'</strong></td>
-                        <td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>
-                    </tr>
+                        <td scope="col" class="text-right"><strong>'.$total_count.'</strong></td>';
+						if($uu != 800) {
+							$msg .= '<td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>';
+						}
+                    $msg .= '</tr>
                 ';
     
     $msg.= '

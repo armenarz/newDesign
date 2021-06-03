@@ -81,8 +81,11 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 1)
                 <!--3. Order Count-->
                 <th scope="col" class="text-right">Количество заказов</th>
                 <!--4. Order Sum-->
-                <th scope="col" class="text-right">Сумма заказов</th>
-            </tr>
+				';
+				if($uu != 800) {
+					$msg.= '<th scope="col" class="text-right">Сумма заказов</th>';
+				}
+            $msg.= '</tr>
         </thead>
         <tbody>
         ';
@@ -134,8 +137,11 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 1)
                                 <!--3. Order Count-->
                                 <td scope="col" class="text-right">'.$lab_count.'</td>
                                 <!--4. Order Sum-->
-                                <td scope="col" class="text-right">'.$lab_sum.'</td>
-                            </tr>
+								';
+								if($uu != 800) {
+									$msg .= '<td scope="col" class="text-right">'.$lab_sum.'</td>';
+								}
+                            $msg .= '</tr>
                         ';
                 $total_count += $lab_count;
                 $total_sum += $lab_sum;
@@ -144,9 +150,11 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 1)
 
         $msg .= '   <tr>
                         <td scope="col" colspan="2" class="text-right"><strong>ВСЕГО</strong></td>
-                        <td scope="col" class="text-right"><strong>'.$total_count.'</strong></td>
-                        <td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>
-                    </tr>
+                        <td scope="col" class="text-right"><strong>'.$total_count.'</strong></td>';
+						if($uu != 800) {
+							$msg .= '<td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>';
+						}
+                    $msg .= '</tr>
                 ';
     
     $msg.= '

@@ -78,7 +78,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
     $msg.= '
     <table class="table" border="1" id="ordersByUsersDetailedData">
         <caption>
-            <h2>Заказы по пользовотелям</h2>
+            <h2>Заказы по пользователям</h2>
             <h3>с '.$startDate.' по '.$endDate.'</h3>
             <h4>'.$reportDescription.'</h4>
         </caption>
@@ -91,8 +91,11 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                 <!--3. Order Count-->
                 <th scope="col">Дата заказа</th>
                 <!--4. Order Sum-->
-                <th scope="col" class="text-right">Сумма заказа</th>
-            </tr>
+				';
+				if($uu != 800) {
+					$msg.= '<th scope="col" class="text-right">Сумма заказа</th>';
+				}
+            $msg.= '</tr>
         </thead>
         <tbody>
         ';
@@ -133,17 +136,22 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                     else $user_sum = $row_count_sum["sum"];
                 }
 
-                $msg .= '   <tr>
-                                <!--1. Row number-->
-                                <td scope="col" colspan="3"><strong>Пользователь: '.$row_user["log"].'</strong></td>
-                                <!--2. User-->
-                                <!--<td scope="col"></td>-->
-                                <!--3. Order Count-->
-                                <!--<td scope="col" class="text-right"></td>-->
-                                <!--4. Order Sum-->
-                                <td scope="col" class="text-right"><strong>'.$user_sum.'</strong></td>
-                            </tr>
-                        ';
+				if($user_sum > 0) {
+					$msg .= '   <tr>
+									<!--1. Row number-->
+									<td scope="col" colspan="3"><strong>Пользователь: '.$row_user["log"].'</strong></td>
+									<!--2. User-->
+									<!--<td scope="col"></td>-->
+									<!--3. Order Count-->
+									<!--<td scope="col" class="text-right"></td>-->
+									<!--4. Order Sum-->
+									';
+									if($uu != 800 and $user_sum > 0) {
+										$msg .= '<td scope="col" class="text-right"><strong>'.$user_sum.'</strong></td>';
+									}
+								$msg .= '</tr>
+							';
+				}
                         
                 $total_sum += $user_sum;
 
@@ -161,23 +169,29 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                     while($row_orders = mysqli_fetch_array($result_orders))
                     {
                         $i++;
-                        $msg .= '   <tr>
-                                        <!--1. Row number -->
-                                        <td scope="col" class="text-right">'.$i.'</td>
-                                        <td scope="col" class="text-right">'.$row_orders["OrderId"].'</td>
-                                        <td scope="col">'.$row_orders["OrderDate"].'</td>
-                                        <td scope="col" class="text-right">'.$row_orders["cena_analizov"].'</td>
-                                    </tr>
-                                ';
+						if($user_sum > 0) {
+							$msg .= '   <tr>
+											<!--1. Row number -->
+											<td scope="col" class="text-right">'.$i.'</td>
+											<td scope="col" class="text-right">'.$row_orders["OrderId"].'</td>
+											<td scope="col">'.$row_orders["OrderDate"].'</td>';
+											if($uu != 800) {
+												$msg .= '<td scope="col" class="text-right">'.$row_orders["cena_analizov"].'</td>';
+											}
+										$msg .= '</tr>
+									';
+						}
                     }
                 }
             }
         }
 
         $msg .= '   <tr>
-                        <td scope="col" colspan="3" class="text-right"><strong>ВСЕГО</strong></td>
-                        <td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>
-                    </tr>
+                        <td scope="col" colspan="3" class="text-right"><strong>ВСЕГО</strong></td>';
+						if($uu != 800) {
+							$msg .= '<td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>';
+						}
+                    $msg .= '</tr>
                 ';
     
     $msg.= '

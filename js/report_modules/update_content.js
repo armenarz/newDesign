@@ -189,9 +189,26 @@ export function updateContent(reportObj)
                     var arrayId = anchorId.split("_");
                     var orderId = arrayId[1];
                     openOrder(orderId);
-                    //console.log(orderId);
+                    
                 });
             }
+			
+			if(menuId == "ordersByUsersLink")
+            {
+				
+                if(document.tempData.user_id.value == '800') {
+					if(document.getElementById("th_sum_ord") && document.getElementsByClassName("td_sum_ord").length > 0 ) {
+						$('#th_sum_ord').hide();
+						$('.td_sum_ord').hide();
+						$('#td_total_sum').hide();
+						$('#tr_vsevo').hide();
+						console.log(document.tempData.user_id.value+'ready');
+					}
+					
+				}
+                
+            }
+			
             if(menuId == "dailyLink")
             {
                 setSelectsChangeEvents();

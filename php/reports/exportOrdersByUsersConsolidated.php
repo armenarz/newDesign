@@ -88,8 +88,11 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 1)
                 <!--3. Order Count-->
                 <th scope="col" class="text-right">Количество заказов</th>
                 <!--4. Order Sum-->
-                <th scope="col" class="text-right">Сумма заказов</th>
-            </tr>
+				';
+				if($uu != 800) {
+					$msg.= '<th scope="col" class="text-right">Сумма заказов</th>';
+				}
+        $msg.= '</tr>
         </thead>
         <tbody>
         ';
@@ -133,27 +136,35 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 1)
                 }
 
                 $i++;
-                $msg .= '   <tr>
-                                <!--1. Row number-->
-                                <td scope="col" class="text-right">'.$i.'</td>
-                                <!--2. User-->
-                                <td scope="col">'.$row_user["log"].'</td>
-                                <!--3. Order Count-->
-                                <td scope="col" class="text-right">'.$user_count.'</td>
-                                <!--4. Order Sum-->
-                                <td scope="col" class="text-right">'.$user_sum.'</td>
-                            </tr>
-                        ';
-                $total_count += $user_count;
-                $total_sum += $user_sum;
+				if($user_sum > 0) {
+					$msg .= '   <tr>
+									<!--1. Row number-->
+									<td scope="col" class="text-right">'.$i.'</td>
+									<!--2. User-->
+									<td scope="col">'.$row_user["log"].'</td>
+									<!--3. Order Count-->
+									<td scope="col" class="text-right">'.$user_count.'</td>
+									<!--4. Order Sum-->
+									';
+									if($uu != 800) {
+										$msg.= '<td scope="col" class="text-right">'.$user_sum.'</td>';
+									}
+									
+							$msg .= '</tr>
+							';
+					$total_count += $user_count;
+					$total_sum += $user_sum;
+				}
             }
         }
 
         $msg .= '   <tr>
                         <td scope="col" colspan="2" class="text-right"><strong>ВСЕГО</strong></td>
-                        <td scope="col" class="text-right"><strong>'.$total_count.'</strong></td>
-                        <td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>
-                    </tr>
+                        <td scope="col" class="text-right"><strong>'.$total_count.'</strong></td>';
+						if($uu != 800) {
+							$msg .= '<td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>';
+						}
+                    $msg .= '</tr>
                 ';
     
     $msg.= '
