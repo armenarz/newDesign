@@ -225,7 +225,7 @@ if($result)
         <div class="form-group d-print-none">
             <label for="Filiald">Филиал</label>
             <select id="Filiald" class="form-control" name="Filiald" ';
-            if($uu != 12 && $uu != 13 && $uu != 23)
+            if($uu != 12 && $uu != 13 && $uu != 23 && $uu != 208)
             {
                 $msg .= 'disabled ';
             }            
@@ -246,7 +246,12 @@ if($result)
             <input type="checkbox" class="form-check-input" id="DoubleCheckDoctors">
             <label class="form-check-label" for="DoubleCheckDoctors">только Double Check</label>
         </div>
+		<div class="form-check">
+            <input type="checkbox" class="form-check-input" id="NeizvestnoPromtestDoctors">
+            <label class="form-check-label" for="NeizvestnoPromtestDoctors" id="LbNeizvestnoPromtestDoctors">NeizvestnoPromtestDoctors</label>
+        </div>
     </div>
+	
 </div>
 ';
 //<!-- END Tabs HTML Markup -->

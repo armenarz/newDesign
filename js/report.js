@@ -298,6 +298,7 @@ $('#doctorsModalWindow').on('click','#buttonOKDoctors', function(){
         reportObj.salesId = $('#SalesIdDoctors').val();
 		reportObj.filial = $('#Filiald').val();
         reportObj.doubleCheck = $('#DoubleCheckDoctors').is(":checked");
+		reportObj.neiz_promtCheck = $('#NeizvestnoPromtestDoctors').is(":checked");
         reportObj.menuId = "doctorsLink";
         setActiveItem(sidebarItems,"doctorsLink");
         updateContent(reportObj);
@@ -354,6 +355,7 @@ $('#doctorsModalWindow').on('click','#buttonDoctorsToExcel', function(){
         reportObj.salesId = $('#SalesIdDoctors').val();
 		reportObj.filial = $('#Filiald').val();
         reportObj.doubleCheck = $('#DoubleCheckDoctors').is(":checked");
+		reportObj.neiz_promtCheck = $('#NeizvestnoPromtestDoctors').is(":checked");
         reportObj.menuId = "doctorsLink";
         setActiveItem(sidebarItems,"doctorsLink");
         exportToExcel(reportObj);
@@ -976,6 +978,12 @@ $('#SARSModalWindow').on('click','#buttonSARSToExcel', function(){
 
 $('#doctorsModalWindow').on('shown.bs.modal', function (e) {
 	if(document.getElementById("DoctorIdDoctors")) {
+		
+		if( $('#NeizvestnoPromtestDoctors') ) {
+			$('#LbNeizvestnoPromtestDoctors').hide();
+			$('#NeizvestnoPromtestDoctors').hide();
+		}
+		
 		if( (document.tempData.user_id.value) =="760" ){
 			$('#DoctorIdDoctors').val("6300 Ли Ди Ли Ди Ли Ди");
 			$("#DoctorIdDoctors").prop("disabled",true);
@@ -999,6 +1007,17 @@ $('#doctorsModalWindow').on('shown.bs.modal', function (e) {
 			
 			//$('#DoctorIdDoctors').val("6306 Капан Капан Капан");
 			//$("#DoctorIdDoctors").prop("disabled",true);
+			
+		}
+		
+		else if( document.tempData.user_id.value =="412" || document.tempData.user_id.value =="484" || document.tempData.user_id.value =="486" || document.tempData.user_id.value =="56" ){
+			
+			$('#Filiald').prop("disabled",false);
+			if( $('#NeizvestnoPromtestDoctors') ) {
+				//document.getElementById("NeizvestnoPromtestDoctors").style.display = "block";
+				$('#NeizvestnoPromtestDoctors').show();
+				$('#LbNeizvestnoPromtestDoctors').show();
+			}
 			
 		}
 		

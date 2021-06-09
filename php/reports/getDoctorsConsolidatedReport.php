@@ -129,6 +129,15 @@ else {
 	$filial = 0;
 }
 
+if($_POST["neiz_promtCheck"]=="true")
+{
+    $neiz_promtCheck = 1;
+}
+elseif($_POST["neiz_promtCheck"]=="false")
+{
+    $neiz_promtCheck = 0;
+}
+
 $filter = "";
 $reportDescription = "";
 
