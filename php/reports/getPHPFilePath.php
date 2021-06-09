@@ -4,12 +4,25 @@ require_once "../authorization.php";
 
 $userId = $_POST["user_id"];
 
-$sql = "SELECT phpFilePath FROM user_menus WHERE userId='$userId' AND menuId=2";
-$result = mysqli_query($link,$sql);
-if($result)
-{
-    $row = mysqli_fetch_array($result);
-    echo $row["phpFilePath"];
-    return;
+if($userId == 800) {
+	$sql = "SELECT phpFilePath FROM user_menus WHERE userId='$userId' AND menuId=3";
+	$result = mysqli_query($link,$sql);
+	if($result)
+	{
+		$row = mysqli_fetch_array($result);
+		echo $row["phpFilePath"];
+		return;
+	}
+}
+
+else {
+	$sql = "SELECT phpFilePath FROM user_menus WHERE userId='$userId' AND menuId=2";
+	$result = mysqli_query($link,$sql);
+	if($result)
+	{
+		$row = mysqli_fetch_array($result);
+		echo $row["phpFilePath"];
+		return;
+	}
 }
 ?>
