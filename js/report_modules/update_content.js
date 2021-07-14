@@ -161,6 +161,22 @@ export function updateContent(reportObj)
     {
         urlString = "../reports/getSARSReport.php";
     }
+	else if(menuId == "driversLink")
+    {
+        var reportTypeId = reportObj.reportTypeId;
+        var startDate = reportObj.startDate;
+        var endDate = reportObj.endDate;
+
+        var urlString = "";
+        if(reportTypeId == 1)
+        {
+            urlString = "../reports/getDriversConsolidatedReport.php";
+        }
+        else if(reportTypeId == 2)
+        {
+            urlString = "../reports/getDriversDetailedReport.php";
+        }
+    }
 
     $.ajaxSetup({
         type: "POST",
@@ -181,7 +197,7 @@ export function updateContent(reportObj)
     $.ajax({
         success:function(msg){
             $("#content").html(msg);
-            if((menuId == "reagentExpensesLink" || menuId == "doctorsLink" || menuId == "ordersByLabsLink" || menuId == "ordersByUsersLink") && reportTypeId == 2 || menuId == "debtsLink" || menuId == "repaidDebtsLink" || menuId == "doctor13Link" || menuId == "doctorSelectedLink")
+            if((menuId == "reagentExpensesLink" || menuId == "doctorsLink" || menuId == "ordersByLabsLink" || menuId == "ordersByUsersLink" || menuId == "driversLink") && reportTypeId == 2 || menuId == "debtsLink" || menuId == "repaidDebtsLink" || menuId == "doctor13Link" || menuId == "doctorSelectedLink")
             {
                 $("a[id^='o_']").on("click",this,function()
                 {
@@ -708,6 +724,13 @@ function openSelectedOrder(obj)
 
 function openOrder(orderId)
 {
+	if( document.tempData.user_id.value =="788" || document.tempData.user_id.value =="790" 
+			|| document.tempData.user_id.value =="792" || document.tempData.user_id.value =="798"
+	) 
+	{
+		return;
+	}	
+	
     /// ajax setup
     $.ajaxSetup({
         type: "POST",

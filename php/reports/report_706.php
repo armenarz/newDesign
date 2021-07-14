@@ -40,17 +40,9 @@ require_once "../fillNonBreak.php";
                     <div class="col-lg-2">
                         <nav class="nav navbar-white bg-white flex-column d-print-none" id="sidebar">
                             <a class="nav-link border-top border-bottom" href="#" id="printLink"><i class="fas fa-print"></i>&nbsp;Печать</a><!--active -->
-                            <a class="nav-link border-bottom" href="#" data-toggle="modal" data-target="#reagentExpensesModalWindow" id="reagentExpensesLink"><i class="far fa-file-alt"></i>&nbsp;Расход&nbsp;реагентов</a>
-                            <a class="nav-link border-bottom" href="#" id="reagentRemaindersLink" data-toggle="modal" data-target="#reagentRemaindersModalWindow"><i class="far fa-file-alt"></i>&nbsp;Остатки&nbsp;реагентов</a>
-                            <a class="nav-link border-bottom" href="#" id="doctorsLink" data-toggle="modal" data-target="#doctorsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Врачи</a>
-                            <a class="nav-link border-bottom" href="#" id="debtsLink" data-toggle="modal" data-target="#debtsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Долги</a>
-                            <a class="nav-link border-bottom" href="#" id="repaidDebtsLink" data-toggle="modal" data-target="#repaidDebtsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Погашенные&nbsp;долги</a>
-                            <a class="nav-link border-bottom" href="#" id="dailyLink" data-toggle="modal" data-target="#dailyModalWindow"><i class="far fa-file-alt"></i>&nbsp;Дневной</a>
-                            <a class="nav-link border-bottom" href="#" id="ordersByLabsLink" data-toggle="modal" data-target="#ordersByLabsModalWindow"><i class="far fa-file-alt"></i>&nbsp;Заказы&nbsp;по&nbsp;лабораториям</a>
-                            <a class="nav-link border-bottom" href="#" id="ordersByUsersLink" data-toggle="modal" data-target="#ordersByUsersModalWindow"><i class="far fa-file-alt"></i>&nbsp;Заказы&nbsp;по&nbsp;пользователям</a>
-							<a class="nav-link border-bottom" href="#" id="SARSLink" data-toggle="modal" data-target="#SARSModalWindow"><i class="far fa-file-alt"></i>&nbsp;SARS-CoV-2</a>
+                            
 							<a class="nav-link border-bottom" href="#" id="driversLink" data-toggle="modal" data-target="#DriversModalWindow"><i class="far fa-file-alt"></i>&nbsp;Водители</a>
-                        </nav>
+						</nav>
                     </div>
                     <div class="col-lg-10">
                         <div class="content" id="content">
@@ -190,130 +182,66 @@ require_once "../fillNonBreak.php";
                 </div>
             </div>
         </div>
-        <!-- Repaid Debts Modal Window -->
-        <div class="modal fade" id="repaidDebtsModalWindow" tabindex="-1" role="dialog" aria-labelledby="repaidDebtsModalCenterTitle" aria-hidden="true">
+        <!-- Doctor13 Modal Window -->
+        <div class="modal fade" id="doctor13ModalWindow" tabindex="-1" role="dialog" aria-labelledby="doctor13ModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="repaidDebtsModalLongTitle">Погашенные долги</h5>
+                        <h5 class="modal-title" id="doctor13ModalLongTitle">Врач13</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <!-- Modal Form for Repaid Debts Data -->
-                            <form name="formRepaidDebts" id="formRepaidDebts" method="post">
+                            <!-- Modal Form for Doctor 13 Data -->
+                            <form name="formDoctor13" id="formDoctor13" method="post">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="alert alert-primary d-print-none" role="alert" id="messageRepaidDebtsModal">Заполните нужными значениями поля формы.</div>
+                                        <div class="alert alert-primary d-print-none" role="alert" id="messageDoctor13Modal">Заполните нужными значениями поля формы.</div>
                                     </div>
                                 </div>
-                                <div id="contentRepaidDebtsModal">
+                                <div id="contentDoctor13Modal">
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="buttonRepaidDebtsToExcel">Экспорт в Excel</button>
+                        <button type="button" class="btn btn-success" id="buttonDoctor13ToExcel">Экспорт в Excel</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                        <button type="button" class="btn btn-primary" id="buttonOKRepaidDebts">Создать</button>
+                        <button type="button" class="btn btn-primary" id="buttonOKDoctor13">Создать</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Daily Modal Window -->
-        <div class="modal fade" id="dailyModalWindow" tabindex="-1" role="dialog" aria-labelledby="dailyModalCenterTitle" aria-hidden="true">
+        <!-- Doctor Selected Modal Window -->
+        <div class="modal fade" id="doctorSelectedModalWindow" tabindex="-1" role="dialog" aria-labelledby="doctorSelectedModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="dailyModalLongTitle">Дневной</h5>
+                        <h5 class="modal-title" id="doctorSelectedModalLongTitle">Врач выбранный</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <!-- Modal Form for Daily Data -->
-                            <form name="formDaily" id="formDaily" method="post">
+                            <!-- Modal Form for Doctor Selected Data -->
+                            <form name="formDoctorSelected" id="formDoctorSelected" method="post">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="alert alert-primary d-print-none" role="alert" id="messageDailyModal">Заполните нужными значениями поля формы.</div>
+                                        <div class="alert alert-primary d-print-none" role="alert" id="messageDoctorSelectedModal">Заполните нужными значениями поля формы.</div>
                                     </div>
                                 </div>
-                                <div id="contentDailyModal">
+                                <div id="contentDoctorSelectedModal">
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="buttonDailyToExcel">Экспорт в Excel</button>
+                        <button type="button" class="btn btn-success" id="buttonDoctorSelectedToExcel">Экспорт в Excel</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                        <button type="button" class="btn btn-primary" id="buttonOKDaily">Создать</button>
-                    </div>
-                </div>
-            </div>
-        </div> 
-        <!-- Orders By Laboratories Modal Window -->
-        <div class="modal fade" id="ordersByLabsModalWindow" tabindex="-1" role="dialog" aria-labelledby="ordersByLabsModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ordersByLabsModalLongTitle">Заказы по лабораториям</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <!-- Modal Form for Orders By Labs Data -->
-                            <form name="formOrdersByLabs" id="formOrdersByLabs" method="post">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="alert alert-primary d-print-none" role="alert" id="messageOrdersByLabsModal">Заполните нужными значениями поля формы.</div>
-                                    </div>
-                                </div>
-                                <div id="contentOrdersByLabsModal">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="buttonOrdersByLabsToExcel">Экспорт в Excel</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                        <button type="button" class="btn btn-primary" id="buttonOKOrdersByLabs">Создать</button>
-                    </div>
-                </div>
-            </div>
-        </div>       
-        <!-- Orders By Users Modal Window -->
-        <div class="modal fade" id="ordersByUsersModalWindow" tabindex="-1" role="dialog" aria-labelledby="ordersByUsersModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="ordersByUsersModalLongTitle">Заказы по юзерам</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <!-- Modal Form for Orders By Users Data -->
-                            <form name="formOrdersByUsers" id="formOrdersByUsers" method="post">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="alert alert-primary d-print-none" role="alert" id="messageOrdersByUsersModal">Заполните нужными значениями поля формы.</div>
-                                    </div>
-                                </div>
-                                <div id="contentOrdersByUsersModal">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" id="buttonOrdersByUsersToExcel">Экспорт в Excel</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                        <button type="button" class="btn btn-primary" id="buttonOKOrdersByUsers">Создать</button>
+                        <button type="button" class="btn btn-primary" id="buttonOKDoctorSelected">Создать</button>
                     </div>
                 </div>
             </div>
@@ -349,7 +277,7 @@ require_once "../fillNonBreak.php";
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
 		<!-- Drivers Modal Window -->
         <div class="modal fade" id="DriversModalWindow" tabindex="-1" role="dialog" aria-labelledby="DriversModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -407,7 +335,7 @@ require_once "../fillNonBreak.php";
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрить</button>
                         <!-- <button type="button" class="btn btn-primary" id="buttonOKmessage">Удалить</button> -->
                     </div>
                 </div>

@@ -455,6 +455,27 @@ function funcSuccessSetOrdersByUsersMWData(result)
     $("#contentOrdersByUsersModal").html(result);
 }
 
+export function setDriversMWData()
+{
+    /// ajax setup
+    $.ajaxSetup({
+        type: "POST",
+        url: "../reports/getDriversMWData.php",
+        cache: false,
+        data: dataString = $("form[name='tempData']").serialize(),
+        success: funcSuccessSetDriversMWData,
+        error: funcError
+    });
+    ///process
+    $.ajax();
+}
+
+function funcSuccessSetDriversMWData(result)
+{
+    //console.log(result);
+    $("#contentDriversModal").html(result);
+}
+
 export function setDoctor13MWData()
 {
     /// ajax setup

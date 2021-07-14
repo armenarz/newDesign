@@ -47,7 +47,8 @@ require_once "../fillNonBreak.php";
                             <a class="nav-link border-bottom" href="#" id="doctor13Link" data-toggle="modal" data-target="#doctor13ModalWindow"><i class="far fa-file-alt"></i>&nbsp;Врач13</a>
                             <a class="nav-link border-bottom" href="#" id="doctorSelectedLink" data-toggle="modal" data-target="#doctorSelectedModalWindow"><i class="far fa-file-alt"></i>&nbsp;Врач выбранный</a>
                             <a class="nav-link border-bottom" href="#" id="SARSLink" data-toggle="modal" data-target="#SARSModalWindow"><i class="far fa-file-alt"></i>&nbsp;SARS-CoV-2</a>
-                        </nav>
+							<a class="nav-link border-bottom" href="#" id="driversLink" data-toggle="modal" data-target="#DriversModalWindow"><i class="far fa-file-alt"></i>&nbsp;Водители</a>
+						</nav>
                     </div>
                     <div class="col-lg-10">
                         <div class="content" id="content">
@@ -282,7 +283,39 @@ require_once "../fillNonBreak.php";
                     </div>
                 </div>
             </div>
-        </div>     
+        </div> 
+		<!-- Drivers Modal Window -->
+        <div class="modal fade" id="DriversModalWindow" tabindex="-1" role="dialog" aria-labelledby="DriversModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DriversModalLongTitle">Водители</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <!-- Modal Form for Drivers Data -->
+                            <form name="formdrivers" id="formdrivers" method="post">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="alert alert-primary d-print-none" role="alert" id="messageDriversModal">Заполните нужными значениями поля формы.</div>
+                                    </div>
+                                </div>
+                                <div id="contentDriversModal">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="buttonDriversToExcel">Экспорт в Excel</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <button type="button" class="btn btn-primary" id="buttonOKDrivers">Создать</button>
+                    </div>
+                </div>
+            </div>
+        </div>          
         <!-- Message Modal Windows -->
         <div class="modal fade" id="messageModalWindow" tabindex="-1" role="dialog" aria-labelledby="messageModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

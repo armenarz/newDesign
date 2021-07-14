@@ -435,6 +435,44 @@ export function exportToExcel(reportObj)
 		removeHiddenElement(form, "BezSARSCheck", BezSARSCheck);
         removeHiddenElement(form, "onlyArmenian", onlyArmenian);
     }
+	else if(menuId == "driversLink")
+    {
+        appendHiddenElement(form, "menuId", menuId);
+
+        var reportTypeId = reportObj.reportTypeId;
+        appendHiddenElement(form, "reportTypeId", reportTypeId);
+
+        var startDate = reportObj.startDate;
+        appendHiddenElement(form, "startDate", startDate);
+
+        var endDate = reportObj.endDate;
+        appendHiddenElement(form, "endDate", endDate);
+        
+        var driverId = reportObj.driverId;
+        appendHiddenElement(form, "driverId", driverId);
+
+        //var urlString = "";
+        if(reportTypeId == 1)
+        {
+            //urlString = "../reports/exportOrdersByUsersConsolidated.php";
+            document.tempData.action = "../reports/exportDriversConsolidated.php";
+        }
+        else if(reportTypeId == 2)
+        {
+            //urlString = "../reports/exportOrdersByUsersDetailed.php";
+            document.tempData.action = "../reports/exportDriversDetailed.php";
+        }
+        document.tempData.target = '_blank';
+        document.tempData.method = 'POST';
+        document.tempData.submit();
+        document.tempData.action = '';
+        document.tempData.target = '';
+        removeHiddenElement(form, "menuId");
+        removeHiddenElement(form, "reportTypeId");
+        removeHiddenElement(form, "startDate");
+        removeHiddenElement(form, "endDate");
+        removeHiddenElement(form, "driverId");
+    }
 }
 
 function appendHiddenElement(form, elementName, elementValue)

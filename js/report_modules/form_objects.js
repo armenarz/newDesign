@@ -613,3 +613,62 @@ export function CreateFormSARSObject()
     
     return frm;
 }
+
+/// FormDrivers Object
+export function CreateFormDriversObject()
+{
+    var frm = {};
+
+    ///general properties ======================================
+    frm.message = "Заполните нужными значениями поля формы.";
+    frm.isValid = true;
+    frm.invalidField = null;
+
+    frm.getFormData = function()
+    {
+        frm.StartDateDrivers = $('#StartDateDrivers').val();
+        frm.EndDateDrivers = $('#EndDateDrivers').val();
+        frm.SelDrivers = $('#SelDrivers').val();
+        frm.ReportTypeDrivers = $('#ReportTypeDrivers').val();
+    }
+
+    frm.validate = function()
+    {
+        frm.message = 'Заполните нужными значениями поля формы.';
+        frm.isValid = true;
+        frm.invalidField = null;
+        //StartDateDrivers
+        if(frm.StartDateDrivers == 0)
+        {
+            frm.message = 'Выберите начальную дату отчета.';
+            frm.invalidField ='StartDateDrivers';
+            frm.isValid = false;
+            return;       
+        }
+        //EndDateDrivers
+        else if(frm.EndDateDrivers == 0)
+        {
+            frm.message = 'Выберите конечную дату отчета.';
+            frm.invalidField ='EndDateDrivers';
+            frm.isValid = false;
+            return;  
+        }
+        //ReportTypeDrivers
+        else if(frm.ReportTypeDrivers == 0)
+        {
+            frm.message = 'Выберите тип отчета.';
+            frm.invalidField ='ReportTypeDrivers';
+            frm.isValid = false;
+            return;
+        }
+        else
+        {
+            frm.message = 'Заполните нужными значениями поля формы.';
+            frm.invalidField = null;
+            frm.isValid = true;
+            return;
+        }
+    }
+    
+    return frm;
+}
