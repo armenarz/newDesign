@@ -14,7 +14,8 @@ import
     setOrdersByUsersMWData,
     setDoctor13MWData,
     setDoctorSelectedMWData,
-    setSARSMWData
+    setSARSMWData,
+	setDriversMWData	
 } from "./report_modules/set_user_interfaces_data.js";
 
 import 
@@ -29,7 +30,8 @@ import
     CreateFormOrdersByUsersObject,
     CreateFormDoctor13Object,
     CreateFormDoctorSelectedObject,
-    CreateFormSARSObject
+    CreateFormSARSObject,
+	CreateFormDriversObject
 } from "./report_modules/form_objects.js";
 
 //startup code
@@ -54,6 +56,7 @@ $(function()
     setDoctor13MWData();
     setDoctorSelectedMWData();
     setSARSMWData();
+	setDriversMWData();
     updateContent(reportObj);
 
     //printing content"
@@ -976,6 +979,66 @@ $('#SARSModalWindow').on('click','#buttonSARSToExcel', function(){
     }
 });
 
+//DriversModalWindow button OK handler 
+$('#DriversModalWindow').on('click','#buttonOKDrivers', function(){
+    //console.log("buttonOKDrivers");
+    
+    var frmDrivers = CreateFormDriversObject();
+    frmDrivers.getFormData();
+
+    frmDrivers.validate();
+    if(!frmDrivers.isValid)
+    {
+        $('#messageDriversModal').html(frmDrivers.message);
+        $('#' + frmDrivers.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageDriversModal').html(frmDrivers.message);
+
+        var reportObj = {};
+        reportObj.startDate = $('#StartDateDrivers').val();
+        reportObj.endDate = $('#EndDateDrivers').val();
+        reportObj.driverId = $('#SelDrivers').val();
+        reportObj.reportTypeId = $('#ReportTypeDrivers').val();
+        reportObj.menuId = "driversLink";
+        setActiveItem(sidebarItems,"driversLink");
+        updateContent(reportObj);
+        $('#DriversModalWindow').modal('hide');
+    }
+});
+
+// DriversModalWindow button buttonDriversToExcel handler 
+$('#DriversModalWindow').on('click','#buttonDriversToExcel', function(){
+    //console.log("buttonDriversToExcel");
+    
+    var frmDrivers = CreateFormDriversObject();
+    frmDrivers.getFormData();
+
+    frmDrivers.validate();
+    if(!frmDrivers.isValid)
+    {
+        $('#messageDriversModal').html(frmDrivers.message);
+        $('#' + frmDrivers.invalidField).focus();
+        return;
+    }
+    else
+    {
+        $('#messageDriversModal').html(frmDrivers.message);
+
+        var reportObj = {};
+        reportObj.startDate = $('#StartDateDrivers').val();
+        reportObj.endDate = $('#EndDateDrivers').val();
+        reportObj.driverId = $('#SelDrivers').val();
+        reportObj.reportTypeId = $('#ReportTypeDrivers').val();
+        reportObj.menuId = "driversLink";
+        setActiveItem(sidebarItems,"driversLink");
+        exportToExcel(reportObj);
+        $('#DriversModalWindow').modal('hide');
+    }
+});
+
 $('#doctorsModalWindow').on('shown.bs.modal', function (e) {
 	if(document.getElementById("DoctorIdDoctors")) {
 		
@@ -1038,6 +1101,11 @@ $('#doctorsModalWindow').on('shown.bs.modal', function (e) {
 			$("#SalesIdDoctors").prop("disabled",true);
 			$("#UserIdDoctors").prop("disabled",true);
 		}
+		
+		else if( document.tempData.user_id.value =="1" || document.tempData.user_id.value =="26" ){
+			$('#Filiald').prop("disabled",false);
+			
+		}
 	}
 })
 
@@ -1063,5 +1131,39 @@ $('#reagentExpensesModalWindow').on('shown.bs.modal', function (e) {
 			//$('#DoctorIdReagentExpenses').val("6306 Капан Капан Капан");
 			//$("#DoctorIdReagentExpenses").prop("disabled",true);
 		}
+		
+		else if( document.tempData.user_id.value =="1" || document.tempData.user_id.value =="26") {
+			
+			$('#Filial').prop("disabled",false);
+			
+		}
+	}
+})
+
+$('#DriversModalWindow').on('shown.bs.modal', function (e) {
+	if(document.getElementById("SelDrivers")) {
+		
+		if( document.tempData.user_id.value =="788" || document.tempData.user_id.value =="790" 
+			|| document.tempData.user_id.value =="792" || document.tempData.user_id.value =="798"
+		)  
+		{
+			
+			if(document.tempData.user_id.value =="788") {
+				$('#SelDrivers').val("2");
+			}
+			else if(document.tempData.user_id.value =="790") {
+				$('#SelDrivers').val("4");
+			}
+			else if(document.tempData.user_id.value =="792") {
+				$('#SelDrivers').val("6");
+			}
+			else if(document.tempData.user_id.value =="798") {
+				$('#SelDrivers').val("8");
+			}
+			
+			$('#SelDrivers').prop("disabled",true);
+			
+		}
+	
 	}
 })
