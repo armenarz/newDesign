@@ -233,6 +233,7 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                     $sql_order = "  SELECT 
                                         orderresult.OrderId,
                                         orders.OrderDate,
+										CONCAT(orders.OrderDate,' ', orders.OrderTime) as dtime,
                                         CONCAT(pacients.LastName,' ', pacients.FirstName,' ', pacients.MidName ) AS PatientName,
                                         pacients.dopolnitelno,
                                         orderresult.AnalysisResult
@@ -261,7 +262,7 @@ if($menuId == "reagentExpensesLink" && $reportTypeId == 2)
                                 <td class="text-right">'.$i.'</td>
                                 <td class="text-right">'.$j.'</td>
                                 <td><a href="#" id=o_'.$row_order["OrderId"].'>'.$row_order["OrderId"].'</a></td>
-                                <td>'.$row_order["OrderDate"].'</td>
+                                <td>'.$row_order["dtime"].'</td>
                                 <td>'.$row_order["PatientName"].'</td>
                                 <td>'.$row_order["dopolnitelno"].'</td>
                                 <td></td>
