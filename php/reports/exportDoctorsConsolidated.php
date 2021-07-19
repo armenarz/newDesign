@@ -299,7 +299,14 @@ if($menuId == "doctorsLink" && $reportTypeId == 1)
                                 if($result_orders_data)
                                 {
                                     $row_orders_data = mysqli_fetch_array($result_orders_data);
-                                    $price_doctor_total += $row_orders_data["cena_analizov"];
+									
+									if($row_doctor["DoctorId"]==6462) {
+										$price_doctor_total += 7000;
+									}
+									else {
+										$price_doctor_total += $row_orders_data["cena_analizov"];
+									}
+									
                                     $cost_doctor_total += $row_orders_data["cost"];
 
                                     $sql_debt_repayment = " SELECT 

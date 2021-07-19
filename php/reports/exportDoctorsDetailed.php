@@ -338,6 +338,10 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                                     $price_doctor = $row_orders_data["cena_analizov"];
                                     $cost_doctor = $row_orders_data["cost"];
                                     $count_doctor++;
+									
+									if($row_doctor["DoctorId"]==6462) {
+										$price_doctor = 7000;
+									}
 
                                     $sql_patient = "SELECT
                                                         CONCAT(pacients.LastName,' ', pacients.FirstName,' ', pacients.MidName ) AS Patient
