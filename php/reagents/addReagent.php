@@ -27,6 +27,10 @@ if($result)
 
 $Norm_maleAdd = $_POST["Norm_maleAdd"];
 
+$Norm_maleAdd_haj = $_POST["Norm_maleAdd_haj"];
+$Norm_maleAdd_eng = $_POST["Norm_maleAdd_eng"];
+$Norm_maleAdd_rus = $_POST["Norm_maleAdd_rus"];
+
 $norm_male_topAdd = $_POST["norm_male_topAdd"];
 if($norm_male_topAdd == "") $norm_male_topAdd = 0;
 
@@ -34,6 +38,10 @@ $norm_male_bottomAdd = $_POST["norm_male_bottomAdd"];
 if($norm_male_bottomAdd == "") $norm_male_bottomAdd = 0;
 
 $Norm_femaleAdd = $_POST["Norm_femaleAdd"];
+
+$Norm_femaleAdd_haj = $_POST["Norm_femaleAdd_haj"];
+$Norm_femaleAdd_eng = $_POST["Norm_femaleAdd_eng"];
+$Norm_femaleAdd_rus = $_POST["Norm_femaleAdd_rus"];
 
 $norm_female_topAdd = $_POST["norm_female_topAdd"];
 if($norm_female_topAdd == "") $norm_female_topAdd = 0;
@@ -233,6 +241,12 @@ $sql .= "sorting, ";
 $sql .= "analizators, ";
 $sql .= "transportation_temperature, ";
 $sql .= "storage_temperature, ";
+$sql .= "Norm_male_haj, ";
+$sql .= "Norm_male_eng, ";
+$sql .= "Norm_male_rus, ";
+$sql .= "Norm_female_haj, ";
+$sql .= "Norm_female_eng, ";
+$sql .= "Norm_female_rus, ";
 $sql .= "shelf_life ";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescAdd."', '";
@@ -277,7 +291,13 @@ $sql .= $sortingAdd."', '";
 $sql .= $analizatorsAdd."', '";
 $sql .= $transportationTemperatureAdd."', '";
 $sql .= $storageTemperatureAdd."', '";
-$sql .= $shelfLifeAdd."'";
+$sql .= $shelfLifeAdd."', '";
+$sql .= $Norm_maleAdd_haj."', '";
+$sql .= $Norm_maleAdd_eng."', '";
+$sql .= $Norm_maleAdd_rus."', '";
+$sql .= $Norm_femaleAdd_haj."', '";
+$sql .= $Norm_femaleAdd_eng."', '";
+$sql .= $Norm_femaleAdd_rus."'";
 $sql .= ")";
 
 $addDate = date("Y-m-d H:i:s");

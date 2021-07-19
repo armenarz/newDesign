@@ -224,12 +224,24 @@ $msg.= '
 		<th scope="col">Method</th>
 		<!--Norm_male-->
 		<th scope="col">Norm_male</th>
+		<!--Norm_male_haj-->
+		<th scope="col">Norm_male_haj</th>
+		<!--Norm_male_eng-->
+		<th scope="col">Norm_male_eng</th>
+		<!--Norm_male_rus-->
+		<th scope="col">Norm_male_rus</th>
 		<!--norm_male_top-->
 		<th scope="col">norm_male_top</th>
 		<!--norm_male_bottom-->
 		<th scope="col">norm_male_bottom</th>
 		<!--Norm_female-->
 		<th scope="col">Norm_female</th>
+		<!--Norm_female_haj-->
+		<th scope="col">Norm_female_haj</th>
+		<!--Norm_female_eng-->
+		<th scope="col">Norm_female_eng</th>
+		<!--Norm_female_rus-->
+		<th scope="col">Norm_female_rus</th>
 		<!--norm_female_top-->
 		<th scope="col">norm_female_top</th>
 		<!--norm_female_bottom-->
@@ -319,9 +331,15 @@ if($result)
 			<td>'.$row["AnalysisPrice"].'</td>
 			<td>'.$row["Method"].'</td>
 			<td>'.$row["Norm_male"].'</td>
+			<td>'.$row["Norm_male_haj"].'</td>
+			<td>'.$row["Norm_male_eng"].'</td>
+			<td>'.$row["Norm_male_rus"].'</td>
 			<td>'.$row["norm_male_top"].'</td>
 			<td>'.$row["norm_male_bottom"].'</td>
 			<td>'.$row["Norm_female"].'</td>
+			<td>'.$row["Norm_female_haj"].'</td>
+			<td>'.$row["Norm_female_eng"].'</td>
+			<td>'.$row["Norm_female_rus"].'</td>
 			<td>'.$row["norm_female_top"].'</td>
 			<td>'.$row["norm_female_bottom"].'</td>
 			<td>'.$row["Calibration"].'</td>

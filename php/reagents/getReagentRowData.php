@@ -53,10 +53,22 @@ if($result)
     $msg.='
         <td>'.$row["AnalysisPrice"].'</td>
         <td>'.$row["Method"].'</td>
+		
         <td><textarea id="textarea_Norm_male" readonly>'.$row["Norm_male"].'</textarea></td>
+		
+		<td><textarea id="textarea_Norm_male_haj" readonly>'.$row["Norm_male_haj"].'</textarea></td>
+		<td><textarea id="textarea_Norm_male_eng" readonly>'.$row["Norm_male_eng"].'</textarea></td>
+		<td><textarea id="textarea_Norm_male_rus" readonly>'.$row["Norm_male_rus"].'</textarea></td>
+		
         <td>'.$row["norm_male_top"].'</td>
         <td>'.$row["norm_male_bottom"].'</td>
+		
         <td><textarea id="textarea_Norm_female" readonly>'.$row["Norm_female"].'</textarea></td>
+
+		<td><textarea id="textarea_Norm_female_haj" readonly>'.$row["Norm_female_haj"].'</textarea></td>
+		<td><textarea id="textarea_Norm_female_eng" readonly>'.$row["Norm_female_eng"].'</textarea></td>
+		<td><textarea id="textarea_Norm_female_rus" readonly>'.$row["Norm_female_rus"].'</textarea></td>
+		
         <td>'.$row["norm_female_top"].'</td>
         <td>'.$row["norm_female_bottom"].'</td>
         <td>'.$row["ed_ismer"].'</td>

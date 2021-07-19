@@ -24,12 +24,22 @@ if($result)
     $Loinc = $row["Loinc"];
     $AnalysisPrice = $row["AnalysisPrice"];
     $Method = $row["Method"];
-    $Norm_male = $row["Norm_male"];
+    $Norm_male = $row["Norm_male"];	
     $norm_male_top = $row["norm_male_top"];
     $norm_male_bottom = $row["norm_male_bottom"];
     $Norm_female = $row["Norm_female"];
     $norm_female_top = $row["norm_female_top"];
     $norm_female_bottom = $row["norm_female_bottom"];
+	
+	
+	$Norm_male_haj = $row["Norm_male_haj"];
+	$Norm_male_eng = $row["Norm_male_eng"];
+	$Norm_male_rus = $row["Norm_male_rus"];
+	
+	$Norm_female_haj = $row["Norm_female_haj"];
+	$Norm_female_eng = $row["Norm_female_eng"];
+	$Norm_female_rus = $row["Norm_female_rus"];
+	
     $Calibration = $row["Calibration"];
     $Control = $row["Control"];
     $dilution = $row["dilution"];
@@ -201,6 +211,72 @@ $msg .='
                 <div class="form-group d-print-none">
                 <label for="Norm_femaleCopy">Norm_female</label>
                 <textarea id="Norm_femaleCopy" class="form-control" placeholder="Norm_female" name="Norm_femaleCopy">'.$Norm_female.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_maleCopy_haj">Norm_male_haj</label>
+                    <textarea id="Norm_maleCopy_haj" class="form-control" placeholder="Norm_male_haj" name="Norm_maleCopy_haj">'.$Norm_male_haj.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                <label for="Norm_femaleCopy_haj">Norm_female_haj</label>
+                <textarea id="Norm_femaleCopy_haj" class="form-control" placeholder="Norm_female_haj" name="Norm_femaleCopy_haj">'.$Norm_female_haj.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_maleCopy_eng">Norm_male_eng</label>
+                    <textarea id="Norm_maleCopy_eng" class="form-control" placeholder="Norm_male_eng" name="Norm_maleCopy_eng">'.$Norm_mal_eng.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                <label for="Norm_femaleCopy_eng">Norm_female_eng</label>
+                <textarea id="Norm_femaleCopy_eng" class="form-control" placeholder="Norm_female_eng" name="Norm_femaleCopy_eng">'.$Norm_female_eng.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_maleCopy_rus">Norm_male_rus</label>
+                    <textarea id="Norm_maleCopy_rus" class="form-control" placeholder="Norm_male_rus" name="Norm_maleCopy_rus">'.$Norm_male_rus.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                <label for="Norm_femaleCopy_rus">Norm_female_rus</label>
+                <textarea id="Norm_femaleCopy_rus" class="form-control" placeholder="Norm_female_rus" name="Norm_femaleCopy_rus">'.$Norm_female_rus.'</textarea>
                 </div>
             </div>
         </div>

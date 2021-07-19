@@ -172,12 +172,24 @@ $msg.= '
 		<th scope="col">Метод</th>
 		<!-- 10. Norm_male -->
 		<th scope="col">Norm_male</th>
+		<!-- 10. Norm_male_haj -->
+		<th scope="col">Norm_male_haj</th>
+		<!-- 10. Norm_male_eng -->
+		<th scope="col">Norm_male_eng</th>
+		<!-- 10. Norm_male_rus -->
+		<th scope="col">Norm_male_rus</th>
 		<!-- 11. norm_male_top -->
 		<th scope="col">norm_male_top</th>
 		<!-- 12. norm_male_bottom -->
 		<th scope="col">norm_male_bottom</th>
 		<!-- 13. Norm_female -->
 		<th scope="col">Norm_female</th>
+		<!-- 13. Norm_female_haj -->
+		<th scope="col">Norm_female_haj</th>
+		<!-- 13. Norm_female_eng -->
+		<th scope="col">Norm_female_eng</th>
+		<!-- 13. Norm_female_rus -->
+		<th scope="col">Norm_female_rus</th>
 		<!-- 14. norm_female_top -->
 		<th scope="col">norm_female_top</th>
 		<!-- 15. norm_female_bottom -->
@@ -283,9 +295,15 @@ if($result)
 			<td>'.$row["AnalysisPrice"].'</td>
 			<td>'.$row["Method"].'</td>
 			<td><textarea id="textarea_Norm_male" readonly>'.$row["Norm_male"].'</textarea></td>
+			<td><textarea id="textarea_Norm_male_haj" readonly>'.$row["Norm_male_haj"].'</textarea></td>
+			<td><textarea id="textarea_Norm_male_eng" readonly>'.$row["Norm_male_eng"].'</textarea></td>
+			<td><textarea id="textarea_Norm_male_rus" readonly>'.$row["Norm_male_rus"].'</textarea></td>
 			<td>'.$row["norm_male_top"].'</td>
 			<td>'.$row["norm_male_bottom"].'</td>
 			<td><textarea id="textarea_Norm_female" readonly>'.$row["Norm_female"].'</textarea></td>
+			<td><textarea id="textarea_Norm_female_haj" readonly>'.$row["Norm_female_haj"].'</textarea></td>
+			<td><textarea id="textarea_Norm_female_eng" readonly>'.$row["Norm_female_eng"].'</textarea></td>
+			<td><textarea id="textarea_Norm_female_rus" readonly>'.$row["Norm_female_rus"].'</textarea></td>
 			<td>'.$row["norm_female_top"].'</td>
 			<td>'.$row["norm_female_bottom"].'</td>
 			<td>'.$row["ed_ismer"].'</td>

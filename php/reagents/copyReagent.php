@@ -28,6 +28,10 @@ if($result)
 
 $Norm_maleCopy = $_POST["Norm_maleCopy"];
 
+$Norm_maleCopy_haj = $_POST["Norm_maleCopy_haj"];
+$Norm_maleCopy_eng = $_POST["Norm_maleCopy_eng"];
+$Norm_maleCopy_rus = $_POST["Norm_maleCopy_rus"];
+
 $norm_male_topCopy = $_POST["norm_male_topCopy"];
 if($norm_male_topCopy == "") $norm_male_topCopy = 0;
 
@@ -35,6 +39,10 @@ $norm_male_bottomCopy = $_POST["norm_male_bottomCopy"];
 if($norm_male_bottomCopy == "") $norm_male_bottomCopy = 0;
 
 $Norm_femaleCopy = $_POST["Norm_femaleCopy"];
+
+$Norm_femaleCopy_haj = $_POST["Norm_femaleCopy_haj"];
+$Norm_femaleCopy_eng = $_POST["Norm_femaleCopy_eng"];
+$Norm_femaleCopy_rus = $_POST["Norm_femaleCopy_rus"];
 
 $norm_female_topCopy = $_POST["norm_female_topCopy"];
 if($norm_female_topCopy == "") $norm_female_topCopy = 0;
@@ -231,7 +239,13 @@ $sql .= "sorting, ";
 $sql .= "analizators, ";
 $sql .= "transportation_temperature, ";
 $sql .= "storage_temperature, ";
-$sql .= "shelf_life";
+$sql .= "shelf_life, ";
+$sql .= "Norm_male_haj, ";
+$sql .= "Norm_male_eng, ";
+$sql .= "Norm_male_rus, ";
+$sql .= "Norm_female_haj, ";
+$sql .= "Norm_female_eng, ";
+$sql .= "Norm_female_rus, ";
 $sql .= ") VALUES ('";
 $sql .= $ReagentDescCopy."', '";
 $sql .= $ReagentDescRusCopy."', '";
@@ -273,7 +287,13 @@ $sql .= $sortingCopy."', '";
 $sql .= $analizatorsCopy."', '";
 $sql .= $transportationTemperatureCopy."', '";
 $sql .= $storageTemperatureCopy."', '";
-$sql .= $shelfLifeCopy."'";
+$sql .= $shelfLifeCopy."', '";
+$sql .= $Norm_maleCopy_haj."', '";
+$sql .= $Norm_maleCopy_eng."', '";
+$sql .= $Norm_maleCopy_rus."', '";
+$sql .= $Norm_femaleCopy_haj."', '";
+$sql .= $Norm_femaleCopy_eng."', '";
+$sql .= $Norm_femaleCopy_rus."'";
 $sql .= ")";
 
 $copyDate = date("Y-m-d H:i:s");

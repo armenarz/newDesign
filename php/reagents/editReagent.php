@@ -22,6 +22,10 @@ if($result)
 
 $Norm_maleEdit = $_POST["Norm_maleEdit"];
 
+$Norm_maleEdit_haj = $_POST["Norm_maleEdit_haj"];
+$Norm_maleEdit_eng = $_POST["Norm_maleEdit_eng"];
+$Norm_maleEdit_rus = $_POST["Norm_maleEdit_rus"];
+
 $norm_male_topEdit = $_POST["norm_male_topEdit"];
 if($norm_male_topEdit == "") $norm_male_topEdit = 0;
 
@@ -29,6 +33,10 @@ $norm_male_bottomEdit = $_POST["norm_male_bottomEdit"];
 if($norm_male_bottomEdit == "") $norm_male_bottomEdit = 0;
 
 $Norm_femaleEdit = $_POST["Norm_femaleEdit"];
+
+$Norm_femaleEdit_haj = $_POST["Norm_femaleEdit_haj"];
+$Norm_femaleEdit_eng = $_POST["Norm_femaleEdit_eng"];
+$Norm_femaleEdit_rus = $_POST["Norm_femaleEdit_rus"];
 
 $norm_female_topEdit = $_POST["norm_female_topEdit"];
 if($norm_female_topEdit == "") $norm_female_topEdit = 0;
@@ -223,6 +231,12 @@ $sql .= "sorting='".$sortingEdit."', ";
 $sql .= "analizators='".$analizatorsEdit."', ";
 $sql .= "transportation_temperature='".$transportationTemperatureEdit."', ";
 $sql .= "storage_temperature='".$storageTemperatureEdit."', ";
+$sql .= "Norm_male_haj='".$Norm_maleEdit_haj."',";
+$sql .= "Norm_male_eng='".$Norm_maleEdit_eng."',";
+$sql .= "Norm_male_rus='".$Norm_maleEdit_rus."',";
+$sql .= "Norm_female_haj='".$Norm_femaleEdit_haj."',";
+$sql .= "Norm_female_eng='".$Norm_femaleEdit_eng."',";
+$sql .= "Norm_female_rus='".$Norm_femaleEdit_rus."',";
 $sql .= "shelf_life='".$shelfLifeEdit."' ";
 $sql .= "WHERE ReagentId='".$ReagentIdEdit."'";
 
@@ -242,8 +256,19 @@ if($result)
     $ReagentDescArmOld = $_POST["ReagentDescArmOld"];
     $GroupIdOld = $_POST["GroupIdOld"];
     $MethodIdOld = $_POST["MethodIdOld"];
+	
     $Norm_maleOld = $_POST["Norm_maleOld"];
+	
+	$Norm_maleOld_haj = $_POST["Norm_maleOld_haj"];
+	$Norm_maleOld_eng = $_POST["Norm_maleOld_eng"];
+	$Norm_maleOld_rus = $_POST["Norm_maleOld_rus"];
+	
     $Norm_femaleOld = $_POST["Norm_femaleOld"];
+	
+	$Norm_femaleOld_haj = $_POST["Norm_femaleOld_haj"];
+	$Norm_femaleOld_eng = $_POST["Norm_femaleOld_eng"];
+	$Norm_femaleOld_rus = $_POST["Norm_femaleOld_rus"];
+	
     $norm_male_topOld = $_POST["norm_male_topOld"];
     $norm_male_bottomOld = $_POST["norm_male_bottomOld"];
     $norm_female_topOld = $_POST["norm_female_topOld"];
@@ -294,8 +319,14 @@ if($result)
                             "ReagentDescArm" => $ReagentDescArmOld,
                             "GroupId" => $GroupIdOld, 
                             "MethodId" => $MethodIdOld, 
-                            "Norm_male" => $Norm_maleOld, 
-                            "Norm_female" => $Norm_femaleOld, 
+                            "Norm_male" => $Norm_maleOld,
+							"Norm_male_haj" => $Norm_maleOld_haj,
+							"Norm_male_eng" => $Norm_maleOld_eng,
+							"Norm_male_rus" => $Norm_maleOld_rus,
+                            "Norm_female" => $Norm_femaleOld,
+							"Norm_female_haj" => $Norm_femaleOld_haj,
+							"Norm_female_eng" => $Norm_femaleOld_eng,
+							"Norm_female_rus" => $Norm_femaleOld_rus,
                             "norm_male_top" => $norm_male_topOld,
                             "norm_male_bottom" => $norm_male_bottomOld, 
                             "norm_female_top" => $norm_female_topOld, 
@@ -337,8 +368,14 @@ if($result)
                             "ReagentDescArm" => $ReagentDescArmEdit,
                             "GroupId" => $GroupIdEdit, 
                             "MethodId" => $MethodIdEdit, 
-                            "Norm_male" => $Norm_maleEdit, 
-                            "Norm_female" => $Norm_femaleEdit, 
+                            "Norm_male" => $Norm_maleEdit,
+							"Norm_male_haj" => $Norm_maleEdit_haj,
+							"Norm_male_eng" => $Norm_maleEdit_eng,
+							"Norm_male_rus" => $Norm_maleEdit_rus,
+                            "Norm_female" => $Norm_femaleEdit,
+							"Norm_female_haj" => $Norm_femaleEdit_haj,
+							"Norm_female_eng" => $Norm_femaleEdit_eng,
+							"Norm_female_rus" => $Norm_femaleEdit_rus,
                             "norm_male_top" => $norm_male_topEdit,
                             "norm_male_bottom" => $norm_male_bottomEdit, 
                             "norm_female_top" => $norm_female_topEdit, 

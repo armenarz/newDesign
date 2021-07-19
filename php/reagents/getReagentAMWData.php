@@ -129,6 +129,72 @@ $msg .='
         <div class="row">
             <div class="col">
                 <div class="form-group d-print-none">
+                    <label for="Norm_maleAdd_haj">Norm_male_haj</label>
+                    <textarea id="Norm_maleAdd_haj" class="form-control" placeholder="Norm_male_haj" name="Norm_maleAdd_haj"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_femaleAdd_haj">Norm_female_haj</label>
+                    <textarea id="Norm_femaleAdd_haj" class="form-control" placeholder="Norm_female_haj" name="Norm_femaleAdd_haj"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_maleAdd_eng">Norm_male_eng</label>
+                    <textarea id="Norm_maleAdd_eng" class="form-control" placeholder="Norm_male_eng" name="Norm_maleAdd_eng"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_femaleAdd_eng">Norm_female_eng</label>
+                    <textarea id="Norm_femaleAdd_eng" class="form-control" placeholder="Norm_female_eng" name="Norm_femaleAdd_eng"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_maleAdd_rus">Norm_male_rus</label>
+                    <textarea id="Norm_maleAdd_rus" class="form-control" placeholder="Norm_male_rus" name="Norm_maleAdd_rus"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_femaleAdd_rus">Norm_female_rus</label>
+                    <textarea id="Norm_femaleAdd_rus" class="form-control" placeholder="Norm_female_rus" name="Norm_femaleAdd_rus"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
                     <label for="norm_male_topAdd">norm_male_top</label>
                     <input type="number" min="0" step="0.001" id="norm_male_topAdd" class="form-control" placeholder="norm_male_top" name="norm_male_topAdd">
                 </div>

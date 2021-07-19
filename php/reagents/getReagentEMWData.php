@@ -30,6 +30,15 @@ if($result)
     $Norm_female = $row["Norm_female"];
     $norm_female_top = $row["norm_female_top"];
     $norm_female_bottom = $row["norm_female_bottom"];
+	
+	$Norm_male_haj = $row["Norm_male_haj"];
+	$Norm_male_eng = $row["Norm_male_eng"];
+	$Norm_male_rus = $row["Norm_male_rus"];
+	
+	$Norm_female_haj = $row["Norm_female_haj"];
+	$Norm_female_eng = $row["Norm_female_eng"];
+	$Norm_female_rus = $row["Norm_female_rus"];
+	
     $Calibration = $row["Calibration"];
     $Control = $row["Control"];
     $dilution = $row["dilution"];
@@ -201,6 +210,72 @@ $msg .='
                 <div class="form-group d-print-none">
                 <label for="Norm_femaleEdit">Norm_female</label>
                 <textarea id="Norm_femaleEdit" class="form-control" placeholder="Norm_female" name="Norm_femaleEdit">'.$Norm_female.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_maleEdit_haj">Norm_male_haj</label>
+                    <textarea id="Norm_maleEdit_haj" class="form-control" placeholder="Norm_male_haj" name="Norm_maleEdit_haj">'.$Norm_male_haj.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                <label for="Norm_femaleEdit_haj">Norm_female_haj</label>
+                <textarea id="Norm_femaleEdit_haj" class="form-control" placeholder="Norm_female_haj" name="Norm_femaleEdit_haj">'.$Norm_female_haj.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+	<div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_maleEdit_eng">Norm_male_eng</label>
+                    <textarea id="Norm_maleEdit_eng" class="form-control" placeholder="Norm_male_eng" name="Norm_maleEdit_eng">'.$Norm_male_eng.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                <label for="Norm_femaleEdit_eng">Norm_female_eng</label>
+                <textarea id="Norm_femaleEdit_eng" class="form-control" placeholder="Norm_female_eng" name="Norm_femaleEdit_eng">'.$Norm_female_eng.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+	<div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                    <label for="Norm_maleEdit_rus">Norm_male_rus</label>
+                    <textarea id="Norm_maleEdit_rus" class="form-control" placeholder="Norm_male_rus" name="Norm_maleEdit_rus">'.$Norm_male_rus.'</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="col">
+        <div class="row">
+            <div class="col">
+                <div class="form-group d-print-none">
+                <label for="Norm_femaleEdit_rus">Norm_female_rus</label>
+                <textarea id="Norm_femaleEdit_rus" class="form-control" placeholder="Norm_female_rus" name="Norm_femaleEdit_rus">'.$Norm_female_rus.'</textarea>
                 </div>
             </div>
         </div>
