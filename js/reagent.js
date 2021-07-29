@@ -653,10 +653,22 @@ function CreateFormCopyObject()
         frm.groupIdCopy = $('#GroupIdCopy').val();
         frm.analysisPriceCopy = $('#AnalysisPriceCopy').val();
         frm.methodIdCopy = $('#MethodIdCopy').val();
+		
         frm.norm_maleCopy = $('#Norm_maleCopy').val();
+		
+		frm.norm_maleCopy_haj = $('#Norm_maleCopy_haj').val();
+		frm.norm_maleCopy_eng = $('#Norm_maleCopy_eng').val();
+		frm.norm_maleCopy_rus = $('#Norm_maleCopy_rus').val();
+		
         frm.norm_male_topCopy = $('#norm_male_topCopy').val();
         frm.norm_male_bottomCopy = $('#norm_male_bottomCopy').val();
+		
         frm.norm_femaleCopy = $('#Norm_femaleCopy').val();
+		
+		frm.norm_femaleCopy_haj = $('#Norm_femaleCopy_haj').val();
+		frm.norm_femaleCopy_eng = $('#Norm_femaleCopy_eng').val();
+		frm.norm_femaleCopy_rus = $('#Norm_femaleCopy_rus').val();
+		
         frm.norm_female_topCopy = $('#norm_female_topCopy').val();
         frm.norm_female_bottomCopy = $('#norm_female_bottomCopy').val();
         frm.calibrationCopy = $('#CalibrationCopy').val();
@@ -853,8 +865,19 @@ $('#editModalWindow').on('shown.bs.modal', function () {
     editFormOldData.ReagentDescArmOld = $('#ReagentDescArmEdit').val();
     editFormOldData.GroupIdOld = $('#GroupIdEdit').val();
     editFormOldData.MethodIdOld = $('#MethodIdEdit').val();
+	
     editFormOldData.Norm_maleOld = $('#Norm_maleEdit').val();
+	
+	editFormOldData.Norm_maleOld_haj = $('#Norm_maleEdit_haj').val();
+	editFormOldData.Norm_maleOld_eng = $('#Norm_maleEdit_eng').val();
+	editFormOldData.Norm_maleOld_rus = $('#Norm_maleEdit_rus').val();
+	
     editFormOldData.Norm_femaleOld = $('#Norm_femaleEdit').val();
+	
+	editFormOldData.Norm_femaleOld_haj = $('#Norm_femaleEdit_haj').val();
+	editFormOldData.Norm_femaleOld_eng = $('#Norm_femaleEdit_eng').val();
+	editFormOldData.Norm_femaleOld_rus = $('#Norm_femaleEdit_rus').val(); 
+	
     editFormOldData.norm_male_topOld = $('#norm_male_topEdit').val();
     editFormOldData.norm_male_bottomOld = $('#norm_male_bottomEdit').val();
     editFormOldData.norm_female_topOld = $('#norm_female_topEdit').val();
@@ -916,10 +939,22 @@ function CreateFormEditObject()
         frm.groupIdEdit = $('#GroupIdEdit').val();
         frm.analysisPriceEdit = $('#AnalysisPriceEdit').val();
         frm.methodIdEdit = $('#MethodIdEdit').val();
+		
         frm.norm_maleEdit = $('#Norm_maleEdit').val();
+		
+		frm.norm_maleEdit_haj = $('#Norm_maleEdit_haj').val();
+		frm.norm_maleEdit_eng = $('#Norm_maleEdit_eng').val();
+		frm.norm_maleEdit_rus = $('#Norm_maleEdit_rus').val();
+		
         frm.norm_male_topEdit = $('#norm_male_topEdit').val();
         frm.norm_male_bottomEdit = $('#norm_male_bottomEdit').val();
+		
         frm.norm_femaleEdit = $('#Norm_femaleEdit').val();
+		
+		frm.norm_femaleEdit_haj = $('#Norm_femaleEdit_haj').val();
+		frm.norm_femaleEdit_eng = $('#Norm_femaleEdit_eng').val();
+		frm.norm_femaleEdit_rus = $('#Norm_femaleEdit_rus').val();
+		
         frm.norm_female_topEdit = $('#norm_female_topEdit').val();
         frm.norm_female_bottomEdit = $('#norm_female_bottomEdit').val();
         frm.calibrationEdit = $('#CalibrationEdit').val();
@@ -1133,10 +1168,22 @@ $('#addModalWindow').on('shown.bs.modal', function () {
     $('#GroupIdAdd').val($('#selectGroup').val());
     $('#AnalysisPriceAdd').val('');
     $('#MethodIdAdd').val($('#selectMethod').val());
+	
     $('#Norm_maleAdd').val('');
+	
+	$('#Norm_maleAdd_haj').val('');
+	$('#Norm_maleAdd_eng').val('');
+	$('#Norm_maleAdd_rus').val('');
+	
     $('#norm_male_topAdd').val('');
     $('#norm_male_bottomAdd').val('');
+	
     $('#Norm_femaleAdd').val('');
+	
+	$('#Norm_femaleAdd_haj').val('');
+	$('#Norm_femaleAdd_eng').val('');
+	$('#Norm_femaleAdd_rus').val('');
+	
     $('#norm_female_topAdd').val('');
     $('#norm_female_bottomAdd').val('');
     $('#CalibrationAdd').val('');
@@ -1193,10 +1240,22 @@ function CreateFormAddObject()
         frm.groupIdAdd = $('#GroupIdAdd').val();
         frm.analysisPriceAdd = $('#AnalysisPriceAdd').val();
         frm.methodIdAdd = $('#MethodIdAdd').val();
+		
         frm.norm_maleAdd = $('#Norm_maleAdd').val();
+		
+		frm.norm_maleAdd_haj = $('#Norm_maleAdd_haj').val();
+		frm.norm_maleAdd_eng = $('#Norm_maleAdd_eng').val();
+		frm.norm_maleAdd_rus = $('#Norm_maleAdd_rus').val();
+		
         frm.norm_male_topAdd = $('#norm_male_topAdd').val();
         frm.norm_male_bottomAdd = $('#norm_male_bottomAdd').val();
+		
         frm.norm_femaleAdd = $('#Norm_femaleAdd').val();
+		
+		frm.norm_femaleAdd_haj = $('#Norm_femaleAdd_haj').val();
+		frm.norm_femaleAdd_eng = $('#Norm_femaleAdd_eng').val();
+		frm.norm_femaleAdd_rus = $('#Norm_femaleAdd_rus').val();
+		
         frm.norm_female_topAdd = $('#norm_female_topAdd').val();
         frm.norm_female_bottomAdd = $('#norm_female_bottomAdd').val();
         frm.calibrationAdd = $('#CalibrationAdd').val();
