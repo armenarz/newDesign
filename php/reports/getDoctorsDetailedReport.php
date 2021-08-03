@@ -338,7 +338,7 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
 										$cost_doctor = ($cost_doctor / 15000) * 10000;
 									}
 									
-									if($row_doctor["DoctorId"]==6462) {
+									if($row_doctor["DoctorId"]==6462 or $row_doctor["DoctorId"]==6486) {
 										$price_doctor = 7000;
 									}
 									

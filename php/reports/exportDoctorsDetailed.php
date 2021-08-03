@@ -339,7 +339,7 @@ if($menuId == "doctorsLink" && $reportTypeId == 2)
                                     $cost_doctor = $row_orders_data["cost"];
                                     $count_doctor++;
 									
-									if($row_doctor["DoctorId"]==6462) {
+									if($row_doctor["DoctorId"]==6462 or $row_doctor["DoctorId"]==6486) {
 										$price_doctor = 7000;
 									}
 

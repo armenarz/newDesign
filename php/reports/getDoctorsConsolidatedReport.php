@@ -294,7 +294,7 @@ if($menuId == "doctorsLink" && $reportTypeId == 1)
                                 {
                                     $row_orders_data = mysqli_fetch_array($result_orders_data);
 									
-									if($row_doctor["DoctorId"]==6462) {
+									if($row_doctor["DoctorId"]==6462 or $row_doctor["DoctorId"]==6486) {
 										$price_doctor_total += 7000;
 									}
 									else {
