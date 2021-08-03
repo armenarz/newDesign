@@ -26,7 +26,7 @@ $reportDescription = "";
 
 if($menuId == "repaidDebtsLink")
 {
-    $filter = "vernuli_dolg.vernuli_date>='".$startDate."' AND vernuli_dolg.vernuli_date<='".$endDate."'";
+    $filter = "date(vernuli_dolg.vernuli_date)>='".$startDate."' AND date(vernuli_dolg.vernuli_date)<='".$endDate."'";
 
     $msg.= '
     <h3>Погашенные долги с '.$startDate.' по '.$endDate.'</h3>
