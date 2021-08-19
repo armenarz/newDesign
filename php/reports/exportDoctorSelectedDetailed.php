@@ -278,6 +278,13 @@ if($menuId == "doctorSelectedLink" && $reportTypeId == 2)
 									$skidka+=0;
 							}
 							
+							if($row1["ReagentId"]==1170) {
+								$skidka+=120000;
+							}
+							if($row1["ReagentId"]==1172) {
+								$skidka+=40000;
+							}
+							
 							if($row1["usr"]=='Garant_Assinstance' or 
 							$row1["usr"]=='Nairi' or 
 							$row1["usr"]=='Nairi8302' or 

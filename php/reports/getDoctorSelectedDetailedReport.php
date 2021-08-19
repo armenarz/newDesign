@@ -233,7 +233,10 @@ if($menuId == "doctorSelectedLink" && $reportTypeId == 2)
 									&& $row1["ReagentId"]<>1090
 									&& $row1["ReagentId"]<>345 && $row1["ReagentId"]<>346 && $row1["ReagentId"]<>516 
 									&& $row1["ReagentId"]<>798 && ($row1["ReagentId"]<890 or $row1["ReagentId"]>900) 
-									and $row1["ReagentId"]<>966 && $row1["ReagentId"]<>990 && $row1["ReagentId"]<>992)$skidka+=($row1["Price"]*20/100);
+									and $row1["ReagentId"]<>966 && $row1["ReagentId"]<>990 && $row1["ReagentId"]<>992
+									) {
+										$skidka+=($row1["Price"]*20/100);
+									}
 									
 									if($row1["ReagentId"]==516)$skidka+=($row1["Price"]*0/100);
 									if(($row1["ReagentId"]>=890 and $row1["ReagentId"]<=900) or $row1["ReagentId"]==966)$skidka+=10000;
@@ -244,10 +247,19 @@ if($menuId == "doctorSelectedLink" && $reportTypeId == 2)
 							
 							if( ($row1["usr"]=='Gyumri' or $row1["usr"]=='Garant_Insurance') and $row1["DoctorDiscount"] != 0)
 							{
-								if($row1["OrderId"]!=425314 and $row1["OrderId"]!=426076)
-									$skidka+=$row1["AnalysisPrice"]/5;
-								else
+								if($row1["OrderId"]!=425314 and $row1["OrderId"]!=426076) {					
+									$skidka+=$row1["AnalysisPrice"]/5;									
+								}
+								else {
 									$skidka+=0;
+								}
+							}
+							
+							if($row1["ReagentId"]==1170) {
+								$skidka+=120000;
+							}
+							if($row1["ReagentId"]==1172) {
+								$skidka+=40000;
 							}
 							
 							if($row1["usr"]=='Garant_Assinstance' or 
