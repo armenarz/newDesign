@@ -14,6 +14,8 @@ function createLabsHTML($link, $lab, $lab_id, $reportDate)
     $obshij_dolg = sumDebts($link, $lab, $reportDate);
 
     $cost_standart = sumCashPayments($link, $lab, $reportDate);
+	
+	$cost_transfer = sumTtansferPayments($link, $lab, $reportDate);
 
     $cost_terminal = sumTerminalPayments($link, $lab, $reportDate);
 
@@ -58,6 +60,9 @@ function createLabsHTML($link, $lab, $lab_id, $reportDate)
         </tr>
         <tr>
             <td>Терминал</td><td>'.$cost_terminal.'</td>
+        </tr>
+		<tr>
+            <td>Перечисление</td><td>'.$cost_transfer.'</td>
         </tr>
         <tr>
             <td>Стрип</td><td>'.$prodano_summa.'</td>

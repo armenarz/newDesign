@@ -16,6 +16,8 @@ function createLabHTML($link, $reportDate)
     $cost_standart_lab = sumCashPaymentsLab($link, $reportDate);
 
     $cost_terminal_lab = sumTerminalPaymentsLab($link, $reportDate);
+	
+	$cost_transfer_lab = sumTransferPaymentsLab($link, $reportDate);
 
     $prodano_summa_lab = sumSalesLab($link, $reportDate);
 
@@ -53,6 +55,7 @@ function createLabHTML($link, $reportDate)
         <tr>
             <td>Заплатили</td><td>'.$cost_standart_lab.'</td>
         </tr>
+		
         <tr>
             <td></td><td></td>
         </tr>
@@ -84,6 +87,9 @@ function createLabHTML($link, $reportDate)
     $html.='
         <tr>
             <td>Терминал</td><td>'.$cost_terminal_lab.'</td>
+        </tr>
+		<tr>
+            <td>Перечисление</td><td>'.$cost_transfer_lab.'</td>
         </tr>
         <tr>
             <td>Стрип</td><td>'.$prodano_summa_lab.'</td>

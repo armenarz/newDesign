@@ -350,6 +350,26 @@ function sumCashPayments($link, $lab, $reportDate)
     return $cost_standart;
 }
 
+function sumTtansferPayments($link, $lab, $reportDate)
+{
+    $cost_standart = 0;
+	$sql = "SELECT 
+                SUM(zapl) AS cost_standart_ 
+            FROM transfer 
+            WHERE 
+                DATE(den)='$reportDate' AND lab='$lab'
+				AND transfer.checked=1
+				AND transfer.is_last=1
+            ";
+	$result = mysqli_query($link, $sql);
+	if($result)
+	{
+		$row = mysqli_fetch_array($result); 
+		$cost_standart = intval($row["cost_standart_"]);
+    }
+    return $cost_standart;
+}
+
 function optionsHtmlCashPayments($link, $lab, $reportDate)
 {
     $sql = "SELECT 
@@ -858,6 +878,37 @@ function optionsProvekaKassi($link, $lab_id, $reportDate)
             while($row = mysqli_fetch_array($result)) 
             {               
 				$html.= '<option>'.$row["vvod_kassi"].' | '.$row["real_kassa"].' | '.usr_to_name($link, $row['usr_id'], $reportDate).' | '.$row["dtime"].'</option>';               
+            }
+        }
+    }
+    return $html;
+}
+
+function optionsHtmlTransferPayments($link, $lab, $reportDate)
+{
+    $sql = "SELECT 
+                transfer.orderid,
+                transfer.zapl,
+                us22.id, 
+                TIME(transfer.den) AS den_transfer 
+            FROM transfer 
+            INNER JOIN us22 ON transfer.uu=us22.id
+            WHERE 
+                DATE(transfer.den)='$reportDate' 
+				AND transfer.zapl!=0 
+				AND transfer.checked=1
+				AND transfer.is_last=1
+				AND transfer.lab='$lab'
+            ORDER BY transfer.den";
+    $result = mysqli_query($link, $sql);
+    $html = '';
+    if($result)
+    {
+        if(mysqli_num_rows($result) > 0)
+        {
+            while($row = mysqli_fetch_array($result)) 
+            {
+                $html.= '<option value="'.$row["orderid"].'">'.$row["orderid"].' | '.$row["zapl"].' | '.usr_to_name($link,$row["id"], $reportDate).' | '.$row["den_transfer"].'</option>';
             }
         }
     }

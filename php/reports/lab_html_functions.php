@@ -637,6 +637,28 @@ function sumCashPaymentsLab($link, $reportDate)
 	return $cost_standart;
 }
 
+function sumTransferPaymentsLab($link, $reportDate)
+{
+    $cost_standart = 0;
+	$sql = "SELECT 
+                SUM(zapl) AS cost_standart_ 
+            FROM transfer 
+            WHERE 
+                DATE(den)='$reportDate'
+				and uu != 582
+				AND transfer.checked=1
+				AND transfer.is_last=1
+			";
+	
+	$result = mysqli_query($link, $sql);
+	if($result)
+	{
+		$row = mysqli_fetch_array($result); 
+		$cost_standart = intval($row["cost_standart_"]);
+	}
+	return $cost_standart;
+}
+
 /* function optionsHtmlCashPaymentsLab($link, $reportDate)
 {
 	$sql = "SELECT 

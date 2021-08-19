@@ -9,6 +9,7 @@ function createLabHTML($link, $reportDate)
 
     $sum_vernuli_dolg_lab = sumRepaidDebtsLab($link, $reportDate);
     //$optionsHtmlRepaidDebtsLab = optionsHtmlRepaidDebtsLab($link, $reportDate);
+	$terminalRepaidDebts = sumTerminalRepaidDebtsLab($link, $reportDate);
 
     $sum_vozvrat_lab = sumRefundsLab($link, $reportDate);
     //$optionsHtmlRefundsLab = optionsHtmlRefundsLab($link, $reportDate);
@@ -19,6 +20,8 @@ function createLabHTML($link, $reportDate)
     $cost_standart_lab = sumCashPaymentsLab($link, $reportDate);
     //$optionsHtmlCashPaymentsLab = optionsHtmlCashPaymentsLab($link, $reportDate);
     //$optionsHtmlPaymentsLab = optionsHtmlPaymentsLab($link, $reportDate);
+	
+	$cost_transfer_lab = sumTransferPaymentsLab($link, $reportDate);
 
     $cost_terminal_lab = sumTerminalPaymentsLab($link, $reportDate);
     //$optionsHtmlTerminalPaymentsLab = optionsHtmlTerminalPaymentsLab($link, $reportDate);
@@ -141,7 +144,7 @@ function createLabHTML($link, $reportDate)
     $html.='
     <div class="row">
         <div class="col-6 pl-2 pr-1"><label class="form-control form-control-sm mb-1 text-body">Терминал</label></div>
-        <div class="col-4 px-0"><input type="text" class="form-control form-control-sm text-right text-body" value="'.$cost_terminal_lab.'" disabled></div>
+        <div class="col-4 px-0"><input type="text" class="form-control form-control-sm text-right text-body" value="'.( $cost_terminal_lab + $terminalRepaidDebts ).'" disabled></div>
         <div class="col-2 pl-1 pr-2">
             <select name="selectOrderTerminal" id="selectOrderTerminalLab" class="form-control form-control-sm text-body" disabled>
                 <option></option>
@@ -211,6 +214,16 @@ function createLabHTML($link, $reportDate)
             <select name="selectOrderChecks" id="selectOrderChecksLab" class="form-control form-control-sm text-body" disabled>
                 <option></option>
                 <!--'.$optionsHtmlChecksLab.'-->
+            </select>
+        </div>
+    </div>
+	<div class="row">
+        <div class="col-6 pl-2 pr-1"><label class="form-control form-control-sm mb-1 text-body">Перечисление</label></div>
+        <div class="col-4 px-0"><input type="text" class="form-control form-control-sm text-right text-body" value="'.$cost_transfer_lab.'" disabled></div>
+        <div class="col-2 pl-1 pr-2">
+            <select name="selectOrderTransferPayments" id="selectOrderTransferPaymentsLab" class="form-control form-control-sm text-body" disabled>
+                <option></option>
+                <!--'.$optionsHtmlTranferPaymentsLab.'-->
             </select>
         </div>
     </div>

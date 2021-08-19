@@ -244,6 +244,7 @@ function setOptionsHtmlLab(reportDate)
     setOptionsHtmlRefundsLab(reportDate);
     setOptionsHtmlDebtsLab(reportDate);
     setOptionsHtmlCashPaymentsLab(reportDate);
+	setOptionsHtmlTransferPaymentsLab(reportDate);
     setOptionsHtmlPaymentsLab(reportDate);
     setOptionsHtmlPartnerDebtsLab(reportDate);
     setOptionsHtmlTerminalPaymentsLab(reportDate);
@@ -340,6 +341,28 @@ function setOptionsHtmlCashPaymentsLab(reportDate)
         success:function(msg){
             $("#selectOrderCashPaymentsLab").html(msg);
             $("#selectOrderCashPaymentsLab").prop("disabled", false);
+        }
+    });
+}
+
+function setOptionsHtmlTransferPaymentsLab(reportDate)
+{
+    var urlString = "../reports/getOptionsHtmlTransferPaymentsLab.php";
+    
+    $.ajaxSetup({
+        type: "POST",
+        url: urlString,
+            cache:false,
+        data: dataString = ("uu=" + $("input[name='uu']").val()).
+        concat("&").concat("num=" + $("input[name='num']").val()).
+        concat("&").concat("num_pac=" + $("input[name='num_pac']").val()).
+        concat("&").concat("reportDate=" + reportDate)
+    });
+    //console.log(dataString);
+    $.ajax({
+        success:function(msg){
+            $("#selectOrderTransferPaymentsLab").html(msg);
+            $("#selectOrderTransferPaymentsLab").prop("disabled", false);
         }
     });
 }

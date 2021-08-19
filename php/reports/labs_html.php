@@ -3,12 +3,16 @@ require_once "labs_html_functions.php";
 
 function createLabsHTML($link, $lab, $lab_id, $reportDate)
 {
+	//$start = microtime(true);
+	
     $kassa_v_nachale_dnja = initialCashRemainder($link, $lab, $lab_id, $reportDate);
 
     $cena = sumAnalyzes($link, $lab, $reportDate);
 
     $sum_vernuli_dolg = sumRepaidDebts($link, $lab, $reportDate);
     $optionsHtmlRepaidDebts = optionsHtmlRepaidDebts($link, $lab, $reportDate);
+	
+	$terminalRepaidDebts = sumTerminalRepaidDebts($link, $lab, $reportDate);
 
     $sum_vozvrat = sumRefunds($link, $lab, $reportDate);
     $optionsHtmlRefunds = optionsHtmlRefunds($link, $lab, $reportDate);
@@ -17,6 +21,11 @@ function createLabsHTML($link, $lab, $lab_id, $reportDate)
     $optionsHtmlDebts = optionsHtmlDebts($link, $lab, $reportDate);
 
     $cost_standart = sumCashPayments($link, $lab, $reportDate);
+	
+	$cost_transfer = sumTtansferPayments($link, $lab, $reportDate);
+	
+	$optionsHtmlTransferPayments = optionsHtmlTransferPayments($link, $lab, $reportDate);
+	
     $optionsHtmlCashPayments = optionsHtmlCashPayments($link, $lab, $reportDate);
     $optionsHtmlPayments = optionsHtmlPayments($link, $lab, $reportDate);
 
@@ -45,6 +54,8 @@ function createLabsHTML($link, $lab, $lab_id, $reportDate)
 
     $vozvrat_checkov = sumCheckRefunds($link, $lab, $reportDate);
     $optionsCheckRefunds = optionsCheckRefunds($link, $lab, $reportDate);
+	
+	$optionsProvekaKassi = optionsProvekaKassi($link, $lab_id, $reportDate);
 
     $html = '
     <div class="row">
@@ -108,7 +119,7 @@ function createLabsHTML($link, $lab, $lab_id, $reportDate)
     </div>
     <div class="row">
         <div class="col-6 pl-2 pr-1"><label class="form-control form-control-sm mb-1 text-body">Терминал</label></div>
-        <div class="col-4 px-0"><input type="text" class="form-control form-control-sm text-right text-body" value="'.$cost_terminal.'" disabled></div>
+        <div class="col-4 px-0"><input type="text" class="form-control form-control-sm text-right text-body" value="'.( $cost_terminal + $terminalRepaidDebts ).'" disabled></div>
         <div class="col-2 pl-1 pr-2">
             <select name="selectOrderTerminal" class="form-control form-control-sm text-body">
                 <option></option>
@@ -181,6 +192,16 @@ function createLabsHTML($link, $lab, $lab_id, $reportDate)
             </select>
         </div>
     </div>
+	<div class="row">
+        <div class="col-6 pl-2 pr-1"><label class="form-control form-control-sm mb-1 text-body">Перечисление</label></div>
+        <div class="col-4 px-0"><input type="text" class="form-control form-control-sm text-right text-body" value="'.$cost_transfer.'" disabled></div>
+        <div class="col-2 pl-1 pr-2">
+            <select name="selectOrderTransferPayments" class="form-control form-control-sm text-body">
+                <option></option>
+                '.$optionsHtmlTransferPayments.'
+            </select>
+        </div>
+    </div>
     <div class="row">
         <div class="col-6 pl-2 pr-1"><label class="form-control form-control-sm mb-1 text-body">Возврат&nbsp;чеков</label></div>
         <div class="col-4 px-0"><input type="text" class="form-control form-control-sm text-right text-body" value="'.(-$vozvrat_checkov).'" disabled></div>
@@ -192,7 +213,24 @@ function createLabsHTML($link, $lab, $lab_id, $reportDate)
             </select>
         </div>
     </div>
+	<div class="row">
+        <div class="col-6 pl-2 pr-1"><label class="form-control form-control-sm mb-1 text-body">Проверка&nbsp;кассы</label></div>
+        <div class="col-4 px-0"><input type="text" class="form-control form-control-sm text-right text-body" value="'.(0).'" disabled></div>
+        <div class="col-2 pl-1 pr-2">
+            <select name="selectProvekaKassi" class="form-control form-control-sm text-body">
+                '.$optionsProvekaKassi.'
+            </select>
+        </div>
+    </div>
     ';
+	
+	/*
+	$f = fopen("log_dnevnoj.txt", 'a');
+	$str ="\r\n" . $lab . " createLabsHTML() " . round(microtime(true) - $start, 4) . ' sec.' . "\r\n";
+	fwrite($f, $str); 
+	fclose($f);
+	*/
+	
     return $html;
 }
 ?>
