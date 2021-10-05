@@ -82,10 +82,12 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
                 <!--3. Order Count-->
                 <th scope="col" class="text-right">Дата заказа</th>
                 <!--4. Order Sum-->
+				<th scope="col" class="text-center">Пациент</th>
 				';
 				if($uu != 800) {
 					$msg.= '<th scope="col" class="text-right">Сумма заказа</th>';
 				}
+				
             $msg.= '</tr>
         </thead>
         <tbody>
@@ -109,14 +111,14 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
             while($row_lab = mysqli_fetch_array($result_lab))
             {
                 $sql_count_sum = "  SELECT 
-                                        lab, 
-                                        SUM(cena_analizov) as sum, 
-                                        COUNT(OrderId) as cnt 
-                                    FROM orders 
-                                    WHERE 
-                                        OrderDate>='".$startDate."' 
-                                        AND OrderDate<='".$endDate."' 
-                                        AND lab='".$row_lab["lab"]."';
+                                        orders.lab, 
+                                        SUM(orders.cena_analizov) as sum, 
+                                        COUNT(orders.OrderId) as cnt
+                                    FROM orders
+								    WHERE 
+                                        orders.OrderDate>='".$startDate."' 
+                                        AND orders.OrderDate<='".$endDate."' 
+                                        AND orders.lab='".$row_lab["lab"]."';
                                 ";
                 
                 $result_count_sum = mysqli_query($link,$sql_count_sum);
@@ -133,7 +135,7 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
 
                 $msg .= '   <tr>
                                 <!--1. Row number-->
-								<td scope="col" colspan="3"><strong>Лаборатория: '.$row_lab["lab"].'</strong></td>
+								<td scope="col" colspan="4"><strong>Лаборатория: '.$row_lab["lab"].'</strong></td>
 								
                                 <!--2. Lab-->
                                 <!--<td scope="col"></td>-->
@@ -150,11 +152,17 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
                 $total_sum += $lab_sum;
 
                 $sql_orders = " SELECT 
-                                    OrderId, 
-                                    OrderDate,
-                                    cena_analizov
+                                    orders.OrderId, 
+                                    orders.OrderDate,
+                                    orders.cena_analizov,
+									orders.pac_id, 
+									pacients.FirstName,
+									pacients.LastName,
+									pacients.MidName
                                 FROM orders
-                                WHERE OrderDate>='".$startDate."' AND OrderDate<='".$endDate."' AND lab='".$row_lab["lab"]."'
+								INNER JOIN pacients
+								ON orders.pac_id = pacients.id
+                                WHERE orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND orders.lab='".$row_lab["lab"]."'
                             ";
                 $result_orders = mysqli_query($link,$sql_orders);
                 if($result_orders)
@@ -166,8 +174,12 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
                         $msg .= '   <tr>
                                         <!--1. Row number -->
 										<td scope="col" class="text-right">'.$i.'</td>
-                                        <td scope="col" class="text-right"><a href="#" id=o_'.$row_orders["OrderId"].'>'.$row_orders["OrderId"].'</a></td>
-                                        <td scope="col">'.$row_orders["OrderDate"].'</td>';
+                                        <td scope="col" class="text-right"><a href="#" id=o_'.$row_orders["OrderId"].'>'.
+										$row_orders["OrderId"].'</a></td>
+                                        <td scope="col">'.$row_orders["OrderDate"].'</td>
+										<td scope="col">'.
+										$row_orders["LastName"]. ' ' .$row_orders["FirstName"]. ' ' .$row_orders["MidName"].
+										'( '.$row_orders["pac_id"].' )'.  '</td>';
 										if($uu != 800) {
 											$msg .= '<td scope="col" class="text-right">'.$row_orders["cena_analizov"].'</td>';
 										}
@@ -179,7 +191,7 @@ if($menuId == "ordersByLabsLink" && $reportTypeId == 2)
         }
 
         $msg .= '   <tr>
-                        <td scope="col" colspan="2" class="text-right"><strong>ВСЕГО</strong></td>
+                        <td scope="col" colspan="3" class="text-right"><strong>ВСЕГО</strong></td>
                         <td scope="col" class="text-right"><strong>'.$total_count.'</strong></td>';
 						if($uu != 800) {
 							$msg .= '<td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>';

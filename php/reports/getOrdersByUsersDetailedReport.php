@@ -72,7 +72,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
     }
 
     $msg.= '
-    <h3>Заказы по пользовотелям с '.$startDate.' по '.$endDate.'</h3>
+    <h3>Заказы по пользователям с '.$startDate.' по '.$endDate.'</h3>
     '.$reportDescription.'
     <table class="table table-bordered table-hover table-responsive" id="ordersByUsersDetailedData">
         <thead>
@@ -83,6 +83,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                 <th scope="col" class="text-right">Номер заказа</th>
                 <!--3. Order Count-->
                 <th scope="col">Дата заказа</th>
+				<th scope="col">Пациент</th>
                 <!--4. Order Sum-->
                 <th scope="col" id="th_sum_ord" class="text-right">Сумма заказа</th>
             </tr>
@@ -129,7 +130,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
 				if($user_sum > 0) {
 					$msg .= '   <tr>
 									<!--1. Row number-->
-									<td scope="col" colspan="3"><strong>Пользователь: '.$row_user["log"].'</strong></td>
+									<td scope="col" colspan="4"><strong>Пользователь: '.$row_user["log"].'</strong></td>
 									<!--2. User-->
 									<!--<td scope="col"></td>-->
 									<!--3. Order Count-->
@@ -142,11 +143,17 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                 $total_sum += $user_sum;
 
                 $sql_orders = " SELECT 
-                                    OrderId, 
-                                    OrderDate,
-                                    cena_analizov
+                                    orders.OrderId, 
+                                    orders.OrderDate,
+                                    orders.cena_analizov,
+									orders.pac_id, 
+									pacients.FirstName,
+									pacients.LastName,
+									pacients.MidName
                                 FROM orders
-                                WHERE OrderDate>='".$startDate."' AND OrderDate<='".$endDate."' AND user_id='".$row_user["id"]."'
+								INNER JOIN pacients
+								ON orders.pac_id = pacients.id
+                                WHERE orders.OrderDate>='".$startDate."' AND orders.OrderDate<='".$endDate."' AND orders.user_id='".$row_user["id"]."'
                             ";
                 $result_orders = mysqli_query($link,$sql_orders);
                 if($result_orders)
@@ -158,8 +165,12 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
                         $msg .= '   <tr>
                                         <!--1. Row number -->
                                         <td scope="col" class="text-right">'.$i.'</td>
-                                        <td scope="col" class="text-right"><a href="#" id=o_'.$row_orders["OrderId"].'>'.$row_orders["OrderId"].'</a></td>
+                                        <td scope="col" class="text-right"><a href="#" id=o_'.$row_orders["OrderId"].'>'.
+										$row_orders["OrderId"].'</a></td>
                                         <td scope="col">'.$row_orders["OrderDate"].'</td>
+										<td scope="col">'.
+										$row_orders["LastName"]. ' ' .$row_orders["FirstName"]. ' ' .$row_orders["MidName"].
+										'( '.$row_orders["pac_id"].' )'.  '</td>
                                         <td scope="col" class="text-right td_sum_ord">'.$row_orders["cena_analizov"].'</td>
                                     </tr>
                                 ';
@@ -169,7 +180,7 @@ if($menuId == "ordersByUsersLink" && $reportTypeId == 2)
         }
 
         $msg .= '   <tr id="tr_vsevo">
-                        <td scope="col" colspan="3" class="text-right"><strong>ВСЕГО</strong></td>
+                        <td scope="col" colspan="4" class="text-right"><strong>ВСЕГО</strong></td>
                         <td scope="col" class="text-right"><strong>'.$total_sum.'</strong></td>
                     </tr>
                 ';

@@ -731,6 +731,9 @@ function setSelectsChangeEvents()
     $("select[name*='selectOrderLab_Tonoyan']").change(function (){
         openSelectedOrder(this);
     });
+	$("select[name*='selectOrderTransferPayments']").change(function (){
+        openSelectedOrder(this);
+    });
 }
 
 function openSelectedOrder(obj)
@@ -761,6 +764,9 @@ function openOrder(orderId)
         cache: false,
         data: dataString = $("form[name='tempData']").serialize(),
         success: function(result){
+			if(result=='') {
+				return;
+			}
             let phpFilePath = result;
             $("input[name=num]").val(orderId);
             //console.log(`orderId=${orderId}`);
