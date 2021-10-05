@@ -217,6 +217,19 @@ $reportingUserIds = "   1,      2,      3,      4,      5,      7,      10,     
                         650,    660,    688,    690,    692,    694,    708,    710,    712,    714,
                         716,    718,    720,    722,    736,    744,	754,	756,    760,    768,
 						776, 778, 752, 750, 748, 746, 808, 810";
+						
+$sql = "    SELECT usr_id 
+			FROM usr_in_gr
+			WHERE usr_gr_id=2";
+$res = mysqli_query($link,$sql);
+if($res)
+{
+    while($row = mysqli_fetch_array($res))
+    {
+        $reportingUserIds .= ', ' . $row["usr_id"];
+    }
+}						
+						
 $sql = "SELECT 
             id,
             log 
