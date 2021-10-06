@@ -29,6 +29,9 @@ $reportDate = $_POST["reportDate"];
 if($menuId == "dailyLink")
 {
     $msg.= '
+    <table>
+        <tr><th><h2>Дневной на '.$reportDate.'</h2></th></tr>
+    </table>
     <table class="table table-bordered table-responsive table-fixed">
         <thead>
         ';
