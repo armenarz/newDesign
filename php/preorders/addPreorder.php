@@ -18,9 +18,11 @@ else
     echo "There is no security key or preorder date.";
     return;
 }
+// echo "securityKey=".$securityKey."<br>";
+// echo "preorderDate=".$preorderDate."<br>";
 
-$timestamp = strtotime($preorderDate);
-$createdKey = md5($fixedKey.$timestamp);
+$createdKey = md5($fixedKey.$preorderDate);
+// echo "createdKey=".$createdKey."<br>";
 
 if($securityKey != $createdKey)
 {
